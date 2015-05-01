@@ -1,7 +1,7 @@
 public class Volunteer {
 	private int vounteerID;
-	String lastName;
-	String firstName;
+	private String lastName;
+	private String firstName;
 
 	public static void main(String[] args) {
 		System.out.println("");
