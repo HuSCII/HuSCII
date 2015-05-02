@@ -6,7 +6,6 @@ public class Volunteer {
 
 	public static void main(String[] args) {
 		System.out.println("");
-		System.out.println("Change!");
 		System.out.println("Hello this is a test");
 	}
 }
