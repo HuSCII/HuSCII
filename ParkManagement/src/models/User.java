@@ -11,7 +11,6 @@ package models;
  * 
  * @author Duy Huynh
  * @version 3 May 2015
- *
  */
 public abstract class User {
 
