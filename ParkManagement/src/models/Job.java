@@ -30,5 +30,5 @@ public class Job {
 		this.date = new GregorianCalendar(year, month, 
 				dayOfMonth, hourOfDay, minute);
 	}
-
+	
 }
