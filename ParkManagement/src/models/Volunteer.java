@@ -1,3 +1,4 @@
+package models;
 public class Volunteer {
 	private int vounteerID;
 	private String lastName;
