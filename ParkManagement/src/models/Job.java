@@ -27,7 +27,6 @@ public class Job {
 	/** A set of email values for each volunteer in this job. */
 	private Set<String> volunteers;
 
-	//init still incomplete - Ian
 	Job(final String parkName, final String jobName, 
 			final String date, final int jobDuration) {
 		this.parkName = parkName;
@@ -135,7 +134,7 @@ public class Job {
 	}
 	
 	public void setDate(String date) {
-		DateFormat formatter = new SimpleDateFormat("");
+		DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm a");
 		try {
 			Date aDate = formatter.parse(date);
 			this.date = new GregorianCalendar();
