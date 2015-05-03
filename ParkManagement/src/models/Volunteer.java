@@ -1,14 +1,9 @@
 package models;
-public class Volunteer {
-	private int vounteerID;
-	private String lastName;
-	private String firstName;
-	private String email;
 
-	private String name;
-	private int ID;
-	public static void main(String[] args) {
-		System.out.println("");
-		System.out.println("Hello this is another test");
+public class Volunteer extends User {
+
+	protected Volunteer(String email, String firstName, String lastName) {
+		super(email, firstName, lastName);
 	}
+
 }
