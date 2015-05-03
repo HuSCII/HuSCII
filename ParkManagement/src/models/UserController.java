@@ -37,9 +37,9 @@ public class UserController {
 			URL url = UserController.class.getResource("/userFile.txt");
 			File userFile = new File(url.toURI());
 			final Scanner fileInput = new Scanner(userFile);
+			fileInput.useDelimiter(",");
 
 			while (fileInput.hasNextLine()) {
-				fileInput.useDelimiter(",");
 				String email = fileInput.next();
 				String lastName = fileInput.next();
 				String firstName = fileInput.next();
