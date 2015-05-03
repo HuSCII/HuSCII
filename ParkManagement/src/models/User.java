@@ -20,6 +20,13 @@ public abstract class User {
 		this.lastName = lastName;
 
 	}
+	
+	// print out user's info.
+	
+	public String toString() {
+		
+		return email + " " + firstName + " " + lastName;
+	}
 
 	/**
 	 * Returns string representation of this user.

@@ -30,5 +30,10 @@ public class Job {
 		this.date = new GregorianCalendar(year, month, 
 				dayOfMonth, hourOfDay, minute);
 	}
-
+	
+	public String toString() {
+		
+		return parkName + " " + jobName + " " + date + " " + jobDuration; 
+	}
+	
 }
