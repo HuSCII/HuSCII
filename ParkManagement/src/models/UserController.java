@@ -10,6 +10,7 @@ import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -34,18 +35,14 @@ public class UserController {
 	public void readUserFile() {
 
 		try {
-			URL url = UserController.class.getResource("/userFile.txt");
+			URL url = UserController.class.getResource("/userFile.csv");
 			File userFile = new File(url.toURI());
 			final Scanner fileInput = new Scanner(userFile);
-			fileInput.useDelimiter(",");
 
-			while (fileInput.hasNextLine()) {
-				String email = fileInput.next();
-				String lastName = fileInput.next();
-				String firstName = fileInput.next();
-				String role = fileInput.next();
-				System.out.println(email + ", " + lastName + ", " + firstName
-						+ ", " + role);
+			while (fileInput.hasNext()) {
+				List<String> userData = Arrays.asList(fileInput.nextLine()
+						.split(","));
+				System.out.println(userData);
 			}
 
 		} catch (FileNotFoundException | URISyntaxException e) {
