@@ -1,4 +1,5 @@
 package models;
+
 public abstract class User {
 
 	// Instance fields:
@@ -18,6 +19,17 @@ public abstract class User {
 		this.firstName = firstName;
 		this.lastName = lastName;
 
+	}
+
+	/**
+	 * Returns string representation of this user.
+	 */
+	public String toString() {
+
+		final StringBuilder sb = new StringBuilder();
+		sb.append(firstName + " " + lastName + ", " + email);
+
+		return sb.toString();
 	}
 
 }
