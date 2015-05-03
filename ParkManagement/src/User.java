@@ -18,5 +18,10 @@ public abstract class User {
 		this.lastName = lastName;
 
 	}
+	
+	public String toString() {
+		
+		return email + " " + firstName + " " + lastName;
+	}
 
 }
