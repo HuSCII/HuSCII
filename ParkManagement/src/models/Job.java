@@ -31,4 +31,9 @@ public class Job {
 				dayOfMonth, hourOfDay, minute);
 	}
 	
+	public String toString() {
+		
+		return parkName + " " + jobName + " " + date + " " + jobDuration; 
+	}
+	
 }

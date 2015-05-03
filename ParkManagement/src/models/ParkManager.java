@@ -26,10 +26,10 @@ public class ParkManager extends User {
 	public void createJob (String parkName, String jobName,
 						String date, int jobDuration) {
 		
-		Job parkJob = new Job(parkName,jobName, date, jobDuration);
+		Job parkJob = new Job(parkName, jobName, date, jobDuration);
 		myJob.add(parkJob);
 		
-		//System.out.println(parkJob.toString());
+		System.out.println(parkJob.toString());
 		
 		
 	}
