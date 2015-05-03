@@ -1,7 +1,9 @@
 package models;
 
-import java.util.Calendar;
-import java.util.Enumeration;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Map;
 import java.util.Set;
@@ -28,15 +30,10 @@ public class Job {
 	//init still incomplete - Ian
 	Job(final String parkName, final String jobName, 
 			final String date, final int jobDuration) {
-		//should a job check if its allowed to be created,
-		// i.e. ask jobController if the max jobs is reached
-		//or should job controller takes in the data and create
-		//a job only if max isn't met? -Ian
 		this.parkName = parkName;
 		this.jobName = jobName;
+		setDate(date);
 		//parse formatted string 'date' format:"m/d/yyyy hh:mmAM" see jobFile
-		this.date = new GregorianCalendar(year, month, 
-				dayOfMonth, hourOfDay, minute);
 	}
 
 	public enum WorkCatagories
@@ -135,6 +132,18 @@ public class Job {
 
 	public void setJobName(String jobName) {
 		this.jobName = jobName;
+	}
+	
+	public void setDate(String date) {
+		DateFormat formatter = new SimpleDateFormat("");
+		try {
+			Date aDate = formatter.parse(date);
+			this.date = new GregorianCalendar();
+			this.date.setTime(aDate);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public int getCurrentLight() {
