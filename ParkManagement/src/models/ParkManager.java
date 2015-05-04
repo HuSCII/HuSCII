@@ -7,11 +7,12 @@ public class ParkManager extends User {
 	
 	private ArrayList<String> parkNames;
 	private ArrayList<Job> myJob;
+	private JobController jobController = new JobController();
 	
 	public ParkManager (final String email, final String firstName,
-			final String lastName) {
+			final String lastName, final String role) {
 		
-		super(email, firstName, lastName);
+		super(email, firstName, lastName, role);
 		this.parkNames = new ArrayList<String>();
 		this.myJob = new ArrayList<Job>();
 	}
@@ -28,9 +29,11 @@ public class ParkManager extends User {
 		
 		
 		Job parkJob = new Job(parkName, jobName, date, jobDuration);
-		myJob.add(parkJob);
 		
-		System.out.println(parkJob.toString());
+		jobController.addJob(parkJob);
+		//myJob.add(parkJob);
+		
+		//System.out.println(parkJob.toString());
 		
 		
 	}
