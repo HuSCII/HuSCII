@@ -26,5 +26,15 @@ public class JobControllerTester {
 	public void testGetUpcomingJobs() {
 		fail("Not yet implemented");
 	}
+	
+	@Test
+	public void testWriteJobData() {
+		fail("Not yet implemented");
+	}
+	
+	@Test
+	public void testLoadJobData() {
+		fail("Not yet implemented");
+	}
 
 }

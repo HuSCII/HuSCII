@@ -1,7 +1,11 @@
 package models;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,13 +17,34 @@ import models.Job.WorkCatagories;
 
 public class JobController {
 
+	/*
+	 * holds current maximum number of allowed jobs at a given time.
+	 */
 	private static int MAX_JOBS = 30;
+	
+	/*
+	 * stores current location of input and output file for jobs.
+	 */
+	private static String FILELOC = "jobFile.txt";
+	
+	/*
+	 * stores a copy of all jobs in the system. 
+	 */
 	private ArrayList<Job> allJobs;
 	
+	/**
+	 * Creates a new instance of a JobController.
+	 */
 	JobController() {
 		allJobs = new ArrayList<Job>();
+		loadJobData(FILELOC);
 	}
 	//*****PUBLIC METHODS*****//
+	
+	/**
+	 * Adds a job to the list if maximum hasn't been reached.
+	 * @param job job to be added to allJobs.
+	 */
 	public void addJob(Job job) {
 		if(checkMaxJobs()) {
 			//check week
@@ -28,29 +53,49 @@ public class JobController {
 		allJobs.add(job);
 	}
 	
-	public ArrayList<Job> getUpcomingJobs() {
+	/**
+	 * Returns a list of all upcoming jobs.
+	 * @return upcoming jobs.
+	 */
+	public List<Job> getUpcomingJobs() {
 		List<Job> upcoming = new ArrayList<Job>();
 		return null;
 		for(int i=0; i<allJobs.size(); i++) {
-			if(allJobs.get(i).isCompleted()) {
+			if(allJobs.get(i).isCompleted(allJobs.get(i).getDate())) {
 				//add copy of Job
 				upcoming.add(e);
 			} else {
 				break;
 			}
 		}
-		//job needs an isComplete.
 	}
 	
-	public ArrayList<Job> getAllJobs() {
-		//needs to check 
+	
+	/**
+	 * Returns a list of all jobs.
+	 * @return all jobs.
+	 */
+	public List<Job> getAllJobs() {
 		return allJobs; //make sure to send a clone -Ian
 	}
 	
+	/**
+	 * 
+	 */
+	@Override
+	public String toString() {
+		return "404";
+	}
+	
 	//*****PRIVATE METHODS*****//
-	private boolean loadJobData() {
-		String fileloc = "jobFile.txt";
-		File file = new File(fileloc);
+	
+	/**
+	 * Loads in a list of jobs from file.
+	 * @param filename location of file to read from.
+	 * @return whether data was successfully loaded or not.
+	 */
+	private boolean loadJobData(String filename) {
+		File file = new File(filename);
 		try {
 			Scanner scanner = new Scanner(file);
 			while(scanner.hasNext()) {
@@ -96,11 +141,30 @@ public class JobController {
 		return true;
 	}
 	
-	private void writeJobData() {
-		//info goes here...
+	/**
+	 * Writes current job data for all jobs to file.
+	 * @param filename file location of file to write to.
+	 * @return whether writing file was a success or not.
+	 */
+	private boolean writeJobData(String filename) {
+		try {
+			FileWriter writer = new FileWriter(filename);
+			writer.write(toString());
+			writer.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+		return true;
 	}
 	
-	//Validation for constraints of job list
+	//*****VALIDATION METHODS*****//
+	
+	/**
+	 * Checks if the maximum job limit has been reached.
+	 * @return whether maximum is met.
+	 */
 	private boolean checkMaxJobs() {
 		if(allJobs.size()<MAX_JOBS) {
 			return true;
@@ -108,8 +172,27 @@ public class JobController {
 		return false;
 	}
 	
-	private boolean checkJobWeek() {
-		return false;
+	/**
+	 * Checks if the week quota(5) has been met for a given week.
+	 * @return whether week quota is met.
+	 */
+	private boolean checkJobWeek(Job job) {
+		GregorianCalendar pastDate = new GregorianCalendar(job.getDate().getTimeZone());
+		GregorianCalendar futureDate = new GregorianCalendar(job.getDate().getTimeZone());
+		int count = 0;
+		pastDate.set(Calendar.DAY_OF_MONTH, pastDate.get(Calendar.DAY_OF_MONTH)-3);
+		futureDate.set(Calendar.DAY_OF_MONTH, pastDate.get(Calendar.DAY_OF_MONTH)+3);
+		
+		for(Job aJob:allJobs) {
+			if(job.getDate().compareTo(pastDate)>=0 &&
+					job.getDate().compareTo(futureDate)<=0) {
+				count++;
+			}
+			if(count>=5) {
+				return false;
+			}
+		}
+		return true;
 	}
 	
 }
