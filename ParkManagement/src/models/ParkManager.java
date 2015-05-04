@@ -4,6 +4,12 @@ package models;
 import java.util.List;
 import java.util.ArrayList;
 
+/**
+ * park manager
+ * @author Jingzhu Guo
+ *
+ */
+
 public class ParkManager extends User {
 	
 	private ArrayList<String> parkNames;
@@ -80,7 +86,13 @@ public class ParkManager extends User {
 		System.out.println(myJob.toString());
 	}
 	
-	public String findVolunteer (Volunteer volunteer, Job job) {
+	/**
+	 * need to work on this method
+	 * @param volunteer
+	 * @param job
+	 * @return
+	 */
+	public List<String> findVolunteer (Volunteer volunteer, Job job) {
 		
 		return null;
 	}
@@ -90,31 +102,38 @@ public class ParkManager extends User {
 	 */
 	public String toString() {
 		
-		return super.toString() + " " + parkNames.toString();
+		return super.toString() + "  Park Lists: " + parkNames.toString();
 	}
 	
 	
 	/**
-	 * 
+	 * need to work on this method
 	 * @return The number of volunteers currently in the job.
 	 */
 	private void checkJobCapacity(String parkName) {
 		
-		ArrayList<Job> allJob = jobController.getAllJobs();  //I think we need a job ID
-		if (allJob.contains(parkName)) {					// to make each job unique.	
-			int jobIndex = allJob.indexOf(parkName);
-				System.out.println(allJob.get(jobIndex).getVolunteerCount());
-			
-		}
+//		ArrayList<Job> allJob = jobController.getAllJobs();  //I think we need a job ID
+//		if (allJob.contains(parkName)) {					// to make each job unique.	
+//			int jobIndex = allJob.indexOf(parkName);
+//				System.out.println(allJob.get(jobIndex).getVolunteerCount());
+//			
+//		}
 		System.out.println( 0 );
 	}
 	
+	/**
+	 * need to work on this method
+	 * @param job
+	 */
 	private void checkWeekAvailibility (Job job) {
 		
-		
+		System.out.println(0);
 	}
 	
-	
+	/**
+	 * main method to test the ParkManager class
+	 * @param agrs
+	 */
 	public static void main(String[] agrs) {
 		
 		ParkManager manager = new ParkManager("judeguo83@gmail.com","Jude","Guo", "Park Manager");
