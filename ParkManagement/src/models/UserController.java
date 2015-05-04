@@ -19,11 +19,12 @@ import java.util.Scanner;
 /**
  * This class retrieves and handles user data.
  * 
- * @author Duy Huynh
+ * @author HuSCII
  * @version 3 May 2015
  */
 public class UserController {
 
+	/** A collection of Users. */
 	final List<User> userList = new ArrayList<User>();
 
 	/**
@@ -68,9 +69,31 @@ public class UserController {
 		}
 	}
 
-	/** Returns the Users in a List. */
+	/**
+	 * Returns the Users in a List.
+	 * 
+	 * @return List of Users.
+	 */
 	public List<User> getUserList() {
 		return userList;
+	}
+
+	/**
+	 * Returns only Volunteers with the specified last name as a new List.
+	 * 
+	 * @return List of Volunteers of a specified last name.
+	 */
+	public List<User> getVolunteers(final String lastName) {
+
+		List<User> tempList = new ArrayList<User>();
+
+		for (User u : userList) {
+			if (u.getLastName().equals(lastName)
+					&& u.getRole().equals("volunteer")) {
+				tempList.add(u);
+			}
+		}
+		return tempList;
 	}
 
 	/** String representation of users and their data. */

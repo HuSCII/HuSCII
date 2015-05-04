@@ -11,7 +11,6 @@ public class MainTest {
 		UserController userController = new UserController();
 		userController.readUserFile("/userFile.csv");
 		userController.writeUserFile("abc.csv");
-		System.out.println(userController);
 
 	}
 
