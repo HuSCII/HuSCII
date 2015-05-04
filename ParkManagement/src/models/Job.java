@@ -12,6 +12,11 @@ import java.util.Set;
 
 public class Job {
 
+	/**
+	 * The maximum days of job length.
+	 */
+	public static final int MAX_JOB_TIME = 2;
+	
 	private String parkName;
 	private String jobName;
 	private GregorianCalendar date;
@@ -25,7 +30,9 @@ public class Job {
 	private int volunteerMax;
 	private Map signedVolunteers;
 
-	/** A set of email values for each volunteer in this job. */
+	/** 
+	 * A set of email values for each volunteer in this job. 
+	 */
 	private Set<String> volunteers;
 
 	public Job(final String parkName, final String jobName, 
@@ -41,7 +48,7 @@ public class Job {
 
 	/**
 	 * 
-	 * @author PutthidaSR
+	 *
 	 */
 	public enum WorkCatagories {
 		LIGHT, MEDIUM, HEAVY;
@@ -99,6 +106,7 @@ public class Job {
 	public boolean containsVolunteer(String email) {
 		return volunteers.contains(email);
 	}
+	
 	/**
 	 * A condensed version of containsVolunteer that checks to see if the volunteer
 	 * is in the job as a volunteer.
@@ -130,10 +138,7 @@ public class Job {
 	 * @return true if the job is already completed (past job); otherwise, false.
 	 */
 	private boolean isCompleted(GregorianCalendar today) {
-
-		if(today.compareTo(date) < 0) {
-			return false;
-		} else if (today.compareTo(date) == 0) {
+		if(today.compareTo(date) <= 0) {
 			return false;
 		} else {
 			return true;
@@ -172,11 +177,23 @@ public class Job {
 		return true;
 	}
 
+	public void setDate(String date) {
+		DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm a");
+		try {
+			Date aDate = formatter.parse(date);
+			this.date = new GregorianCalendar();
+			this.date.setTime(aDate);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	public String toString() {
 
 		return parkName + " " + jobName + " " + date + " " + jobDuration; 
 	}
-
+	
 	public String getParkName() {
 		return parkName;
 	}
@@ -192,19 +209,7 @@ public class Job {
 	public void setJobName(String jobName) {
 		this.jobName = jobName;
 	}
-
-	public void setDate(String date) {
-		DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm a");
-		try {
-			Date aDate = formatter.parse(date);
-			this.date = new GregorianCalendar();
-			this.date.setTime(aDate);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
+	
 	public int getCurrentLight() {
 		return currentLight;
 	}
