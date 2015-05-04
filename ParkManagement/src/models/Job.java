@@ -1,5 +1,6 @@
 package models;
 
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -11,6 +12,11 @@ import java.util.Set;
 
 public class Job {
 
+	/**
+	 * The maximum days of job length.
+	 */
+	public static final int MAX_JOB_TIME = 2;
+	
 	private String parkName;
 	private String jobName;
 	private GregorianCalendar date;
@@ -24,7 +30,9 @@ public class Job {
 	private int volunteerMax;
 	private Map signedVolunteers;
 
-	/** A set of email values for each volunteer in this job. */
+	/** 
+	 * A set of email values for each volunteer in this job. 
+	 */
 	private Set<String> volunteers;
 
 	public Job(final String parkName, final String jobName, 
@@ -40,7 +48,7 @@ public class Job {
 
 	/**
 	 * 
-	 * @author PutthidaSR
+	 *
 	 */
 	public enum WorkCatagories {
 		LIGHT, MEDIUM, HEAVY;
@@ -98,6 +106,7 @@ public class Job {
 	public boolean containsVolunteer(String email) {
 		return volunteers.contains(email);
 	}
+	
 	/**
 	 * A condensed version of containsVolunteer that checks to see if the volunteer
 	 * is in the job as a volunteer.
@@ -123,25 +132,68 @@ public class Job {
 		return volunteers.size();
 	}
 
-	private boolean isCompleted() {
-		return true;
+	/**
+	 * Comparing the job date, check if the job is completed or still a pending job.
+	 * 
+	 * @return true if the job is already completed (past job); otherwise, false.
+	 */
+	private boolean isCompleted(GregorianCalendar today) {
+		if(today.compareTo(date) <= 0) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 
+	//	/**
+	//	 * Compares this job object to another job object based on calendar time.
+	//	 * @other The other job to compare.
+	//	 * 
+	//	 */
+	//	public int compareTo(Job other) {
+	//		int result = date.compareTo(other.date);
+	//		//Same date, compare time.
+	//		if(result == 0){
+	//			result = date.getTime().compareTo(other.date.getTime());
+	//		}
+	//		return result;
+	//	}
+	//
+	//	/**
+	//	 * Compares the time/date of this job to the passed date/time.
+	//	 * @param date The date to compare with.
+	//	 */
+	//	public int compareToDate(GregorianCalendar date) {
+	//		return date.compareTo(date);
+	//	}
+
+	//in progress
 	private boolean checkJobDuration() {
 		return true;
 	}
 
+	//in progress
 	private boolean valiDate() {
 		return true;
 	}
 
+	public void setDate(String date) {
+		DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm a");
+		try {
+			Date aDate = formatter.parse(date);
+			this.date = new GregorianCalendar();
+			this.date.setTime(aDate);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	public String toString() {
 
 		return parkName + " " + jobName + " " + date + " " + jobDuration; 
 	}
-
-
-
+	
 	public String getParkName() {
 		return parkName;
 	}
@@ -157,19 +209,7 @@ public class Job {
 	public void setJobName(String jobName) {
 		this.jobName = jobName;
 	}
-
-	public void setDate(String date) {
-		DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm a");
-		try {
-			Date aDate = formatter.parse(date);
-			this.date = new GregorianCalendar();
-			this.date.setTime(aDate);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
+	
 	public int getCurrentLight() {
 		return currentLight;
 	}
@@ -217,8 +257,6 @@ public class Job {
 	public void setMaxHard(int maxHard) {
 		this.maxHard = maxHard;
 	}
-
-
 
 	/**
 	 * An exception thrown when an operation is attempted on a full 

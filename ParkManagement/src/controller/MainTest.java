@@ -9,7 +9,8 @@ public class MainTest {
 		System.out.println("This is a test of the parks management system:");
 
 		UserController userController = new UserController();
-		userController.readUserFile();
+		userController.readUserFile("/userFile.csv");
+		userController.writeUserFile("src/userFile.csv");
 
 	}
 
