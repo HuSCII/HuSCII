@@ -1,5 +1,6 @@
 package models;
 
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -123,14 +124,50 @@ public class Job {
 		return volunteers.size();
 	}
 
-	private boolean isCompleted() {
-		return true;
+	/**
+	 * Comparing the job date, check if the job is completed or still a pending job.
+	 * 
+	 * @return true if the job is already completed (past job); otherwise, false.
+	 */
+	private boolean isCompleted(GregorianCalendar today) {
+
+		if(today.compareTo(date) < 0) {
+			return false;
+		} else if (today.compareTo(date) == 0) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 
+	//	/**
+	//	 * Compares this job object to another job object based on calendar time.
+	//	 * @other The other job to compare.
+	//	 * 
+	//	 */
+	//	public int compareTo(Job other) {
+	//		int result = date.compareTo(other.date);
+	//		//Same date, compare time.
+	//		if(result == 0){
+	//			result = date.getTime().compareTo(other.date.getTime());
+	//		}
+	//		return result;
+	//	}
+	//
+	//	/**
+	//	 * Compares the time/date of this job to the passed date/time.
+	//	 * @param date The date to compare with.
+	//	 */
+	//	public int compareToDate(GregorianCalendar date) {
+	//		return date.compareTo(date);
+	//	}
+
+	//in progress
 	private boolean checkJobDuration() {
 		return true;
 	}
 
+	//in progress
 	private boolean valiDate() {
 		return true;
 	}
@@ -139,8 +176,6 @@ public class Job {
 
 		return parkName + " " + jobName + " " + date + " " + jobDuration; 
 	}
-
-
 
 	public String getParkName() {
 		return parkName;
@@ -217,8 +252,6 @@ public class Job {
 	public void setMaxHard(int maxHard) {
 		this.maxHard = maxHard;
 	}
-
-
 
 	/**
 	 * An exception thrown when an operation is attempted on a full 
