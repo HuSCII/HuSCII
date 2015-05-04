@@ -13,6 +13,7 @@ import models.Job.WorkCatagories;
 
 public class JobController {
 
+	private static int MAX_JOBS = 30;
 	private List<Job> allJobs;
 	
 	JobController() {
@@ -20,11 +21,24 @@ public class JobController {
 	}
 	//*****PUBLIC METHODS*****//
 	public void addJob(Job job) {
+		if(checkMaxJobs()) {
+			//check week
+			allJobs.add(job);
+		}
 		allJobs.add(job);
 	}
 	
 	public List<Job> getUpcomingJobs() {
+		List<Job> upcoming = new ArrayList<Job>();
 		return null;
+		for(int i=0; i<allJobs.size(); i++) {
+			if(allJobs.get(i).isCompleted()) {
+				//add copy of Job
+				upcoming.add(e);
+			} else {
+				break;
+			}
+		}
 		//job needs an isComplete.
 	}
 	
@@ -73,12 +87,29 @@ public class JobController {
 				//add job
 				addJob(job);
 			}
+			scanner.close();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return false;
 		}
 		return true;
+	}
+	
+	private void writeJobData() {
+		//info goes here...
+	}
+	
+	//Validation for constraints of job list
+	private boolean checkMaxJobs() {
+		if(allJobs.size()<MAX_JOBS) {
+			return true;
+		}
+		return false;
+	}
+	
+	private boolean checkJobWeek() {
+		return false;
 	}
 	
 }
