@@ -292,7 +292,11 @@ public class Job {
 	 */
 	public String toString() {
 		//toString needs to include ALL fields for file printing
-		return parkName + "," + jobName + "," + new SimpleDateFormat("MM/dd/yyyy HH:mm a").format(date.getTime()) + "," + jobDuration; 
+		return parkName + "," + jobName + "," + 
+			new SimpleDateFormat("MM/dd/yyyy HH:mm a").format(date.getTime()) + 
+			"," + jobDuration + "," + currentLight + "," + maxLight + "," + 
+			currentMedium + "," +  maxMedium + "," +  
+			currentHeavy  + "," + maxHeavy; 
 	}
 	
 	/**
