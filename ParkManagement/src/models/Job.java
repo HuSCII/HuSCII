@@ -291,7 +291,8 @@ public class Job {
 	 * @return String content
 	 */
 	public String toString() {
-		return parkName + "," + jobName + "," + date + "," + jobDuration; 
+		//toString needs to include ALL fields for file printing
+		return parkName + "," + jobName + "," + new SimpleDateFormat("MM/dd/yyyy HH:mm a").format(date.getTime()) + "," + jobDuration; 
 	}
 	
 	/**
