@@ -1,40 +1,105 @@
-package models;
+/*
+ * This class represents park job that volunteers sign up for.
+ * Group 2 - HuSCII
+ * TCSS 360, Spring 2015
+ */
 
+package models;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.Map;
 import java.util.Set;
 
-
+/**
+ * This class represents park job that volunteers sign up for.
+ * 
+ * @author Putthida Samrith
+ * @version 4/4/2015
+ */
 public class Job {
 
 	/**
-	 * The maximum days of job length.
+	 * The maximum days from the current date that the job can be added.
 	 */
-	public static final int MAX_JOB_TIME = 2;
-	
+	public static final int MAX_DAYS = 90;
+
+	/**
+	 * The maximum hours of job length.
+	 */
+	public static final int MAX_JOB_TIME = 24;
+
+	/**
+	 * Name of the park.
+	 */
 	private String parkName;
+	
+	/**
+	 * Name of the job.
+	 */
 	private String jobName;
+	
+	/**
+	 * Date of a job using GregorianCalendar class.
+	 */
 	private GregorianCalendar date;
-	private int jobDuration; //in hours
+	
+	/**
+	 * The length of a job in hours.
+	 */
+	private int jobDuration;
+	
+	/**
+	 * The current number of volunteer for light work category.
+	 */
 	private int currentLight;
+	
+	/**
+	 * The maximum number of volunteer for light work category.
+	 */
 	private int maxLight;
+	
+	/**
+	 * The current number of volunteer for medium work category.
+	 */
 	private int currentMedium;
+	
+	/**
+	 * The maximum number of volunteer for medium work category.
+	 */
 	private int maxMedium;
+	
+	/**
+	 * The current number of volunteer for heavy work category.
+	 */
 	private int currentHard;
+	
+	/**
+	 * The maximum number of volunteer for heavy work category.
+	 */
 	private int maxHard;
+	
+	/**
+	 * The maximum number of volunteer.
+	 */
 	private int volunteerMax;
-	private Map signedVolunteers;
 
 	/** 
 	 * A set of email values for each volunteer in this job. 
 	 */
 	private Set<String> volunteers;
 
+	/**
+	 * This represents a constructor method.
+	 * 
+	 * @param parkName Name of the park.
+	 * @param jobName Name of the job.
+	 * @param date The date of the job.
+	 * @param jobDuration The length of the job in hours.
+	 */
 	public Job(final String parkName, final String jobName, 
 			final String date, final int jobDuration) {
 
@@ -42,23 +107,22 @@ public class Job {
 		this.jobName = jobName;
 		this.jobDuration = jobDuration;
 
-		setDate(date);
-		//parse formatted string 'date' format:"m/d/yyyy hh:mmAM" see jobFile
+		setDate(date); //parse formatted string 'date' format:"m/d/yyyy hh:mmAM" see jobFile
 	}
 
 	/**
-	 * 
-	 *
+	 * This represents different work categories that can be used.
 	 */
 	public enum WorkCatagories {
 		LIGHT, MEDIUM, HEAVY;
 	}
 
 	/**
+	 * This method is for adding volunteer to a job.
 	 * 
-	 * @param email
-	 * @param workCat
-	 * @throws JobFullException
+	 * @param email volunteer's email address
+	 * @param workCat different choice of work categories including light, medium, and heavy
+	 * @throws JobFullException exception is thrown when the maximum number of volunteer for that job is reached.
 	 */
 	public void addVolunteer(String email, WorkCatagories workCat) throws JobFullException {
 
@@ -91,10 +155,19 @@ public class Job {
 	}
 
 	/**
+	 * This method is to check whether the job is full or volunteer can still sign up.
 	 * @return True if this job can no longer accept volunteers.
 	 */
 	public boolean isJobFull() {
 		return getVolunteerMax() <= volunteers.size();
+	}	
+
+	/**
+	 * Get the maximum number of volunteers.
+	 * @return The max number of volunteers for this job.
+	 */
+	public int getVolunteerMax() {
+		return volunteerMax;
 	}
 
 	/**
@@ -106,7 +179,7 @@ public class Job {
 	public boolean containsVolunteer(String email) {
 		return volunteers.contains(email);
 	}
-	
+
 	/**
 	 * A condensed version of containsVolunteer that checks to see if the volunteer
 	 * is in the job as a volunteer.
@@ -119,64 +192,43 @@ public class Job {
 	}
 
 	/**
-	 * @return The max number of volunteers for this job.
-	 */
-	public int getVolunteerMax() {
-		return volunteerMax;
-	}
-
-	/**
-	 * @return The number of volunteers currently in the job.
-	 */
-	public int getVolunteerCount() {
-		return volunteers.size();
-	}
-
-	/**
 	 * Comparing the job date, check if the job is completed or still a pending job.
 	 * 
 	 * @return true if the job is already completed (past job); otherwise, false.
 	 */
-	private boolean isCompleted(GregorianCalendar today) {
-		if(today.compareTo(date) <= 0) {
+	public boolean isCompleted(GregorianCalendar jobDate) {
+
+		GregorianCalendar todayDate = new GregorianCalendar();
+		if(todayDate.compareTo(jobDate) <= 0) {
 			return false;
 		} else {
 			return true;
 		}
 	}
 
-	//	/**
-	//	 * Compares this job object to another job object based on calendar time.
-	//	 * @other The other job to compare.
-	//	 * 
-	//	 */
-	//	public int compareTo(Job other) {
-	//		int result = date.compareTo(other.date);
-	//		//Same date, compare time.
-	//		if(result == 0){
-	//			result = date.getTime().compareTo(other.date.getTime());
-	//		}
-	//		return result;
-	//	}
-	//
-	//	/**
-	//	 * Compares the time/date of this job to the passed date/time.
-	//	 * @param date The date to compare with.
-	//	 */
-	//	public int compareToDate(GregorianCalendar date) {
-	//		return date.compareTo(date);
-	//	}
-
-	//in progress
-	private boolean checkJobDuration() {
-		return true;
+	/**
+	 * A job may not be scheduled that lasts more than two days. 
+	 * @return true if the job length is less than 2 days; otherwise, false. 
+	 */
+	public boolean checkJobDuration() {
+		return jobDuration < MAX_JOB_TIME;
 	}
 
-	//in progress
-	private boolean valiDate() {
-		return true;
+	/**
+	 * A job may not be added that is in the past or more than three months in the future.
+	 * @return true if a job can be added; otherwise, false.
+	 */
+	public boolean valiDate(GregorianCalendar jobDate) {
+		if(!isCompleted(jobDate)) {
+			jobDate.add(Calendar.DAY_OF_MONTH, MAX_DAYS);
+		}
+		return true;	
 	}
 
+	/**
+	 * This method represents the date format from the jobFile file.
+	 * @param date the date of the job
+	 */
 	public void setDate(String date) {
 		DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm a");
 		try {
@@ -184,78 +236,115 @@ public class Job {
 			this.date = new GregorianCalendar();
 			this.date.setTime(aDate);
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
-	public String toString() {
 
+
+	/**
+	 * This represents toString() method.
+	 * @return String content
+	 */
+	public String toString() {
 		return parkName + " " + jobName + " " + date + " " + jobDuration; 
 	}
 	
+	/**
+	 * This is a getter method that return the number of job length in hour.
+	 * 
+	 * @return jobDuration the length of a job in hour
+	 */
+	public int getJobDuration() {
+		return jobDuration;
+	}
+	
+	/**
+	 * This is a getter method that returns a park name.
+	 * @return parkName name of a park
+	 */
 	public String getParkName() {
 		return parkName;
 	}
 
-	public void setParkName(String parkName) {
-		this.parkName = parkName;
+	/**
+	 * This is a getter method that return the date of a job.
+	 * @return date the date of a job.
+	 */
+	public GregorianCalendar getDate() {
+		return date;
 	}
-
+	/**
+	 * This is a getter method that returns a job name.
+	 * @return jobName name of a job
+	 */
 	public String getJobName() {
 		return jobName;
 	}
 
-	public void setJobName(String jobName) {
-		this.jobName = jobName;
-	}
-	
+	/**
+	 * This is a getter method that returns a number of current 
+	 * volunteers sign up for light work category.
+	 * 
+	 * @return currentLight the number of current 
+	 * volunteers sign up for light work category.
+	 */
 	public int getCurrentLight() {
 		return currentLight;
 	}
 
-	public void setCurrentLight(int currentLight) {
-		this.currentLight = currentLight;
-	}
-
+	/**
+	 * This is a getter method that returns a number of maximum 
+	 * volunteers in which that light work category requires.
+	 * 
+	 * @return maxLight the number of maximum 
+	 * volunteers for light work category.
+	 */
 	public int getMaxLight() {
 		return maxLight;
 	}
 
-	public void setMaxLight(int maxLight) {
-		this.maxLight = maxLight;
-	}
-
+	/**
+	 * This is a getter method that returns a number of current 
+	 * volunteers sign up for medium work category.
+	 * 
+	 * @return currentMedium the number of current 
+	 * volunteers sign up for medium work category.
+	 */
 	public int getCurrentMedium() {
 		return currentMedium;
 	}
 
-	public void setCurrentMedium(int currentMedium) {
-		this.currentMedium = currentMedium;
-	}
-
+	/**
+	 * This is a getter method that returns a number of maximum 
+	 * volunteers in which that medium work category requires.
+	 * 
+	 * @return maxMedium the number of maximum 
+	 * volunteers for medium work category.
+	 */
 	public int getMaxMedium() {
 		return maxMedium;
 	}
 
-	public void setMaxMedium(int maxMedium) {
-		this.maxMedium = maxMedium;
-	}
-
+	/**
+	 * This is a getter method that returns a number of current 
+	 * volunteers sign up for heavy work category.
+	 * 
+	 * @return currentHard the number of current 
+	 * volunteers sign up for heavy work category.
+	 */
 	public int getCurrentHard() {
 		return currentHard;
 	}
 
-	public void setCurrentHard(int currentHard) {
-		this.currentHard = currentHard;
-	}
-
+	/**
+	 * This is a getter method that returns a number of maximum 
+	 * volunteers in which that heavy work category requires.
+	 * 
+	 * @return maxHard the number of maximum 
+	 * volunteers for heavy work category.
+	 */
 	public int getMaxHard() {
 		return maxHard;
-	}
-
-	public void setMaxHard(int maxHard) {
-		this.maxHard = maxHard;
 	}
 
 	/**

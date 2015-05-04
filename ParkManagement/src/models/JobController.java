@@ -14,7 +14,7 @@ import models.Job.WorkCatagories;
 public class JobController {
 
 	private static int MAX_JOBS = 30;
-	private List<Job> allJobs;
+	private ArrayList<Job> allJobs;
 	
 	JobController() {
 		allJobs = new ArrayList<Job>();
@@ -28,7 +28,7 @@ public class JobController {
 		allJobs.add(job);
 	}
 	
-	public List<Job> getUpcomingJobs() {
+	public ArrayList<Job> getUpcomingJobs() {
 		List<Job> upcoming = new ArrayList<Job>();
 		return null;
 		for(int i=0; i<allJobs.size(); i++) {
@@ -42,7 +42,7 @@ public class JobController {
 		//job needs an isComplete.
 	}
 	
-	public List<Job> getAllJobs() {
+	public ArrayList<Job> getAllJobs() {
 		//needs to check 
 		return allJobs; //make sure to send a clone -Ian
 	}
