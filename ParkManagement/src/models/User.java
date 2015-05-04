@@ -25,14 +25,18 @@ public class User {
 	/** User's last name. */
 	private String lastName;
 
+	/** User's role. */
+	private String role;
+
 	// Constructor:
 
-	protected User(final String email, final String firstName,
-			final String lastName) {
+	protected User(final String email, final String lastName,
+			final String firstName, final String role) {
 
 		this.email = email;
 		this.firstName = firstName;
 		this.lastName = lastName;
+		this.role = role;
 
 	}
 
@@ -40,7 +44,8 @@ public class User {
 	public String toString() {
 
 		final StringBuilder sb = new StringBuilder();
-		sb.append(firstName + " " + lastName + ", " + email);
+
+		sb.append(email + "," + lastName + "," + firstName + "," + role);
 
 		return sb.toString();
 	}

@@ -10,6 +10,7 @@ public class MainTest {
 
 		UserController userController = new UserController();
 		userController.readUserFile();
+		System.out.println(userController);
 
 	}
 

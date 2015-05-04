@@ -42,16 +42,36 @@ public class UserController {
 			while (fileInput.hasNext()) {
 				List<String> userData = Arrays.asList(fileInput.nextLine()
 						.split(","));
-				System.out.println(userData);
+
+				userList.add(new User(userData.get(0), userData.get(1),
+						userData.get(2), userData.get(3)));
+
 			}
 
 		} catch (FileNotFoundException | URISyntaxException e) {
 			e.printStackTrace();
 		}
+
 	}
 
 	public void writeUserFile() {
 
+	}
+
+	public List getUserList() {
+		return userList;
+	}
+
+	/** String representation of users and their data. */
+	public String toString() {
+		final StringBuilder sb = new StringBuilder();
+
+		// Append each user line
+		for (User u : userList) {
+			sb.append(u.toString() + "\n");
+		}
+
+		return sb.toString();
 	}
 
 }
