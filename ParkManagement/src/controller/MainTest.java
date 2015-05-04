@@ -10,7 +10,7 @@ public class MainTest {
 
 		UserController userController = new UserController();
 		userController.readUserFile("/userFile.csv");
-		userController.writeUserFile("abc.csv");
+		userController.writeUserFile("src/userFile.csv");
 
 	}
 
