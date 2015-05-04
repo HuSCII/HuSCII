@@ -240,6 +240,7 @@ public class Job {
 		}
 	}
 
+
 	/**
 	 * This represents toString() method.
 	 * @return String content
@@ -247,7 +248,16 @@ public class Job {
 	public String toString() {
 		return parkName + " " + jobName + " " + date + " " + jobDuration; 
 	}
-
+	
+	/**
+	 * This is a getter method that return the number of job length in hour.
+	 * 
+	 * @return jobDuration the length of a job in hour
+	 */
+	public int getJobDuration() {
+		return jobDuration;
+	}
+	
 	/**
 	 * This is a getter method that returns a park name.
 	 * @return parkName name of a park
@@ -256,6 +266,13 @@ public class Job {
 		return parkName;
 	}
 
+	/**
+	 * This is a getter method that return the date of a job.
+	 * @return date the date of a job.
+	 */
+	public GregorianCalendar getDate() {
+		return date;
+	}
 	/**
 	 * This is a getter method that returns a job name.
 	 * @return jobName name of a job
