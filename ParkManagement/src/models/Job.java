@@ -1,22 +1,31 @@
 package models;
 
-
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Map;
 import java.util.Set;
 
-
+/**
+ * 
+ * @author PutthidaSR
+ *
+ */
 public class Job {
 
 	/**
-	 * The maximum days of job length.
+	 * The maximum hours of job length.
 	 */
-	public static final int MAX_JOB_TIME = 2;
-	
+	public static final int MAX_JOB_TIME = 24;
+
+	/**
+	 * The maximum days from the current date that the job can be added.
+	 */
+	public static final int MAX_DAYS = 90;
+
 	private String parkName;
 	private String jobName;
 	private GregorianCalendar date;
@@ -35,6 +44,17 @@ public class Job {
 	 */
 	private Set<String> volunteers;
 
+	/** The format used to import and export this jobs date. */
+	private static final SimpleDateFormat IO_FORMAT = 
+			new SimpleDateFormat("MM.dd.yyyy hh:mm");
+
+	/**
+	 * 
+	 * @param parkName
+	 * @param jobName
+	 * @param date
+	 * @param jobDuration
+	 */
 	public Job(final String parkName, final String jobName, 
 			final String date, final int jobDuration) {
 
@@ -95,6 +115,13 @@ public class Job {
 	 */
 	public boolean isJobFull() {
 		return getVolunteerMax() <= volunteers.size();
+	}	
+
+	/**
+	 * @return The max number of volunteers for this job.
+	 */
+	public int getVolunteerMax() {
+		return volunteerMax;
 	}
 
 	/**
@@ -106,7 +133,7 @@ public class Job {
 	public boolean containsVolunteer(String email) {
 		return volunteers.contains(email);
 	}
-	
+
 	/**
 	 * A condensed version of containsVolunteer that checks to see if the volunteer
 	 * is in the job as a volunteer.
@@ -119,64 +146,47 @@ public class Job {
 	}
 
 	/**
-	 * @return The max number of volunteers for this job.
-	 */
-	public int getVolunteerMax() {
-		return volunteerMax;
-	}
-
-	/**
-	 * @return The number of volunteers currently in the job.
-	 */
-	public int getVolunteerCount() {
-		return volunteers.size();
-	}
-
-	/**
 	 * Comparing the job date, check if the job is completed or still a pending job.
 	 * 
 	 * @return true if the job is already completed (past job); otherwise, false.
 	 */
-	private boolean isCompleted(GregorianCalendar today) {
-		if(today.compareTo(date) <= 0) {
+	public boolean isCompleted(GregorianCalendar jobDate) {
+
+		GregorianCalendar todayDate = new GregorianCalendar();
+
+		if(todayDate.compareTo(jobDate) <= 0) {
 			return false;
 		} else {
 			return true;
 		}
 	}
 
-	//	/**
-	//	 * Compares this job object to another job object based on calendar time.
-	//	 * @other The other job to compare.
-	//	 * 
-	//	 */
-	//	public int compareTo(Job other) {
-	//		int result = date.compareTo(other.date);
-	//		//Same date, compare time.
-	//		if(result == 0){
-	//			result = date.getTime().compareTo(other.date.getTime());
-	//		}
-	//		return result;
-	//	}
-	//
-	//	/**
-	//	 * Compares the time/date of this job to the passed date/time.
-	//	 * @param date The date to compare with.
-	//	 */
-	//	public int compareToDate(GregorianCalendar date) {
-	//		return date.compareTo(date);
-	//	}
-
-	//in progress
-	private boolean checkJobDuration() {
-		return true;
+	/**
+	 * A job may not be scheduled that lasts more than two days. 
+	 * 
+	 * @return true if the job length is less than 2 days; otherwise, false. 
+	 */
+	public boolean checkJobDuration() {
+		return jobDuration < MAX_JOB_TIME;
 	}
 
-	//in progress
-	private boolean valiDate() {
-		return true;
+	/**
+	 * A job may not be added that is in the past or more than three months in the future.
+	 * 
+	 * @return
+	 */
+	public boolean valiDate(GregorianCalendar jobDate) {
+		if(!isCompleted(jobDate)) {
+			jobDate.add(Calendar.DAY_OF_MONTH, MAX_DAYS);
+		}
+		return true;	
 	}
 
+	/**
+	 * This method represents the date format from the jobFile file.
+	 * 
+	 * @param date the date of the job
+	 */
 	public void setDate(String date) {
 		DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm a");
 		try {
@@ -184,16 +194,20 @@ public class Job {
 			this.date = new GregorianCalendar();
 			this.date.setTime(aDate);
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
+
+	/**
+	 * This represents toString() method.
+	 * 
+	 * @return String content
+	 */
 	public String toString() {
 
 		return parkName + " " + jobName + " " + date + " " + jobDuration; 
 	}
-	
+
 	public String getParkName() {
 		return parkName;
 	}
@@ -209,7 +223,7 @@ public class Job {
 	public void setJobName(String jobName) {
 		this.jobName = jobName;
 	}
-	
+
 	public int getCurrentLight() {
 		return currentLight;
 	}
