@@ -49,6 +49,7 @@ public class UserController {
 				userList.add(new User(userData.get(0), userData.get(1),
 						userData.get(2), userData.get(3)));
 			}
+			fileInput.close();
 
 		} catch (FileNotFoundException | URISyntaxException e) {
 			e.printStackTrace();
