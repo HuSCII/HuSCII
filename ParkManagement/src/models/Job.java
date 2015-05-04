@@ -109,6 +109,15 @@ public class Job {
 
 		setDate(date); //parse formatted string 'date' format:"m/d/yyyy hh:mmAM" see jobFile
 	}
+	
+	/**
+	 * A copy constructor that creates a copy of the existing job.
+	 * @param job job to be cloned.
+	 */
+	public Job(Job job) {
+		this(job.getParkName(), job.getJobName(), "needs to format date",
+				job.getJobDuration());
+	}
 
 	/**
 	 * This represents different work categories that can be used.
@@ -246,7 +255,7 @@ public class Job {
 	 * @return String content
 	 */
 	public String toString() {
-		return parkName + " " + jobName + " " + date + " " + jobDuration; 
+		return parkName + "," + jobName + "," + date + "," + jobDuration; 
 	}
 	
 	/**
