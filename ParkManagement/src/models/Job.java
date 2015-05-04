@@ -30,9 +30,9 @@ public class Job {
 	public static final int MAX_DAYS = 90;
 
 	/**
-	 * The maximum hours of job length.
+	 * The maximum hours of job length (2 days).
 	 */
-	public static final int MAX_JOB_TIME = 24;
+	public static final int MAX_JOB_TIME = 48;
 
 	/**
 	 * Name of the park.
