@@ -12,6 +12,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -75,12 +77,12 @@ public class Job {
 	/**
 	 * The current number of volunteer for heavy work category.
 	 */
-	private int currentHard;
+	private int currentHeavy;
 	
 	/**
 	 * The maximum number of volunteer for heavy work category.
 	 */
-	private int maxHard;
+	private int maxHeavy;
 	
 	/**
 	 * The maximum number of volunteer.
@@ -91,6 +93,8 @@ public class Job {
 	 * A set of email values for each volunteer in this job. 
 	 */
 	private Set<String> volunteers;
+	//needs to be a map
+	private Map<String, WorkCatagories> signedVolunteers;
 
 	/**
 	 * This represents a constructor method.
@@ -111,12 +115,43 @@ public class Job {
 	}
 	
 	/**
+	 * The full Job constructor that takes in all required fields.
+	 */
+	public Job(final String parkName, final String jobName, 
+			final String date, final int jobDuration, 
+			final int currentLight, final int maxLight,
+			final int currentMedium, final int maxMedium,
+			final int currentHeavy, final int maxHeavy,
+			Map<String, WorkCatagories> volunteers) {
+		this.parkName = parkName;
+		this.jobName = jobName;
+		this.jobDuration = jobDuration;
+		setDate(date);
+		
+		this.currentLight = currentLight;
+		this.maxLight = maxLight;
+		this.currentMedium = currentMedium;
+		this.maxMedium = maxMedium;
+		this.currentHeavy = currentHeavy;
+		this.maxHeavy = maxHeavy;
+		
+		if(volunteers==null) {
+			signedVolunteers = new HashMap<String, Job.WorkCatagories>();
+		} else {
+			signedVolunteers = volunteers;
+		}
+		
+	}
+	
+	/**
 	 * A copy constructor that creates a copy of the existing job.
 	 * @param job job to be cloned.
 	 */
 	public Job(Job job) {
-		this(job.getParkName(), job.getJobName(), "needs to format date",
-				job.getJobDuration());
+		this(job.getParkName(), job.getJobName(), "dateformat", 
+			job.getJobDuration(), job.getCurrentLight(), job.getMaxLight(), 
+			job.getCurrentMedium(), job.getMaxMedium(), 
+			job.getCurrentHard(), job.getMaxHard(), null);//needs getVolunteers()
 	}
 
 	/**
@@ -156,7 +191,7 @@ public class Job {
 			case HEAVY:
 				if (getCurrentHard() < getMaxHard()) {
 					volunteers.add(email);
-					currentHard++;
+					currentHeavy++;
 				}
 				break;
 			}
@@ -342,7 +377,7 @@ public class Job {
 	 * volunteers sign up for heavy work category.
 	 */
 	public int getCurrentHard() {
-		return currentHard;
+		return currentHeavy;
 	}
 
 	/**
@@ -353,7 +388,7 @@ public class Job {
 	 * volunteers for heavy work category.
 	 */
 	public int getMaxHard() {
-		return maxHard;
+		return maxHeavy;
 	}
 
 	/**

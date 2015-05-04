@@ -25,7 +25,7 @@ public class JobController {
 	/*
 	 * stores current location of input and output file for jobs.
 	 */
-	private static String FILELOC = "jobFile.txt";
+	private static String FILELOC = "src/jobFile.txt";
 	
 	/*
 	 * stores a copy of all jobs in the system. 
@@ -35,9 +35,14 @@ public class JobController {
 	/**
 	 * Creates a new instance of a JobController.
 	 */
-	JobController() {
+	public JobController() {
 		allJobs = new ArrayList<Job>();
 		loadJobData(FILELOC);
+	}
+	
+	public JobController(String filename) {
+		allJobs = new ArrayList<Job>();
+		loadJobData(filename);
 	}
 	//*****PUBLIC METHODS*****//
 	
@@ -84,21 +89,25 @@ public class JobController {
 	}
 	
 	/**
-	 * 
+	 * Returns a String representation of all jobs.
 	 */
 	@Override
 	public String toString() {
-		return "404";
+		StringBuilder sb = new StringBuilder();
+		for(Job job:allJobs) {
+			sb.append(job.toString()+"\n");
+		}
+		return sb.toString();
 	}
 	
-	//*****PRIVATE METHODS*****//
+	//*****FILE I/O METHODS*****//
 	
 	/**
 	 * Loads in a list of jobs from file.
 	 * @param filename location of file to read from.
 	 * @return whether data was successfully loaded or not.
 	 */
-	private boolean loadJobData(String filename) {
+	public boolean loadJobData(String filename) {
 		File file = new File(filename);
 		try {
 			Scanner scanner = new Scanner(file);
@@ -113,9 +122,9 @@ public class JobController {
 				int maxLight = Integer.parseInt(token.nextToken());
 				int currentMedium = Integer.parseInt(token.nextToken());
 				int maxMedium = Integer.parseInt(token.nextToken());
-				int currentHard = Integer.parseInt(token.nextToken());
-				int maxHard = Integer.parseInt(token.nextToken());
-				Map signedVolunteers = new HashMap<String, WorkCatagories>();
+				int currentHeavy = Integer.parseInt(token.nextToken());
+				int maxHeavy = Integer.parseInt(token.nextToken());
+				Map<String, WorkCatagories> signedVolunteers = new HashMap<String, WorkCatagories>();
 				//collect information
 				int i = 0;
 				while(token.hasMoreTokens()) {
@@ -132,7 +141,9 @@ public class JobController {
 					i++;
 				}
 				//create job
-				Job job = new Job(parkName, jobName, date, duration);
+				Job job = new Job(parkName, jobName, date, duration, 
+						currentLight, maxLight, currentMedium, maxMedium, 
+						currentHeavy, maxHeavy, signedVolunteers);
 				//add job
 				addJob(job);
 			}
@@ -150,7 +161,7 @@ public class JobController {
 	 * @param filename file location of file to write to.
 	 * @return whether writing file was a success or not.
 	 */
-	private boolean writeJobData(String filename) {
+	public boolean writeJobData(String filename) {
 		try {
 			FileWriter writer = new FileWriter(filename);
 			writer.write(toString());
