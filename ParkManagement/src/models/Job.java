@@ -148,7 +148,8 @@ public class Job {
 	 * @param job job to be cloned.
 	 */
 	public Job(Job job) {
-		this(job.getParkName(), job.getJobName(), "dateformat", 
+		this(job.getParkName(), job.getJobName(),
+				new SimpleDateFormat("MM/dd/yyyy HH:mm a").format(job.getDate().getTime()), 
 			job.getJobDuration(), job.getCurrentLight(), job.getMaxLight(), 
 			job.getCurrentMedium(), job.getMaxMedium(), 
 			job.getCurrentHard(), job.getMaxHard(), null);//needs getVolunteers()

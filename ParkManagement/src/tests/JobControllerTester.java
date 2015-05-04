@@ -45,8 +45,8 @@ public class JobControllerTester {
 	
 	@Test
 	public void testWriteJobData() {
-		jc.writeJobData("/jobFileTest.txt");
-		JobController jobController = new JobController("/jobFileTest.txt");
+		jc.writeJobData("src/jobFileTest.txt");
+		JobController jobController = new JobController("src/jobFileTest.txt");
 		assertFalse(jobController.getAllJobs().isEmpty());		
 	}
 
