@@ -27,44 +27,55 @@ public class Job {
 	/** A set of email values for each volunteer in this job. */
 	private Set<String> volunteers;
 
-	Job(final String parkName, final String jobName, 
+	public Job(final String parkName, final String jobName, 
 			final String date, final int jobDuration) {
+
 		this.parkName = parkName;
 		this.jobName = jobName;
+		this.jobDuration = jobDuration;
+
 		setDate(date);
 		//parse formatted string 'date' format:"m/d/yyyy hh:mmAM" see jobFile
 	}
 
-	public enum WorkCatagories
-	{
+	/**
+	 * 
+	 * @author PutthidaSR
+	 */
+	public enum WorkCatagories {
 		LIGHT, MEDIUM, HEAVY;
 	}
 
+	/**
+	 * 
+	 * @param email
+	 * @param workCat
+	 * @throws JobFullException
+	 */
 	public void addVolunteer(String email, WorkCatagories workCat) throws JobFullException {
 
 		if (isJobFull()) {
 			throw new JobFullException(getJobName() + "is already full.");
-		
 		} else if (contains(email)) {
 			throw new VolunteerStateException("Volunteer is already in " + getJobName() + "list.");
-
 		} else {
-
 			switch(workCat) {
 			case LIGHT:
 				if ((getCurrentLight() < getMaxLight())) {
 					volunteers.add(email);
+					currentLight++;
 				} 
 				break;
-			
 			case MEDIUM:
 				if ((getCurrentMedium() < getMaxMedium())) {
 					volunteers.add(email);
+					currentMedium++;
 				}
 				break;
 			case HEAVY:
 				if (getCurrentHard() < getMaxHard()) {
 					volunteers.add(email);
+					currentHard++;
 				}
 				break;
 			}
@@ -77,7 +88,7 @@ public class Job {
 	public boolean isJobFull() {
 		return getVolunteerMax() <= volunteers.size();
 	}
-	
+
 	/**
 	 * Used to check if the passed volunteer is in this job
 	 * @param email The volunteer to check if they are in 
@@ -96,6 +107,20 @@ public class Job {
 	 */
 	public boolean contains(String email) {
 		return containsVolunteer(email);
+	}
+
+	/**
+	 * @return The max number of volunteers for this job.
+	 */
+	public int getVolunteerMax() {
+		return volunteerMax;
+	}
+
+	/**
+	 * @return The number of volunteers currently in the job.
+	 */
+	public int getVolunteerCount() {
+		return volunteers.size();
 	}
 
 	private boolean isCompleted() {
@@ -132,7 +157,7 @@ public class Job {
 	public void setJobName(String jobName) {
 		this.jobName = jobName;
 	}
-	
+
 	public void setDate(String date) {
 		DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm a");
 		try {
@@ -193,12 +218,6 @@ public class Job {
 		this.maxHard = maxHard;
 	}
 
-	/**
-	 * @return The max number of volunteers for this job.
-	 */
-	public int getVolunteerMax() {
-		return volunteerMax;
-	}
 
 
 	/**
@@ -211,11 +230,10 @@ public class Job {
 			super(message);
 		}
 	}
-	
+
 	/**
 	 * An exception thrown when an operation is attempted between
 	 * a volunteer and a job, but something goes wrong.
-	 *
 	 */
 	@SuppressWarnings("serial")
 	public class VolunteerStateException extends RuntimeException {
