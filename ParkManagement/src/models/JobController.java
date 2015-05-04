@@ -52,7 +52,7 @@ public class JobController {
 				int maxMedium = Integer.parseInt(token.nextToken());
 				int currentHard = Integer.parseInt(token.nextToken());
 				int maxHard = Integer.parseInt(token.nextToken());
-				Map signedVolunteers = new HashMap<String, WorkCatagories>();;
+				Map signedVolunteers = new HashMap<String, WorkCatagories>();
 				//collect information
 				int i = 0;
 				while(token.hasMoreTokens()) {
