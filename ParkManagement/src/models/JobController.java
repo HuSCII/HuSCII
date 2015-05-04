@@ -59,15 +59,15 @@ public class JobController {
 	 */
 	public List<Job> getUpcomingJobs() {
 		List<Job> upcoming = new ArrayList<Job>();
-		return null;
 		for(int i=0; i<allJobs.size(); i++) {
-			if(allJobs.get(i).isCompleted(allJobs.get(i).getDate())) {
+			if(!allJobs.get(i).isCompleted(allJobs.get(i).getDate())) {
 				//add copy of Job
-				upcoming.add(e);
+				upcoming.add(new Job(allJobs.get(i)));
 			} else {
 				break;
 			}
 		}
+		return upcoming;
 	}
 	
 	
@@ -76,7 +76,11 @@ public class JobController {
 	 * @return all jobs.
 	 */
 	public List<Job> getAllJobs() {
-		return allJobs; //make sure to send a clone -Ian
+		List<Job> jobs = new ArrayList<Job>();
+		for(Job job:allJobs) {
+			jobs.add(new Job(job));
+		}
+		return jobs;
 	}
 	
 	/**
