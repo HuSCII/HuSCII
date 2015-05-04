@@ -13,7 +13,7 @@ import models.Job.WorkCatagories;
 
 public class JobController {
 
-	private List<Job> allJobs;
+	private ArrayList<Job> allJobs;
 	
 	JobController() {
 		allJobs = new ArrayList<Job>();
@@ -23,12 +23,12 @@ public class JobController {
 		allJobs.add(job);
 	}
 	
-	public List<Job> getUpcomingJobs() {
+	public ArrayList<Job> getUpcomingJobs() {
 		return null;
 		//job needs an isComplete.
 	}
 	
-	public List<Job> getAllJobs() {
+	public ArrayList<Job> getAllJobs() {
 		//needs to check 
 		return allJobs; //make sure to send a clone -Ian
 	}

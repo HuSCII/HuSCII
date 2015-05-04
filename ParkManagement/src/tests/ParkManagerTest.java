@@ -12,7 +12,7 @@ public class ParkManagerTest {
 	@Before
 	public void setUp() throws Exception {
 		
-		ParkManager manager = new ParkManager("abc@gmail.com", "John", "Wang");
+		ParkManager manager = new ParkManager("abc@gmail.com", "John", "Wang", "Park Manager");
 	}
 
 	@After
