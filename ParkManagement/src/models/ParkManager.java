@@ -1,6 +1,7 @@
 package models;
 
 
+import java.util.List;
 import java.util.ArrayList;
 
 public class ParkManager extends User {
@@ -35,8 +36,21 @@ public class ParkManager extends User {
 	 * @param park
 	 */
 	public void addPark(String park) {
+		if(park.length() > 0 ) {
 		
-		parkNames.add(park);
+			parkNames.add(park); 
+		}
+		
+	}
+	
+	/**
+	 * return the list of parks 
+	 * @return
+	 */
+	public List<String> getParks() {
+		
+		ArrayList<String> parkList = (ArrayList<String>) parkNames.clone();
+		return parkList;
 		
 	}
 	
