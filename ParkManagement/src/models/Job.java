@@ -285,7 +285,6 @@ public class Job {
 		}
 	}
 
-
 	/**
 	 * This represents toString() method.
 	 * @return String content
