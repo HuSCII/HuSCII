@@ -9,7 +9,6 @@ import java.util.ArrayList;
  * @author Jingzhu Guo
  *
  */
-
 public class ParkManager extends User {
 	
 	private ArrayList<String> parkNames;
@@ -79,9 +78,9 @@ public class ParkManager extends User {
 	
 	/**
 	 * find the job that park manager submitted
-	 * @return
+	 * @return List of sth
 	 */
-	public void findMyJob() {
+	public void getMyJobs() {
 		
 		System.out.println(myJob.toString());
 	}
@@ -110,25 +109,25 @@ public class ParkManager extends User {
 	 * need to work on this method
 	 * @return The number of volunteers currently in the job.
 	 */
-	private void checkJobCapacity(String parkName) {
-		
-//		ArrayList<Job> allJob = jobController.getAllJobs();  //I think we need a job ID
-//		if (allJob.contains(parkName)) {					// to make each job unique.	
-//			int jobIndex = allJob.indexOf(parkName);
-//				System.out.println(allJob.get(jobIndex).getVolunteerCount());
-//			
-//		}
-		System.out.println( 0 );
-	}
-	
-	/**
-	 * need to work on this method
-	 * @param job
-	 */
-	private void checkWeekAvailibility (Job job) {
-		
-		System.out.println(0);
-	}
+//	private void checkJobCapacity(String parkName) {
+//		
+////		ArrayList<Job> allJob = jobController.getAllJobs();  //I think we need a job ID
+////		if (allJob.contains(parkName)) {					// to make each job unique.	
+////			int jobIndex = allJob.indexOf(parkName);
+////				System.out.println(allJob.get(jobIndex).getVolunteerCount());
+////			
+////		}
+//		System.out.println( 0 );
+//	}
+//	
+//	/**
+//	 * need to work on this method
+//	 * @param job
+//	 */
+//	private void checkWeekAvailibility (Job job) {
+//		
+//		System.out.println(0);
+//	}
 	
 	/**
 	 * main method to test the ParkManager class
