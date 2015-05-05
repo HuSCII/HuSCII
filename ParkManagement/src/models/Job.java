@@ -98,6 +98,7 @@ public class Job {
 
 	/**
 	 * This represents a constructor method.
+	 * add jobID *****
 	 * 
 	 * @param parkName Name of the park.
 	 * @param jobName Name of the job.
@@ -202,6 +203,8 @@ public class Job {
 	/**
 	 * This method is to check whether the job is full or volunteer can still sign up.
 	 * @return True if this job can no longer accept volunteers.
+	 * 
+	 * add all getMax for each work categories to get if job is full or not
 	 */
 	public boolean isJobFull() {
 		return getVolunteerMax() <= volunteers.size();
@@ -266,8 +269,10 @@ public class Job {
 	public boolean valiDate(GregorianCalendar jobDate) {
 		if(!isCompleted(jobDate)) {
 			jobDate.add(Calendar.DAY_OF_MONTH, MAX_DAYS);
+			
+			return true;
 		}
-		return true;	
+		return false;	
 	}
 
 	/**
