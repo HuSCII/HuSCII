@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class ParkManager extends User {
 	
 	private ArrayList<String> parkNames;
-	private ArrayList<Job> myJob;
+	private List<Job> myJob;
 	private JobController jobController = new JobController();
 	private Job parkJob;
 	
@@ -66,23 +66,30 @@ public class ParkManager extends User {
 	 * @param date
 	 * @param jobDuration
 	 */
-	public void createJob (String parkName, String jobName,
+	public void createJob (int jobID, String parkName, String jobName,
 						String date, int jobDuration) {
 		
-		parkJob = new Job(parkName, jobName, date, jobDuration);
+		parkJob = new Job(jobID, parkName, jobName, date, jobDuration);
 		
 		jobController.addJob(parkJob);
-		myJob.add(parkJob);	
+			
 		
 	}
 	
 	/**
 	 * find the job that park manager submitted
-	 * @return List of sth
+	 * @return List of Upcoming job that I manage.
 	 */
-	public void getMyJobs() {
+	public List<Job> getMyJobs (int jobID) {
+		List<Job> upcomingJob = jobController.getUpcomingJobs();
 		
-		System.out.println(myJob.toString());
+		if(upcomingJob.contains(jobID)) {
+			int i = upcomingJob.indexOf(jobID);
+			myJob.add(upcomingJob.get(i));	
+			return myJob;
+		}
+			return null;
+		
 	}
 	
 	/**
@@ -106,30 +113,6 @@ public class ParkManager extends User {
 	
 	
 	/**
-	 * need to work on this method
-	 * @return The number of volunteers currently in the job.
-	 */
-//	private void checkJobCapacity(String parkName) {
-//		
-////		ArrayList<Job> allJob = jobController.getAllJobs();  //I think we need a job ID
-////		if (allJob.contains(parkName)) {					// to make each job unique.	
-////			int jobIndex = allJob.indexOf(parkName);
-////				System.out.println(allJob.get(jobIndex).getVolunteerCount());
-////			
-////		}
-//		System.out.println( 0 );
-//	}
-//	
-//	/**
-//	 * need to work on this method
-//	 * @param job
-//	 */
-//	private void checkWeekAvailibility (Job job) {
-//		
-//		System.out.println(0);
-//	}
-	
-	/**
 	 * main method to test the ParkManager class
 	 * @param agrs
 	 */
@@ -140,14 +123,15 @@ public class ParkManager extends User {
 		manager.addPark("alki");
 		manager.addPark("let's go");
 		
-		manager.createJob("alki", "trash picking up", "5/8/2015 9:30 am", 2);
-		manager.createJob("alki", "trash picking up", "5/8/2015 9:30 am", 2);
-		manager.createJob("alki", "trash picking up", "5/8/2015 9:30 am", 2);
+		manager.createJob(123, "alki", "trash picking up", "5/8/2015 9:30 am", 2);
+		manager.createJob(121, "alki", "trash picking up", "5/8/2015 9:30 am", 2);
+		manager.createJob(120, "alki", "trash picking up", "5/8/2015 9:30 am", 2);
 		
-		manager.findMyJob();
+		List<Job> myJobs = manager.getMyJobs(123);
 		
 		
 		System.out.println(manager.toString());
+		System.out.println(myJobs.toString());
 		
 	}
 }
