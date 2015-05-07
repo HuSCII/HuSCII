@@ -1,12 +1,18 @@
 package models;
 
 
+import java.util.List;
 import java.util.ArrayList;
 
+/**
+ * park manager
+ * @author Jingzhu Guo
+ *
+ */
 public class ParkManager extends User {
 	
 	private ArrayList<String> parkNames;
-	private ArrayList<Job> myJob;
+	private List<Job> myJob;
 	private JobController jobController = new JobController();
 	private Job parkJob;
 	
@@ -35,8 +41,21 @@ public class ParkManager extends User {
 	 * @param park
 	 */
 	public void addPark(String park) {
+		if(park.length() > 0 ) {
 		
-		parkNames.add(park);
+			parkNames.add(park); 
+		}
+		
+	}
+	
+	/**
+	 * return the list of parks 
+	 * @return
+	 */
+	public List<String> getParks() {
+		
+		ArrayList<String> parkList = (ArrayList<String>) parkNames.clone();
+		return parkList;
 		
 	}
 	
@@ -47,26 +66,39 @@ public class ParkManager extends User {
 	 * @param date
 	 * @param jobDuration
 	 */
-	public void createJob (String parkName, String jobName,
+	public void createJob (int jobID, String parkName, String jobName,
 						String date, int jobDuration) {
 		
-		parkJob = new Job(parkName, jobName, date, jobDuration);
+		parkJob = new Job(jobID, parkName, jobName, date, jobDuration);
 		
 		jobController.addJob(parkJob);
-		myJob.add(parkJob);	
+			
 		
 	}
 	
 	/**
 	 * find the job that park manager submitted
-	 * @return
+	 * @return List of Upcoming job that I manage.
 	 */
-	public void findMyJob() {
+	public List<Job> getMyJobs (int jobID) {
+		List<Job> upcomingJob = jobController.getUpcomingJobs();
 		
-		System.out.println(myJob.toString());
+		if(upcomingJob.contains(jobID)) {
+			int i = upcomingJob.indexOf(jobID);
+			myJob.add(upcomingJob.get(i));	
+			return myJob;
+		}
+			return null;
+		
 	}
 	
-	public String findVolunteer (Volunteer volunteer, Job job) {
+	/**
+	 * need to work on this method
+	 * @param volunteer
+	 * @param job
+	 * @return
+	 */
+	public List<String> findVolunteer (Volunteer volunteer, Job job) {
 		
 		return null;
 	}
@@ -76,31 +108,14 @@ public class ParkManager extends User {
 	 */
 	public String toString() {
 		
-		return super.toString() + " " + parkNames.toString();
+		return super.toString() + "  Park Lists: " + parkNames.toString();
 	}
 	
 	
 	/**
-	 * 
-	 * @return The number of volunteers currently in the job.
+	 * main method to test the ParkManager class
+	 * @param agrs
 	 */
-	private void checkJobCapacity(String parkName) {
-		
-		ArrayList<Job> allJob = jobController.getAllJobs();  //I think we need a job ID
-		if (allJob.contains(parkName)) {					// to make each job unique.	
-			int jobIndex = allJob.indexOf(parkName);
-				System.out.println(allJob.get(jobIndex).getVolunteerCount());
-			
-		}
-		System.out.println( 0 );
-	}
-	
-	private void checkWeekAvailibility (Job job) {
-		
-		
-	}
-	
-	
 	public static void main(String[] agrs) {
 		
 		ParkManager manager = new ParkManager("judeguo83@gmail.com","Jude","Guo", "Park Manager");
@@ -108,14 +123,15 @@ public class ParkManager extends User {
 		manager.addPark("alki");
 		manager.addPark("let's go");
 		
-		manager.createJob("alki", "trash picking up", "5/8/2015 9:30 am", 2);
-		manager.createJob("alki", "trash picking up", "5/8/2015 9:30 am", 2);
-		manager.createJob("alki", "trash picking up", "5/8/2015 9:30 am", 2);
+		manager.createJob(123, "alki", "trash picking up", "5/8/2015 9:30 am", 2);
+		manager.createJob(121, "alki", "trash picking up", "5/8/2015 9:30 am", 2);
+		manager.createJob(120, "alki", "trash picking up", "5/8/2015 9:30 am", 2);
 		
-		manager.findMyJob();
+		List<Job> myJobs = manager.getMyJobs(123);
 		
 		
 		System.out.println(manager.toString());
+		System.out.println(myJobs.toString());
 		
 	}
 }

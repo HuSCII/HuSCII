@@ -88,25 +88,35 @@ public class Job {
 	 * The maximum number of volunteer.
 	 */
 	private int volunteerMax;
+	
+	/**
+	 * The unique ID number of each job.
+	 */
+	private int jobID;
 
 	/** 
 	 * A set of email values for each volunteer in this job. 
 	 */
 	private Set<String> volunteers;
-	//needs to be a map
+	
+	/**
+	 * Maps of volunteer's email, and work categories.
+	 */
 	private Map<String, WorkCatagories> signedVolunteers;
 
 	/**
 	 * This represents a constructor method.
 	 * 
+	 * @param jobID unique ID number of each job.
 	 * @param parkName Name of the park.
 	 * @param jobName Name of the job.
 	 * @param date The date of the job.
 	 * @param jobDuration The length of the job in hours.
 	 */
-	public Job(final String parkName, final String jobName, 
+	public Job(final int jobID, final String parkName, final String jobName, 
 			final String date, final int jobDuration) {
 
+		this.jobID = jobID;
 		this.parkName = parkName;
 		this.jobName = jobName;
 		this.jobDuration = jobDuration;
@@ -117,12 +127,14 @@ public class Job {
 	/**
 	 * The full Job constructor that takes in all required fields.
 	 */
-	public Job(final String parkName, final String jobName, 
+	public Job(final int jobID, final String parkName, final String jobName, 
 			final String date, final int jobDuration, 
 			final int currentLight, final int maxLight,
 			final int currentMedium, final int maxMedium,
 			final int currentHeavy, final int maxHeavy,
 			Map<String, WorkCatagories> volunteers) {
+		
+		this.jobID = jobID;
 		this.parkName = parkName;
 		this.jobName = jobName;
 		this.jobDuration = jobDuration;
@@ -148,7 +160,7 @@ public class Job {
 	 * @param job job to be cloned.
 	 */
 	public Job(Job job) {
-		this(job.getParkName(), job.getJobName(),
+		this(job.getJobID(), job.getParkName(), job.getJobName(),
 				new SimpleDateFormat("MM/dd/yyyy HH:mm a").format(job.getDate().getTime()), 
 			job.getJobDuration(), job.getCurrentLight(), job.getMaxLight(), 
 			job.getCurrentMedium(), job.getMaxMedium(), 
@@ -202,6 +214,8 @@ public class Job {
 	/**
 	 * This method is to check whether the job is full or volunteer can still sign up.
 	 * @return True if this job can no longer accept volunteers.
+	 * 
+	 * add all getMax for each work categories to get if job is full or not
 	 */
 	public boolean isJobFull() {
 		return getVolunteerMax() <= volunteers.size();
@@ -212,6 +226,7 @@ public class Job {
 	 * @return The max number of volunteers for this job.
 	 */
 	public int getVolunteerMax() {
+		volunteerMax = getMaxLight() + getMaxMedium() + getMaxHard();
 		return volunteerMax;
 	}
 
@@ -266,8 +281,10 @@ public class Job {
 	public boolean valiDate(GregorianCalendar jobDate) {
 		if(!isCompleted(jobDate)) {
 			jobDate.add(Calendar.DAY_OF_MONTH, MAX_DAYS);
+			
+			return true;
 		}
-		return true;	
+		return false;	
 	}
 
 	/**
@@ -285,7 +302,6 @@ public class Job {
 		}
 	}
 
-
 	/**
 	 * This represents toString() method.
 	 * @return String content
@@ -297,6 +313,15 @@ public class Job {
 			"," + jobDuration + "," + currentLight + "," + maxLight + "," + 
 			currentMedium + "," +  maxMedium + "," +  
 			currentHeavy  + "," + maxHeavy; 
+	}
+	
+	/**
+	 * This is a getter method that return the ID number of each job.
+	 * 
+	 * @return jobID unique ID number of each job
+	 */
+	public int getJobID() {
+		return jobID;
 	}
 	
 	/**
