@@ -107,7 +107,7 @@ public class UserController {
 			sb.append(u.toString() + "\r\n");
 		}
 
-		return sb.toString();
+		return sb.toString(); 
 	}
 
 }
