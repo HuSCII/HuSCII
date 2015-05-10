@@ -141,7 +141,7 @@ public class JobController {
 					i++;
 				}
 				//create job
-				Job job = new Job(parkName, jobName, date, duration, 
+				Job job = new Job(1,parkName, jobName, date, duration, 
 						currentLight, maxLight, currentMedium, maxMedium, 
 						currentHeavy, maxHeavy, signedVolunteers);
 				//add job
