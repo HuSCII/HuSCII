@@ -90,9 +90,9 @@ public class MainConsole {
 			break;
 		case "park manager":
 			// Call park manager console controller class:
-			System.out.println("Park manager console class here");
+			ParkManagerController parkManager = new ParkManagerController();
+			parkManager.menuScreen();
 			break;
-
 		case "administrator":
 			// Call administrator console controller class:
 			System.out.println("Administrator console class here");

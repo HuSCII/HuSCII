@@ -469,6 +469,64 @@ public class Job {
 		return maxHeavy;
 	}
 
+	public void setParkName(String parkName) {
+		this.parkName = parkName;
+	}
+
+	public void setJobName(String jobName) {
+		this.jobName = jobName;
+	}
+
+	public void setDate(GregorianCalendar date) {
+		this.date = date;
+	}
+
+	public void setJobDuration(int jobDuration) {
+		this.jobDuration = jobDuration;
+	}
+
+	public void setCurrentLight(int currentLight) {
+		this.currentLight = currentLight;
+	}
+
+	public void setMaxLight(int maxLight) {
+		this.maxLight = maxLight;
+	}
+
+	public void setCurrentMedium(int currentMedium) {
+		this.currentMedium = currentMedium;
+	}
+
+	public void setMaxMedium(int maxMedium) {
+		this.maxMedium = maxMedium;
+	}
+
+	public void setCurrentHeavy(int currentHeavy) {
+		this.currentHeavy = currentHeavy;
+	}
+
+	public void setMaxHeavy(int maxHeavy) {
+		this.maxHeavy = maxHeavy;
+	}
+
+	public void setVolunteerMax(int volunteerMax) {
+		this.volunteerMax = volunteerMax;
+	}
+
+	public void setJobID(int jobID) {
+		this.jobID = jobID;
+	}
+
+	public void setVolunteers(Set<String> volunteers) {
+		this.volunteers = volunteers;
+	}
+
+	public void setSignedVolunteers(Map<String, WorkCatagories> signedVolunteers) {
+		this.signedVolunteers = signedVolunteers;
+	}
+
+
+
 	/**
 	 * An exception thrown when an operation is attempted on a full 
 	 * job. 
