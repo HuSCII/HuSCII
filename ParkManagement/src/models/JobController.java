@@ -50,12 +50,13 @@ public class JobController {
 	 * Adds a job to the list if maximum hasn't been reached.
 	 * @param job job to be added to allJobs.
 	 */
-	public void addJob(Job job) {
-		if(checkMaxJobs()) {
+	public boolean addJob(Job job) {
+		if(checkMaxJobs() && checkJobWeek(job)) {
 			//check week
 			allJobs.add(job);
+			return true;
 		}
-		allJobs.add(job);
+		return false;
 	}
 	
 	/**
@@ -114,6 +115,7 @@ public class JobController {
 			while(scanner.hasNext()) {
 				StringTokenizer token = new StringTokenizer(scanner.nextLine(), ",");
 				
+				String parkManagerEmail = token.nextToken();
 				String parkName = token.nextToken();
 				String jobName = token.nextToken();
 				String date = token.nextToken();
@@ -141,7 +143,7 @@ public class JobController {
 					i++;
 				}
 				//create job
-				Job job = new Job(1,parkName, jobName, date, duration, 
+				Job job = new Job(parkManagerEmail,parkName, jobName, date, duration, 
 						currentLight, maxLight, currentMedium, maxMedium, 
 						currentHeavy, maxHeavy, signedVolunteers);
 				//add job
@@ -199,7 +201,7 @@ public class JobController {
 		futureDate.set(Calendar.DAY_OF_MONTH, pastDate.get(Calendar.DAY_OF_MONTH)+3);
 		
 		for(Job aJob:allJobs) {
-			if(job.getDate().compareTo(pastDate)>=0 &&
+			if(aJob.getDate().compareTo(pastDate)>=0 &&
 					job.getDate().compareTo(futureDate)<=0) {
 				count++;
 			}
