@@ -10,6 +10,7 @@ public class MainTest {
 
 	static UserController userController;
 	static JobController jobController;
+	static User currentUser;
 
 	public static void main(String[] args) {
 
@@ -18,42 +19,48 @@ public class MainTest {
 		userController.readUserFile("/testFile.csv");
 
 		// Pre-load the Jobs persistent data:
-		// instantiate a jobcontroller
 		jobController = new JobController();
-		// read in the jobs text file
 
-		// Display doc
+		// Display copyright info
 		displayDoc();
 
-		// Display login prompt:
-		String email = retrieveEmail();
-		verifyEmail(email);
+		// Display login prompt
+		displayLoginPrompt();
 
-		// assign
+		// Retrieve and verify email:
+		boolean emailIsVerified = false;
+		while (!emailIsVerified) {
+			emailIsVerified = verifyEmail(retrieveEmail());
+		}
+
+		// Display appropriate user options:
+		displayRoleOptions(currentUser);
 
 	}
 
 	private static void displayDoc() {
 		System.out
-				.println("*****************************************************************");
-		System.out
-				.println("* =================HuSCII Parks Management System============== *");
+				.println("*******************HuSCII Parks Management System****************");
 		System.out
 				.println("* Software version 1.0                                          *");
 		System.out.print("* Authors: Jingzhu Guo, Duy Huynh, ");
 		System.out.println("Ian McPeek, Putthida Samrith *");
 		System.out
-				.println("* Copyright (c) 2015 HuSCII TCSS 360 Spring '15 Project Group.  *");
+				.println("* Copyright (c) 2015 HuSCII, TCSS 360 Spring '15 Project Group. *");
 		System.out
 				.println("*                                                               *");
 		System.out
 				.println("*****************************************************************");
-		System.out.println();
+	}
+
+	private static void displayLoginPrompt() {
+		System.out.println("Welcome to the HuSCII Parks Management v1.0");
+		System.out.println("Please login with your email address:");
+		System.out.print("-->");
 	}
 
 	private static String retrieveEmail() {
-		System.out.println("Welcome to the HuSCII Parks Management v1.0");
-		System.out.println("Please login with your email address:");
+
 		Scanner input = new Scanner(System.in);
 		return input.nextLine();
 	}
@@ -62,27 +69,38 @@ public class MainTest {
 
 		for (User u : userController.getUserList()) {
 			if (email.equals(u.getEmail())) {
-				System.out.println("You are a registered user!");
-				System.out.println(u.getRole());
+				System.out.println("Logging in ... SUCCESS!");
+				System.out.println("You are registered as: " + u.getRole());
+				currentUser = u;
 				return true;
 			}
 		}
-		System.out.println("Email not found!");
+		System.out.println("Logging in ... FAIL!");
+		System.out.println("ERROR: Email not found, please try again:");
+		System.out.print("-->");
 		return false;
 	}
 
-	private static void assignRole(String email) {
-		// Assign the role associated with the email
+	private static void displayRoleOptions(User user) {
 
-	}
+		switch (user.getRole().toLowerCase()) {
+		case "volunteer":
+			// Call volunteer console controller class:
+			System.out.println("Volunteer console class here");
+			break;
+		case "park manager":
+			// Call park manager console controller class:
+			System.out.println("Park manager console class here");
+			break;
 
-	private static void switchToUserRole() {
-		// Switch statement:
+		case "administrator":
+			// Call administrator console controller class:
+			System.out.println("Administrator console class here");
+			break;
 
-		// 1. Volunteer
-		// volunteerConsole(userController,
-		// 2. Parks Manager
-		// 3. Administrator
+		default:
+			break;
+		}
 	}
 
 }
