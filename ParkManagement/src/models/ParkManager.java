@@ -59,26 +59,29 @@ public class ParkManager extends User {
                                 currentLight, maxLight, currentMed, maxMed, currentHvy,
                                 maxHvy, volunteers);
 
-        jobController.addJob(tempJob);
-
-        return true;
+        return jobController.addJob(tempJob);
 
     }
 
     /**
      * Retrieve this park manager's jobs.
      * 
+     * @param parkManager The park manager retrieving its job.
      * @return List of Upcoming job that I manage.
      */
     public List<Job> getMyJobs(User parkManager) {
-        
+
         // Retrieve list of Upcoming jobs
         final List<Job> upcomingJobs = jobController.getUpcomingJobs();
-        
-        for(Job j:upcomingJobs){
-            if(j.get)
+        final List<Job> parkManagerJobs = new ArrayList<Job>();
+
+        for (Job j : upcomingJobs) {
+            if (parkManager.getEmail().equals(j.getParkManagerEmail())) {
+                parkManagerJobs.add(j);
+            }
         }
 
+        return parkManagerJobs;
 
     }
 
