@@ -218,6 +218,7 @@ public class Job {
 
 	/**
 	 * List of volunteers sign up for a job.
+	 * 
 	 * @return A string containing the emails of all the
 	 * 			volunteers in this job 
 	 */
