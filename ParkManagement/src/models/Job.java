@@ -40,6 +40,11 @@ public class Job {
 	public static final int MAX_JOB_TIME = 48;
 
 	/**
+	 * Email for Park Manager who created job.
+	 */
+	private String parkManagerEmail;
+	
+	/**
 	 * Name of the park.
 	 */
 	private String parkName;
@@ -94,10 +99,10 @@ public class Job {
 	 */
 	private int volunteerMax;
 
-	/**
-	 * The unique ID number of each job.
-	 */
-	private int jobID;
+//	/**
+//	 * The unique ID number of each job.
+//	 */
+//	private int jobID;
 
 	/** 
 	 * A set of email values for each volunteer in this job. 
@@ -109,6 +114,26 @@ public class Job {
 	 */
 	private Map<String, WorkCatagories> signedVolunteers;
 
+//	/**
+//	 * This represents a constructor method.
+//	 * 
+//	 * @param jobID unique ID number of each job.
+//	 * @param parkName Name of the park.
+//	 * @param jobName Name of the job.
+//	 * @param date The date of the job.
+//	 * @param jobDuration The length of the job in hours.
+//	 */
+//	public Job(final int jobID, final String parkName, final String jobName, 
+//			final String date, final int jobDuration) {
+//
+//		this.jobID = jobID;
+//		this.parkName = parkName;
+//		this.jobName = jobName;
+//		this.jobDuration = jobDuration;
+//
+//		setDate(date); //parse formatted string 'date' format:"m/d/yyyy hh:mmAM" see jobFile
+//	}
+
 	/**
 	 * This represents a constructor method.
 	 * 
@@ -118,28 +143,16 @@ public class Job {
 	 * @param date The date of the job.
 	 * @param jobDuration The length of the job in hours.
 	 */
-	public Job(final int jobID, final String parkName, final String jobName, 
-			final String date, final int jobDuration) {
-
-		this.jobID = jobID;
-		this.parkName = parkName;
-		this.jobName = jobName;
-		this.jobDuration = jobDuration;
-
-		setDate(date); //parse formatted string 'date' format:"m/d/yyyy hh:mmAM" see jobFile
-	}
-
-	/**
-	 * The full Job constructor that takes in all required fields.
-	 */
-	public Job(final int jobID, final String parkName, final String jobName, 
+	public Job(final String parkManagerEmail, 
+			final String parkName, final String jobName, 
 			final String date, final int jobDuration, 
 			final int currentLight, final int maxLight,
 			final int currentMedium, final int maxMedium,
 			final int currentHeavy, final int maxHeavy,
 			Map<String, WorkCatagories> volunteers) {
 
-		this.jobID = jobID;
+		//this.jobID = jobID;
+		this.parkManagerEmail = parkManagerEmail;
 		this.parkName = parkName;
 		this.jobName = jobName;
 		this.jobDuration = jobDuration;
@@ -165,7 +178,7 @@ public class Job {
 	 * @param job job to be cloned.
 	 */
 	public Job(Job job) {
-		this(job.getJobID(), job.getParkName(), job.getJobName(),
+		this(job.getParkManagerEmail(), job.getParkName(), job.getJobName(),
 				new SimpleDateFormat("MM/dd/yyyy HH:mm a").format(job.getDate().getTime()), 
 				job.getJobDuration(), job.getCurrentLight(), job.getMaxLight(), 
 				job.getCurrentMedium(), job.getMaxMedium(), 
@@ -344,15 +357,20 @@ public class Job {
 		currentHeavy  + "," + maxHeavy; 
 	}
 
-	/**
-	 * This is a getter method that return the ID number of each job.
-	 * 
-	 * @return jobID unique ID number of each job
-	 */
-	public int getJobID() {
-		return jobID;
-	}
+//	/**
+//	 * This is a getter method that return the ID number of each job.
+//	 * 
+//	 * @return jobID unique ID number of each job
+//	 */
+//	public int getJobID() {
+//		return jobID;
+//	}
 
+	public String getParkManagerEmail() {
+		return parkManagerEmail;
+	}
+	
+	
 	/**
 	 * This is a getter method that return the number of job length in hour.
 	 * 
