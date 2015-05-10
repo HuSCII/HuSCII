@@ -9,10 +9,12 @@ package models;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -24,135 +26,150 @@ import java.util.Set;
  */
 public class Job {
 
+	/** Delimiter used in string methods to separate values. */
+	private static final String DELIM_STD = ","; 
+
 	/**
 	 * The maximum days from the current date that the job can be added.
 	 */
 	public static final int MAX_DAYS = 90;
 
 	/**
-	 * The maximum hours of job length.
+	 * The maximum hours of job length (2 days).
 	 */
-	public static final int MAX_JOB_TIME = 24;
+	public static final int MAX_JOB_TIME = 48;
 
 	/**
 	 * Name of the park.
 	 */
 	private String parkName;
-	
+
 	/**
 	 * Name of the job.
 	 */
 	private String jobName;
-	
+
 	/**
 	 * Date of a job using GregorianCalendar class.
 	 */
 	private GregorianCalendar date;
-	
+
 	/**
 	 * The length of a job in hours.
 	 */
 	private int jobDuration;
-	
+
 	/**
 	 * The current number of volunteer for light work category.
 	 */
 	private int currentLight;
-	
+
 	/**
 	 * The maximum number of volunteer for light work category.
 	 */
 	private int maxLight;
-	
+
 	/**
 	 * The current number of volunteer for medium work category.
 	 */
 	private int currentMedium;
-	
+
 	/**
 	 * The maximum number of volunteer for medium work category.
 	 */
 	private int maxMedium;
-	
+
 	/**
 	 * The current number of volunteer for heavy work category.
 	 */
 	private int currentHeavy;
-	
+
 	/**
 	 * The maximum number of volunteer for heavy work category.
 	 */
 	private int maxHeavy;
-	
+
 	/**
 	 * The maximum number of volunteer.
 	 */
 	private int volunteerMax;
 
+	/**
+	 * The unique ID number of each job.
+	 */
+	private int jobID;
+
 	/** 
 	 * A set of email values for each volunteer in this job. 
 	 */
 	private Set<String> volunteers;
-	//needs to be a map
+
+	/**
+	 * Maps of volunteer's email, and work categories.
+	 */
 	private Map<String, WorkCatagories> signedVolunteers;
 
 	/**
 	 * This represents a constructor method.
 	 * 
+	 * @param jobID unique ID number of each job.
 	 * @param parkName Name of the park.
 	 * @param jobName Name of the job.
 	 * @param date The date of the job.
 	 * @param jobDuration The length of the job in hours.
 	 */
-	public Job(final String parkName, final String jobName, 
+	public Job(final int jobID, final String parkName, final String jobName, 
 			final String date, final int jobDuration) {
 
+		this.jobID = jobID;
 		this.parkName = parkName;
 		this.jobName = jobName;
 		this.jobDuration = jobDuration;
 
 		setDate(date); //parse formatted string 'date' format:"m/d/yyyy hh:mmAM" see jobFile
 	}
-	
+
 	/**
 	 * The full Job constructor that takes in all required fields.
 	 */
-	public Job(final String parkName, final String jobName, 
+	public Job(final int jobID, final String parkName, final String jobName, 
 			final String date, final int jobDuration, 
 			final int currentLight, final int maxLight,
 			final int currentMedium, final int maxMedium,
 			final int currentHeavy, final int maxHeavy,
 			Map<String, WorkCatagories> volunteers) {
+
+		this.jobID = jobID;
 		this.parkName = parkName;
 		this.jobName = jobName;
 		this.jobDuration = jobDuration;
 		setDate(date);
-		
+
 		this.currentLight = currentLight;
 		this.maxLight = maxLight;
 		this.currentMedium = currentMedium;
 		this.maxMedium = maxMedium;
 		this.currentHeavy = currentHeavy;
 		this.maxHeavy = maxHeavy;
-		
+
 		if(volunteers==null) {
 			signedVolunteers = new HashMap<String, Job.WorkCatagories>();
 		} else {
 			signedVolunteers = volunteers;
 		}
-		
+
 	}
-	
+
 	/**
 	 * A copy constructor that creates a copy of the existing job.
 	 * @param job job to be cloned.
 	 */
 	public Job(Job job) {
-		this(job.getParkName(), job.getJobName(),
+		this(job.getJobID(), job.getParkName(), job.getJobName(),
 				new SimpleDateFormat("MM/dd/yyyy HH:mm a").format(job.getDate().getTime()), 
-			job.getJobDuration(), job.getCurrentLight(), job.getMaxLight(), 
-			job.getCurrentMedium(), job.getMaxMedium(), 
-			job.getCurrentHard(), job.getMaxHard(), null);//needs getVolunteers()
+				job.getJobDuration(), job.getCurrentLight(), job.getMaxLight(), 
+				job.getCurrentMedium(), job.getMaxMedium(), 
+				job.getCurrentHard(), job.getMaxHard(), null);//needs getVolunteers()
 	}
 
 	/**
@@ -200,8 +217,34 @@ public class Job {
 	}
 
 	/**
+	 * List of volunteers sign up for a job.
+	 * 
+	 * @return A string containing the emails of all the
+	 * 			volunteers in this job 
+	 */
+	public String volunteerSignUp() {
+		
+		StringBuilder sb = new StringBuilder();
+
+		int count = 0;
+
+		for(String email : volunteers) {
+			sb.append(email);
+			if(count < volunteers.size() - 1) {
+				sb.append(DELIM_STD);
+			}
+			count++;
+		}
+
+		return sb.toString();
+	}
+
+
+	/**
 	 * This method is to check whether the job is full or volunteer can still sign up.
 	 * @return True if this job can no longer accept volunteers.
+	 * 
+	 * add all getMax for each work categories to get if job is full or not
 	 */
 	public boolean isJobFull() {
 		return getVolunteerMax() <= volunteers.size();
@@ -212,6 +255,7 @@ public class Job {
 	 * @return The max number of volunteers for this job.
 	 */
 	public int getVolunteerMax() {
+		volunteerMax = getMaxLight() + getMaxMedium() + getMaxHard();
 		return volunteerMax;
 	}
 
@@ -266,8 +310,10 @@ public class Job {
 	public boolean valiDate(GregorianCalendar jobDate) {
 		if(!isCompleted(jobDate)) {
 			jobDate.add(Calendar.DAY_OF_MONTH, MAX_DAYS);
+
+			return true;
 		}
-		return true;	
+		return false;	
 	}
 
 	/**
@@ -285,7 +331,6 @@ public class Job {
 		}
 	}
 
-
 	/**
 	 * This represents toString() method.
 	 * @return String content
@@ -293,12 +338,21 @@ public class Job {
 	public String toString() {
 		//toString needs to include ALL fields for file printing
 		return parkName + "," + jobName + "," + 
-			new SimpleDateFormat("MM/dd/yyyy HH:mm a").format(date.getTime()) + 
-			"," + jobDuration + "," + currentLight + "," + maxLight + "," + 
-			currentMedium + "," +  maxMedium + "," +  
-			currentHeavy  + "," + maxHeavy; 
+		new SimpleDateFormat("MM/dd/yyyy HH:mm a").format(date.getTime()) + 
+		"," + jobDuration + "," + currentLight + "," + maxLight + "," + 
+		currentMedium + "," +  maxMedium + "," +  
+		currentHeavy  + "," + maxHeavy; 
 	}
-	
+
+	/**
+	 * This is a getter method that return the ID number of each job.
+	 * 
+	 * @return jobID unique ID number of each job
+	 */
+	public int getJobID() {
+		return jobID;
+	}
+
 	/**
 	 * This is a getter method that return the number of job length in hour.
 	 * 
@@ -307,7 +361,7 @@ public class Job {
 	public int getJobDuration() {
 		return jobDuration;
 	}
-	
+
 	/**
 	 * This is a getter method that returns a park name.
 	 * @return parkName name of a park

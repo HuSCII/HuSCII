@@ -1,13 +1,16 @@
 package models;
 
+import models.Job.WorkCatagories;
+
 public class Volunteer extends User {
 
-	protected Volunteer(String email, String firstName, String lastName) {
-		super(email, firstName, lastName);
+	protected Volunteer(String email, String firstName, String lastName,
+			String role) {
+		super(email, firstName, lastName, role);
 	}
 
-	public void signUp(Job parkJob) {
-		parkJob.addVolunteer(getEmail(), null);
+	public void signUp(Job parkJob, WorkCatagories category) {
+		parkJob.addVolunteer(getEmail(), category);
 	}
 
 	public void findSignUpJobs() {

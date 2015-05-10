@@ -1,15 +1,28 @@
+/*
+ * HuSCII (Group 2)
+ * TCSS 360 - Spring '15
+ * UserController.java
+ */
+
 package models;
 
-
+import java.util.List;
 import java.util.ArrayList;
 
+/**
+ * park manager
+ * 
+ * @author Jingzhu Guo
+ * @version 3 May 2015
+ */
 public class ParkManager extends User {
-	
-	private ArrayList<String> parkNames;
-	private ArrayList<Job> myJob;
+
+	/** Collection of the jobs this pm manages. */
+	private List<Job> myJobs;
+
+	/** Job controller. */
 	private JobController jobController = new JobController();
-	private Job parkJob;
-	
+
 	/**
 	 * Create a User of the parks manager.
 	 * 
@@ -22,100 +35,89 @@ public class ParkManager extends User {
 	 * @param role
 	 *            User's role.
 	 */
-	public ParkManager (final String email, final String firstName,
+	public ParkManager(final String email, final String firstName,
 			final String lastName, final String role) {
-		
+
 		super(email, firstName, lastName, role);
-		this.parkNames = new ArrayList<String>();
-		this.myJob = new ArrayList<Job>();
+		this.myJobs = new ArrayList<Job>();
 	}
-	
+
 	/**
-	 * add park in Park management system
-	 * @param park
-	 */
-	public void addPark(String park) {
-		
-		parkNames.add(park);
-		
-	}
-	
-	/**
-	 * create park jobs
+	 * Add job to park management system.
+	 * 
 	 * @param parkName
+	 *            Name of the park.
 	 * @param jobName
+	 *            Name of the job.
 	 * @param date
+	 *            Start date of job.
 	 * @param jobDuration
+	 *            Length of job in hours.
 	 */
-	public void createJob (String parkName, String jobName,
-						String date, int jobDuration) {
-		
-		parkJob = new Job(parkName, jobName, date, jobDuration);
-		
+	public void addJob(int jobID, String parkName, String jobName, String date,
+			int jobDuration) {
+
+		Job parkJob = new Job(jobID, parkName, jobName, date, jobDuration);
+
 		jobController.addJob(parkJob);
-		myJob.add(parkJob);	
-		
+
 	}
-	
+
 	/**
 	 * find the job that park manager submitted
+	 * 
+	 * @return List of Upcoming job that I manage.
+	 */
+	public List<Job> getMyJobs(int jobID) {
+		List<Job> upcomingJob = jobController.getUpcomingJobs();
+
+		if (upcomingJob.contains(jobID)) {
+			int i = upcomingJob.indexOf(jobID);
+			myJobs.add(upcomingJob.get(i));
+			return myJobs;
+		}
+		return null;
+
+	}
+
+	/**
+	 * need to work on this method
+	 * 
+	 * @param volunteer
+	 * @param job
 	 * @return
 	 */
-	public void findMyJob() {
-		
-		System.out.println(myJob.toString());
-	}
-	
-	public String findVolunteer (Volunteer volunteer, Job job) {
-		
+	public List<String> findVolunteer(Volunteer volunteer, Job job) {
+
 		return null;
 	}
-	
+
 	/**
 	 * print out park manager's info.
 	 */
 	public String toString() {
-		
-		return super.toString() + " " + parkNames.toString();
+
+		return super.toString() + "  Park Lists: " + parkNames.toString();
 	}
-	
-	
+
 	/**
+	 * main method to test the ParkManager class
 	 * 
-	 * @return The number of volunteers currently in the job.
+	 * @param agrs
 	 */
-	private void checkJobCapacity(String parkName) {
-		
-		ArrayList<Job> allJob = jobController.getAllJobs();  //I think we need a job ID
-		if (allJob.contains(parkName)) {					// to make each job unique.	
-			int jobIndex = allJob.indexOf(parkName);
-				System.out.println(allJob.get(jobIndex).getVolunteerCount());
-			
-		}
-		System.out.println( 0 );
-	}
-	
-	private void checkWeekAvailibility (Job job) {
-		
-		
-	}
-	
-	
 	public static void main(String[] agrs) {
-		
-		ParkManager manager = new ParkManager("judeguo83@gmail.com","Jude","Guo", "Park Manager");
-		
+
+		ParkManager manager = new ParkManager("judeguo83@gmail.com", "Jude",
+				"Guo", "park manager");
+
 		manager.addPark("alki");
 		manager.addPark("let's go");
-		
-		manager.createJob("alki", "trash picking up", "5/8/2015 9:30 am", 2);
-		manager.createJob("alki", "trash picking up", "5/8/2015 9:30 am", 2);
-		manager.createJob("alki", "trash picking up", "5/8/2015 9:30 am", 2);
-		
-		manager.findMyJob();
-		
-		
+
+		manager.addJob(123, "alki", "trash picking up", "5/8/2015 9:30 am", 2);
+		manager.addJob(121, "alki", "trash picking up", "5/8/2015 9:30 am", 2);
+		manager.addJob(120, "alki", "trash picking up", "5/8/2015 9:30 am", 2);
+
 		System.out.println(manager.toString());
-		
+
 	}
 }
