@@ -60,6 +60,8 @@ public class ParkManager extends User {
      * @return List of Upcoming job that I manage.
      */
     public List<Job> getMyJobs(User parkManager) {
+        
+        // Retrieve list of Upcoming jobs
         final List<Job> upcomingJobs = jobController.getUpcomingJobs();
         
         for(Job j:upcomingJobs){
