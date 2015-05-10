@@ -513,9 +513,9 @@ public class Job {
 		this.volunteerMax = volunteerMax;
 	}
 
-	public void setJobID(int jobID) {
-		this.jobID = jobID;
-	}
+//	public void setJobID(int jobID) {
+//		this.jobID = jobID;
+//	}
 
 	public void setVolunteers(Set<String> volunteers) {
 		this.volunteers = volunteers;

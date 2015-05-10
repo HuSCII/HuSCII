@@ -4,8 +4,11 @@
 
 package models;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import models.Job.WorkCatagories;
 
 /**
  * park manager.
@@ -46,11 +49,19 @@ public class ParkManager extends User {
      * @param date Start date of job.
      * @param jobDuration Length of job in hours.
      */
-    public int addJob(int jobID, String parkName, String jobName, String date, int jobDuration) {
+    public boolean addJob(String parkManagerEmail, String parkName, String jobName,
+                          String date, int jobDuration, int currentLight, int maxLight,
+                          int currentMed, int maxMed, int currentHvy, int maxHvy,
+                          Map<String, WorkCatagories> volunteers) {
 
-        jobController.addJob(new Job(jobID, parkName, jobName, date, jobDuration));
+        Job tempJob =
+                        new Job(parkManagerEmail, parkName, jobName, date, jobDuration,
+                                currentLight, maxLight, currentMed, maxMed, currentHvy,
+                                maxHvy, volunteers);
 
-        return jobID;
+        jobController.addJob(tempJob);
+
+        return true;
 
     }
 
