@@ -6,7 +6,7 @@ import models.JobController;
 import models.User;
 import models.UserController;
 
-public class MainTest {
+public class MainConsole {
 
 	static UserController userController;
 	static JobController jobController;

@@ -45,13 +45,17 @@ public class ParkManager extends User {
 	/**
 	 * Add job to park management system.
 	 * 
-	 * @param parkName Name of the park.
-	 * @param jobName Name of the job.
-	 * @param date Start date of job.
-	 * @param jobDuration Length of job in hours.
+	 * @param parkName
+	 *            Name of the park.
+	 * @param jobName
+	 *            Name of the job.
+	 * @param date
+	 *            Start date of job.
+	 * @param jobDuration
+	 *            Length of job in hours.
 	 */
-	public void addJob(int jobID, String parkName, String jobName,
-			String date, int jobDuration) {
+	public void addJob(int jobID, String parkName, String jobName, String date,
+			int jobDuration) {
 
 		Job parkJob = new Job(jobID, parkName, jobName, date, jobDuration);
 
@@ -109,12 +113,9 @@ public class ParkManager extends User {
 		manager.addPark("alki");
 		manager.addPark("let's go");
 
-		manager.addJob(123, "alki", "trash picking up", "5/8/2015 9:30 am",
-				2);
-		manager.addJob(121, "alki", "trash picking up", "5/8/2015 9:30 am",
-				2);
-		manager.addJob(120, "alki", "trash picking up", "5/8/2015 9:30 am",
-				2);
+		manager.addJob(123, "alki", "trash picking up", "5/8/2015 9:30 am", 2);
+		manager.addJob(121, "alki", "trash picking up", "5/8/2015 9:30 am", 2);
+		manager.addJob(120, "alki", "trash picking up", "5/8/2015 9:30 am", 2);
 
 		System.out.println(manager.toString());
 
