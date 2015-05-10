@@ -42,7 +42,7 @@ public class User {
 	 * @param role
 	 *            User's role.
 	 */
-	protected User(final String email, final String lastName,
+	public User(final String email, final String lastName,
 			final String firstName, final String role) {
 
 		this.email = email;
