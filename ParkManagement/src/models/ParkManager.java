@@ -49,17 +49,13 @@ public class ParkManager extends User {
      * @param date Start date of job.
      * @param jobDuration Length of job in hours.
      */
-    public boolean addJob(String parkManagerEmail, String parkName, String jobName,
-                          String date, int jobDuration, int currentLight, int maxLight,
-                          int currentMed, int maxMed, int currentHvy, int maxHvy,
-                          Map<String, WorkCatagories> volunteers) {
+    public boolean addJob(String parkName, String jobName, String date, int jobDuration,
+                          int currentLight, int maxLight, int currentMed, int maxMed,
+                          int currentHvy, int maxHvy, Map<String, WorkCatagories> volunteers) {
 
-        Job tempJob =
-                        new Job(parkManagerEmail, parkName, jobName, date, jobDuration,
-                                currentLight, maxLight, currentMed, maxMed, currentHvy,
-                                maxHvy, volunteers);
-
-        return jobController.addJob(tempJob);
+        return jobController.addJob(new Job(getEmail(), parkName, jobName, date, jobDuration,
+                                            currentLight, maxLight, currentMed, maxMed,
+                                            currentHvy, maxHvy, volunteers));
 
     }
 
@@ -69,14 +65,14 @@ public class ParkManager extends User {
      * @param parkManager The park manager retrieving its job.
      * @return List of Upcoming job that I manage.
      */
-    public List<Job> getMyJobs(User parkManager) {
+    public List<Job> getMyJobs(final User parkManager) {
 
         // Retrieve list of Upcoming jobs
         final List<Job> upcomingJobs = jobController.getUpcomingJobs();
         final List<Job> parkManagerJobs = new ArrayList<Job>();
 
         for (Job j : upcomingJobs) {
-            if (parkManager.getEmail().equals(j.getParkManagerEmail())) {
+            if (getEmail().equals(j.getParkManagerEmail())) {
                 parkManagerJobs.add(j);
             }
         }
