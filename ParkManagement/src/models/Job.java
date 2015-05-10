@@ -9,10 +9,12 @@ package models;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -23,6 +25,9 @@ import java.util.Set;
  * @version 4/4/2015
  */
 public class Job {
+
+	/** Delimiter used in string methods to separate values. */
+	private static final String DELIM_STD = ","; 
 
 	/**
 	 * The maximum days from the current date that the job can be added.
@@ -38,57 +43,57 @@ public class Job {
 	 * Name of the park.
 	 */
 	private String parkName;
-	
+
 	/**
 	 * Name of the job.
 	 */
 	private String jobName;
-	
+
 	/**
 	 * Date of a job using GregorianCalendar class.
 	 */
 	private GregorianCalendar date;
-	
+
 	/**
 	 * The length of a job in hours.
 	 */
 	private int jobDuration;
-	
+
 	/**
 	 * The current number of volunteer for light work category.
 	 */
 	private int currentLight;
-	
+
 	/**
 	 * The maximum number of volunteer for light work category.
 	 */
 	private int maxLight;
-	
+
 	/**
 	 * The current number of volunteer for medium work category.
 	 */
 	private int currentMedium;
-	
+
 	/**
 	 * The maximum number of volunteer for medium work category.
 	 */
 	private int maxMedium;
-	
+
 	/**
 	 * The current number of volunteer for heavy work category.
 	 */
 	private int currentHeavy;
-	
+
 	/**
 	 * The maximum number of volunteer for heavy work category.
 	 */
 	private int maxHeavy;
-	
+
 	/**
 	 * The maximum number of volunteer.
 	 */
 	private int volunteerMax;
-	
+
 	/**
 	 * The unique ID number of each job.
 	 */
@@ -98,7 +103,7 @@ public class Job {
 	 * A set of email values for each volunteer in this job. 
 	 */
 	private Set<String> volunteers;
-	
+
 	/**
 	 * Maps of volunteer's email, and work categories.
 	 */
@@ -123,7 +128,7 @@ public class Job {
 
 		setDate(date); //parse formatted string 'date' format:"m/d/yyyy hh:mmAM" see jobFile
 	}
-	
+
 	/**
 	 * The full Job constructor that takes in all required fields.
 	 */
@@ -133,28 +138,28 @@ public class Job {
 			final int currentMedium, final int maxMedium,
 			final int currentHeavy, final int maxHeavy,
 			Map<String, WorkCatagories> volunteers) {
-		
+
 		this.jobID = jobID;
 		this.parkName = parkName;
 		this.jobName = jobName;
 		this.jobDuration = jobDuration;
 		setDate(date);
-		
+
 		this.currentLight = currentLight;
 		this.maxLight = maxLight;
 		this.currentMedium = currentMedium;
 		this.maxMedium = maxMedium;
 		this.currentHeavy = currentHeavy;
 		this.maxHeavy = maxHeavy;
-		
+
 		if(volunteers==null) {
 			signedVolunteers = new HashMap<String, Job.WorkCatagories>();
 		} else {
 			signedVolunteers = volunteers;
 		}
-		
+
 	}
-	
+
 	/**
 	 * A copy constructor that creates a copy of the existing job.
 	 * @param job job to be cloned.
@@ -162,9 +167,9 @@ public class Job {
 	public Job(Job job) {
 		this(job.getJobID(), job.getParkName(), job.getJobName(),
 				new SimpleDateFormat("MM/dd/yyyy HH:mm a").format(job.getDate().getTime()), 
-			job.getJobDuration(), job.getCurrentLight(), job.getMaxLight(), 
-			job.getCurrentMedium(), job.getMaxMedium(), 
-			job.getCurrentHard(), job.getMaxHard(), null);//needs getVolunteers()
+				job.getJobDuration(), job.getCurrentLight(), job.getMaxLight(), 
+				job.getCurrentMedium(), job.getMaxMedium(), 
+				job.getCurrentHard(), job.getMaxHard(), null);//needs getVolunteers()
 	}
 
 	/**
@@ -210,6 +215,29 @@ public class Job {
 			}
 		}
 	}
+
+	/**
+	 * List of volunteers sign up for a job.
+	 * @return A string containing the emails of all the
+	 * 			volunteers in this job 
+	 */
+	public String volunteerSignUp() {
+		
+		StringBuilder sb = new StringBuilder();
+
+		int count = 0;
+
+		for(String email : volunteers) {
+			sb.append(email);
+			if(count < volunteers.size() - 1) {
+				sb.append(DELIM_STD);
+			}
+			count++;
+		}
+
+		return sb.toString();
+	}
+
 
 	/**
 	 * This method is to check whether the job is full or volunteer can still sign up.
@@ -281,7 +309,7 @@ public class Job {
 	public boolean valiDate(GregorianCalendar jobDate) {
 		if(!isCompleted(jobDate)) {
 			jobDate.add(Calendar.DAY_OF_MONTH, MAX_DAYS);
-			
+
 			return true;
 		}
 		return false;	
@@ -309,12 +337,12 @@ public class Job {
 	public String toString() {
 		//toString needs to include ALL fields for file printing
 		return parkName + "," + jobName + "," + 
-			new SimpleDateFormat("MM/dd/yyyy HH:mm a").format(date.getTime()) + 
-			"," + jobDuration + "," + currentLight + "," + maxLight + "," + 
-			currentMedium + "," +  maxMedium + "," +  
-			currentHeavy  + "," + maxHeavy; 
+		new SimpleDateFormat("MM/dd/yyyy HH:mm a").format(date.getTime()) + 
+		"," + jobDuration + "," + currentLight + "," + maxLight + "," + 
+		currentMedium + "," +  maxMedium + "," +  
+		currentHeavy  + "," + maxHeavy; 
 	}
-	
+
 	/**
 	 * This is a getter method that return the ID number of each job.
 	 * 
@@ -323,7 +351,7 @@ public class Job {
 	public int getJobID() {
 		return jobID;
 	}
-	
+
 	/**
 	 * This is a getter method that return the number of job length in hour.
 	 * 
@@ -332,7 +360,7 @@ public class Job {
 	public int getJobDuration() {
 		return jobDuration;
 	}
-	
+
 	/**
 	 * This is a getter method that returns a park name.
 	 * @return parkName name of a park
