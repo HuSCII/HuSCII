@@ -229,13 +229,13 @@ public class Job {
                 heavy+= email + ",";
             }
         }
-        if(heavy.length()>0) {
-            heavy.substring(0, heavy.length()-1);
-        }
 
         sb.append(light);
         sb.append(medium);
         sb.append(heavy);
+        if(sb.length()>0) {
+            sb.deleteCharAt(sb.length()-1);
+        }
         return sb.toString();
     }
 
