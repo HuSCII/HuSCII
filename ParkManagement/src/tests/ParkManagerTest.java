@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import models.Job;
@@ -23,15 +24,20 @@ public class ParkManagerTest {
     
     Job job;
     
-    Map<String, WorkCatagories> volunteers;
+    Map<String, WorkCatagories> volunteers = new HashMap<String, WorkCatagories>();
+    
+    List<Job> managedJobs;
+    
+    List<String> managedParks;
     
     @Before
     public void setUp() throws Exception {
+         
          controller = new JobController();
          manager = new ParkManager("manager@gmail.com", "John", "Iam", "manager");
-         volunteers = new HashMap<String, WorkCatagories>();
+         volunteers.put("janedoe@gmail.com", WorkCatagories.LIGHT);
          job = new Job("manager@gmail.com", "Disneyland Resort"
-, "picking up trash", "3/25/15", 12, 0, 3, 0, 5, 0, 7, volunteers);
+                       , "picking up trash", "05/08/2016 09:30 AM", 12, 0, 3, 0, 5, 0, 7, volunteers);
         
     }
 
@@ -45,6 +51,10 @@ public class ParkManagerTest {
         assertEquals("the manager's first name", "John", manager.getFirstName());
         assertEquals("the manager's last name", "Iam", manager.getLastName());
         assertEquals("the manager's role", "manager", manager.getRole());
+        assertEquals(managedJobs, manager.getMyJobs(controller));
+        assertEquals(managedParks, manager.getManagedParks());
+        assertEquals(manager.getManagedParks(), manager.retrieveManagedParks("/testFile.csv"));
+        
         
     }
 
@@ -56,7 +66,8 @@ public class ParkManagerTest {
     @Test
     public void testAddJob() {
         
-        assertEquals(manager.addJob(controller, "Disneyland Resort", "picking up trash", "3/25/15", 12, 3, 5, 7), controller.addJob(job));
+        assertEquals(manager.addJob(controller, "Disneyland Resort", "picking up trash", "05/08/2016 09:30 AM", 12, 3, 5, 7), 
+                     controller.addJob(job));
     }
 
     @Test
