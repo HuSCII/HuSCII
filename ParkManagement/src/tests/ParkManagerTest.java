@@ -1,58 +1,75 @@
 package tests;
 
 import static org.junit.Assert.*;
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import models.Job;
+import models.JobController;
 import models.ParkManager;
+import models.Job.WorkCatagories;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-/**
- * Unit test class for ParkManager class
- * @author Jingzhu Guo
- *
- */
 public class ParkManagerTest {
+    
+    ParkManager manager;
+    
+    JobController controller;
+    
+    Job job;
+    
+    Map<String, WorkCatagories> volunteers = new HashMap<String, WorkCatagories>();
+    
+    List<Job> managedJobs;
+    
+    List<String> managedParks;
+    
+    @Before
+    public void setUp() throws Exception {
+         
+         controller = new JobController();
+         manager = new ParkManager("manager@gmail.com", "Iam", "John", "manager");
+         volunteers.put("janedoe@gmail.com", WorkCatagories.LIGHT);
+         job = new Job("manager@gmail.com", "Disneyland Resort"
+                       , "picking up trash", "05/08/2016 09:30 AM", 12, 0, 3, 0, 5, 0, 7, volunteers);
+        
+    }
 
-	@Before
-	public void setUp() throws Exception {
-		
-		ParkManager manager = new ParkManager("abc@gmail.com", "John", "Wang", "Park Manager");
-		manager.addPark("ALkI");
-	}
+    @After
+    public void tearDown() throws Exception {
+    }
 
-	@After
-	public void tearDown() throws Exception {
-	}
+    @Test
+    public void testParkManager() {
+        assertEquals("the manager's email", "manager@gmail.com", manager.getEmail());
+        assertEquals("the manager's last name", "Iam", manager.getLastName());
+        assertEquals("the manager's last name", "John", manager.getFirstName());
+        assertEquals("the manager's role", "manager", manager.getRole());
+        
+    }
 
-	@Test
-	public void testToString() {
-		fail("Not yet implemented");
-	}
+    @Test
+    public void testRetrieveManagedParks() {
+        
+        assertEquals(null, manager.retrieveManagedParks("/testFile.csv"));
+        assertEquals(manager.getManagedParks(), manager.retrieveManagedParks("/testFile.csv"));
+    }
+    @Test
+    public void testAddJob() {
+        
+        assertEquals(manager.addJob(controller, "Disneyland Resort", "picking up trash", "05/08/2016 09:30 AM", 12, 3, 5, 7), 
+                     controller.addJob(job));
+    }
 
-	@Test
-	public void testParkManager() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testAddPark(ParkManager manager) {
-		assertEquals ("same park name","ALKI", manager.getParks() );
-	}
-
-	@Test
-	public void testCreateJob() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testFindMyJob() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testFindVolunteer() {
-		fail("Not yet implemented");
-	}
+    @Test
+    public void testGetMyJobs() {
+        assertEquals(manager.getMyJobs(controller), manager.getManagedJobs());
+    }
 
 }
