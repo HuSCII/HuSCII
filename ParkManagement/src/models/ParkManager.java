@@ -81,23 +81,11 @@ public class ParkManager extends User {
     }
 
     /**
-     * need to work on this method
-     * 
-     * @param volunteer
-     * @param job
-     * @return
-     */
-    public List<String> findVolunteer(final Volunteer volunteer, Job job) {
-
-        return null;
-    }
-
-    /**
      * print out park manager's info.
      */
     public String toString() {
 
-        return super.toString() + "  Park Lists: " + parkNames.toString();
+        return super.toString() + "  Park Lists: ";
     }
 
     /**
