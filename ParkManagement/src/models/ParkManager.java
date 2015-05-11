@@ -41,6 +41,12 @@ public class ParkManager extends User {
         this.jobController = jobController;
     }
 
+    public ParkManager(User user, JobController jobController) {
+        super(user.getEmail(), user.getFirstName(), user.getLastName(), user.getRole());
+        this.myJobs = new ArrayList<Job>();
+        this.jobController = jobController;
+    }
+
     /**
      * Add job to park management system.
      * 
