@@ -57,6 +57,7 @@ public class ParkManagerTest {
     @Test
     public void testRetrieveManagedParks() {
         
+        assertEquals(null, manager.retrieveManagedParks("/testFile.csv"));
         assertEquals(manager.getManagedParks(), manager.retrieveManagedParks("/testFile.csv"));
     }
     @Test

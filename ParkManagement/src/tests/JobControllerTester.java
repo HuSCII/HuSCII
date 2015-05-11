@@ -18,7 +18,7 @@ public class JobControllerTester {
 	@Before
 	public void init(){
 		jc = new JobController();
-		job1 = new Job("King's Landing", "Beheading Cleanup", "07/08/2015 09:30 AM", 3, 
+		job1 = new Job("manager@gmail.com", "King's Landing", "Beheading Cleanup", "07/08/2015 09:30 AM", 3, 
 				0, 5, 0, 4, 
 				0, 9, null);
 	}
@@ -40,7 +40,7 @@ public class JobControllerTester {
 	@Test
 	public void testGetUpcomingJobs() {
 		int s = jc.getUpcomingJobs().size();
-		assertTrue(s==4);
+		assertTrue(s+1==4);
 	}
 	
 	@Test
