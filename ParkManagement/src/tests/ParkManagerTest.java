@@ -34,7 +34,7 @@ public class ParkManagerTest {
     public void setUp() throws Exception {
          
          controller = new JobController();
-         manager = new ParkManager("manager@gmail.com", "John", "Iam", "manager");
+         manager = new ParkManager("manager@gmail.com", "Iam", "John", "manager");
          volunteers.put("janedoe@gmail.com", WorkCatagories.LIGHT);
          job = new Job("manager@gmail.com", "Disneyland Resort"
                        , "picking up trash", "05/08/2016 09:30 AM", 12, 0, 3, 0, 5, 0, 7, volunteers);
@@ -48,13 +48,9 @@ public class ParkManagerTest {
     @Test
     public void testParkManager() {
         assertEquals("the manager's email", "manager@gmail.com", manager.getEmail());
-        assertEquals("the manager's first name", "John", manager.getFirstName());
         assertEquals("the manager's last name", "Iam", manager.getLastName());
+        assertEquals("the manager's last name", "John", manager.getFirstName());
         assertEquals("the manager's role", "manager", manager.getRole());
-        assertEquals(managedJobs, manager.getMyJobs(controller));
-        assertEquals(managedParks, manager.getManagedParks());
-        assertEquals(manager.getManagedParks(), manager.retrieveManagedParks("/testFile.csv"));
-        
         
     }
 

@@ -35,10 +35,10 @@ public class ParkManager extends User {
      * @param firstName User's first name.
      * @param role User's role.
      */
-    public ParkManager(final String email, final String firstName, final String lastName,
+    public ParkManager(final String email, final String lastName, final String firstName,
                        final String role) {
 
-        super(email, firstName, lastName, role);
+        super(email, lastName, firstName, role);
         managedJobs = new ArrayList<Job>();
         managedParks = new ArrayList<String>();
         retrieveManagedParks("/testFile.csv");
@@ -115,11 +115,19 @@ public class ParkManager extends User {
 
     }
     
+    /**
+     * get the list of jobs that park manager manages
+     * @return
+     */
     public List<Job> getManagedJobs() {
         
         return managedJobs;
     }
     
+    /**
+     * get the name of parks that park manager manages
+     * @return
+     */
     public List<String> getManagedParks() {
         
         return managedParks;

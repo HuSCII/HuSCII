@@ -4,9 +4,9 @@ import models.Job.WorkCatagories;
 
 public class Volunteer extends User {
 
-    public Volunteer(String email, String firstName, String lastName,
+    public Volunteer(String email, String lastName, String firstName,
 			String role) {
-		super(email, firstName, lastName, role);
+		super(email, lastName, firstName, role);
 	}
 
 	public void signUp(Job parkJob, WorkCatagories category) {
