@@ -71,6 +71,7 @@ public class MainConsole {
             if (email.equals(u.getEmail())) {
                 System.out.println("Logging in ... SUCCESS!");
                 System.out.println("You are registered as: " + u.getRole());
+                System.out.println("");
                 currentUser = u;
                 return true;
             }
@@ -96,15 +97,16 @@ public class MainConsole {
                 break;
             case "administrator":
                 // Call administrator console controller class:
-                System.out.println("Administrator console class here");
+                final AdministratorConsole admin = new AdministratorConsole();
+                admin.menuScreen();
                 break;
-
             default:
                 break;
         }
     }
 
     private static void exitSystem() {
+        System.out.println("");
         System.out.println("Thank you for using the HuSCII Park Management System!");
         System.out.println("Logging out...");
         System.out.println("Program exiting...");

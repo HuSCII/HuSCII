@@ -14,7 +14,7 @@ public class AdministratorConsole {
     private static Scanner keyboard;
     private static UserController users;
 
-    public static void menuScreen() {
+    public void menuScreen() {
 
         keyboard = new Scanner(System.in);
 
