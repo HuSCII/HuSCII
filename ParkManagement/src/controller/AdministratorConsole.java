@@ -1,5 +1,8 @@
-package controller;
+/*
+ * 
+ */
 
+package controller;
 
 import java.util.Scanner;
 
@@ -10,7 +13,6 @@ public class AdministratorConsole {
 
     private static Scanner keyboard;
     private static UserController users;
-    private static User vol;
 
     public static void menuScreen() {
 
@@ -18,7 +20,7 @@ public class AdministratorConsole {
 
         System.out.println("Welcome To Administrator Page");
         System.out.println("------------------------------");
-        System.out.println("1. View Volunteer by Last Name");
+        System.out.println("1. Search Volunteer by Last Name");
         System.out.println("2. Logout");
         System.out.println("3. Exit");
         System.out.println("Please select menu choice 1-3: ");
@@ -51,18 +53,12 @@ public class AdministratorConsole {
      * @param lastName Volunteer's last name
      * @return true if volunteer's last name exists; otherwise, false.
      */
-    private static boolean hasLastName(String lastName) {
-
-        for (User user : users.getUserList()) {
-            if(lastName.equals(user.getLastName())) {
-                user.toString();
-                System.out.println("sdfds");
+    private static boolean hasLastName(final String lastName) {
+        for (User user : users.getVolunteers(lastName)) {
+            if (lastName.equalsIgnoreCase(user.getLastName())) {
                 return true;
             }
         }
-        System.out.println("No Volunter Found!");
-        System.out.println("Please Try Again!");
-
         return false;
     }
 
@@ -76,16 +72,30 @@ public class AdministratorConsole {
 
         users = new UserController();
         users.readUserFile("/testFile.csv");
-
-        if(hasLastName(lastName)) {
-            users.getVolunteers(lastName);
+        
+        if (hasLastName(lastName)) {
             
-            //print out data 
+            System.out.println("");
+            System.out.println("Volunteer Information ");
+            System.out.println("---------------------");
+
+            for (User u : users.getUserList()) {
+                if (u.getLastName().equals(lastName)
+                        && u.getRole().equals("volunteer")) {
+                    System.out.println("Name: " + u.getFirstName() + " " + u.getLastName());
+                    System.out.println("Email: " + u.getEmail());
+                }
+            }
+        } else {
+            System.out.println("No Volunter Found!");
+            System.out.println("Please Try Again!");
+            
+            searchVolunteer();
         }
     }
-
-    public static void main(String[] args) {
-        menuScreen();
-    }
+//
+//    public static void main(String[] args) {
+//        menuScreen();
+//    }
 
 }
