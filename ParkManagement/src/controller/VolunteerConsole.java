@@ -1,62 +1,73 @@
+
 package controller;
 
 import java.util.Scanner;
 
+import models.JobController;
 import models.User;
 import models.Volunteer;
 
 public class VolunteerConsole {
-	
-	
-	public static void volunteerStart(Volunteer volunteer) {
-		int choice = 1;
-		Scanner in = new Scanner(System.in);
-		
-		while(choice!=0) {
-			System.out.println("Welcome back Volunteer!");
-			System.out.println("Select an option from the list below.");
-			
-			System.out.println("1. View my contact information.");
-			System.out.println("2. View all upcoming jobs.");
-			System.out.println("3. View jobs volunteer has signed up for.");
-			System.out.println("0. Exit.");
-			System.out.print("Make a selection: ");
-			choice = in.nextInt();
-			
-			switch(choice) {
-				case 1:
-					break;
-				case 2:
-					break;
-				case 3:
-				    break;
-				case 0:
-					break;
-				default:
-					System.out.println("Bad Input");
-					break;
-			}
-		}
-		
-	}
 
-	public static void viewUpcomingJobs() {
-		
-	}
-	
-	public static void viewSignedUpJobs() {
-		
-	}
-	
-	public static void signMeUp() {
-		
-	}
-	
-	public static void main(String[] args) {
-		User user = new User("mickeymouse@gmail.com", 
-			"Mouse", "Mickey", "Volunteer");
+    public static JobController jobController;
+    private static Scanner keyboard;
+    public static Volunteer volunteer;
 
-		volunteerStart(volunteer);
-	}
+    public VolunteerConsole(User user, JobController jobController) {
+
+        volunteer = (Volunteer) user;
+
+    }
+
+    public void displayMenu() {
+        keyboard = new Scanner(System.in);
+
+        System.out.println("Welcome To Volunteer Page");
+        System.out.println("------------------------------");
+        System.out.println("1. View all upcoming jobs.");
+        System.out.println("2. View jobs I have signed up for.");
+        System.out.println("3. Logout");
+        System.out.println("4. Exit");
+        System.out.println("Please select menu choice 1-4: ");
+
+        final int menuSelect = keyboard.nextInt();
+
+        switch (menuSelect) {
+            case 1: // View upcoming jobs
+                break;
+            case 2: // View signedup jobs
+                break;
+            case 3: // Logout
+                final String[] args = {};
+                MainConsole.main(args);
+                break;
+            case 4: // Exit
+                break;
+            default:
+                System.out.println("Not in a menu choice");
+                System.out.println("Please Try Again!\n");
+                displayMenu();
+                break;
+        }
+
+    }
+
+    public static void viewUpcomingJobs() {
+
+        System.out.println("View available upcoming jobs:");
+
+    }
+
+    public static void viewSignedUpJobs() {
+
+        System.out.println("Viewing the jobs you have signed up for:");
+
+    }
+
+    public static void signMeUp() {
+
+        System.out.println("Sign up for this job:");
+
+    }
 
 }

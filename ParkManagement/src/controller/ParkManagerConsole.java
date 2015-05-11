@@ -35,9 +35,9 @@ public class ParkManagerConsole {
         System.out.println("5. Exit");
         System.out.println("Please select menu choice 1-5: ");
 
-        final int menu = keyboard.nextInt();
+        final int menuSelect = keyboard.nextInt();
 
-        switch (menu) {
+        switch (menuSelect) {
             case 1:
                 submitJob();
                 break;
@@ -54,8 +54,7 @@ public class ParkManagerConsole {
                 break;
             default:
                 System.out.println("Not in a menu choice");
-                System.out.println("Please Try Again!");
-                System.out.println("");
+                System.out.println("Please Try Again!\n");
                 displayMenu();
                 break;
         }
@@ -64,6 +63,8 @@ public class ParkManagerConsole {
     public static void submitJob() {
 
         keyboard = new Scanner(System.in);
+
+        System.out.println("Submit a new park job:");
 
         System.out.print("Enter Park Name: ");
         String parkName = keyboard.nextLine();
@@ -93,22 +94,25 @@ public class ParkManagerConsole {
     public static void viewMyJobs() {
         System.out.println("Viewing upcoming jobs:");
 
-        final List<String> myParks = parkManager.retrieveManagedParks("/testFile.csv");
-        final List<Job> myJobs = new ArrayList<Job>();
+        // final List<String> myParks =
+        // parkManager.retrieveManagedParks("/testFile.csv");
+        // final List<Job> myJobs = new ArrayList<Job>();
+        //
+        // // Go through all jobs and extract ones belonging to this park
+        // manager
+        // for (Job j : jobController.getUpcomingJobs()) {
+        // System.out.println(j.getJobName());
+        // System.out.println(j.getParkName());
+        // for (String park : myParks) {
+        // System.out.println(park);
+        // if (park.equals(j.getParkName())) {
+        // myJobs.add(j);
+        // System.out.println(j.getParkName());
+        // }
+        // }
+        // }
 
-        // Go through all jobs and extract ones belonging to this park manager
-        for (Job j : jobController.getUpcomingJobs()) {
-            System.out.println(j.getJobName());
-            System.out.println(j.getParkName());
-            for (String park : myParks) {
-                System.out.println(park);
-                if (park.equals(j.getParkName())) {
-                    myJobs.add(j);
-                    System.out.println(j.getParkName());
-                    System.out.println("SDFSD!");
-                }
-            }
-        }
+        System.out.println(parkManager.getMyJobs(jobController));
     }
 
     public static void viewVolunteers() {

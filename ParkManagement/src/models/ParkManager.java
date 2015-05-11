@@ -24,6 +24,9 @@ import models.Job.WorkCatagories;
  */
 public class ParkManager extends User {
 
+    List<Job> managedJobs;
+    List<String> managedParks;
+
     /**
      * Create a User of the parks manager.
      * 
@@ -36,17 +39,19 @@ public class ParkManager extends User {
                        final String role) {
 
         super(email, firstName, lastName, role);
+        managedJobs = new ArrayList<Job>();
+        managedParks = new ArrayList<String>();
+        retrieveManagedParks("/jobFile.csv");
 
     }
 
     public List<String> retrieveManagedParks(final String inputFile) {
 
-        final List<String> managedParks = new ArrayList<String>();
-
         try {
             final URL url = ParkManager.class.getResource(inputFile);
             final File userFile = new File(url.toURI());
             final Scanner fileInput = new Scanner(userFile);
+            System.out.println("HELLO!");
 
             // For each line of text, split it up using "," as delimiter
             while (fileInput.hasNext()) {
@@ -61,7 +66,8 @@ public class ParkManager extends User {
             }
             fileInput.close();
 
-        } catch (final FileNotFoundException | URISyntaxException e) {
+        }
+        catch (final FileNotFoundException | URISyntaxException e) {
             e.printStackTrace();
         }
         return null;
@@ -95,6 +101,7 @@ public class ParkManager extends User {
 
         // Retrieve list of Upcoming jobs
         final List<Job> upcomingJobs = jobController.getUpcomingJobs();
+        System.out.println("Upcoming jobs" + upcomingJobs);
         final List<Job> parkManagerJobs = new ArrayList<Job>();
 
         for (Job j : upcomingJobs) {
@@ -106,13 +113,4 @@ public class ParkManager extends User {
         return parkManagerJobs;
 
     }
-
-    /**
-     * print out park manager's info.
-     */
-    public String toString() {
-
-        return super.toString();
-    }
-
 }

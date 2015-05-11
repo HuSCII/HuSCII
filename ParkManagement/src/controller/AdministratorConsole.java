@@ -14,7 +14,7 @@ public class AdministratorConsole {
     private static Scanner keyboard;
     private static UserController users;
 
-    public static void menuScreen() {
+    public static void displayMenu() {
 
         keyboard = new Scanner(System.in);
 
@@ -42,7 +42,7 @@ public class AdministratorConsole {
                 System.out.println("Please Try Aagain!");
                 System.out.println("");
                 AdministratorConsole driver = new AdministratorConsole();
-                driver.menuScreen();
+                driver.displayMenu();
                 break;
         }
 
@@ -96,7 +96,7 @@ public class AdministratorConsole {
         }
         System.out.println();
         // Go to menuScreen() again when done:
-        menuScreen();
+        displayMenu();
     }
     //
     // public static void main(String[] args) {
