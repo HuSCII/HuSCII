@@ -143,7 +143,7 @@ public class Job {
         if(volunteers==null) {
             volunteers = new HashMap<String, Job.WorkCatagories>();
         } else {
-            volunteers = volunteers;
+            this.volunteers = volunteers;
         }
 
     }
@@ -157,7 +157,7 @@ public class Job {
              new SimpleDateFormat("MM/dd/yyyy HH:mm a").format(job.getDate().getTime()), 
              job.getJobDuration(), job.getCurrentLight(), job.getMaxLight(), 
              job.getCurrentMedium(), job.getMaxMedium(), 
-             job.getCurrentHard(), job.getMaxHard(), null);//needs getVolunteers()
+             job.getCurrentHard(), job.getMaxHard(), job.volunteers);//needs getVolunteers()
     }
 
     /**
@@ -211,6 +211,9 @@ public class Job {
      * 			volunteers in this job 
      */
     public String volunteerSignUp() {
+        if(volunteers==null) {
+            return null;
+        }
 
         StringBuilder sb = new StringBuilder();
 
@@ -343,12 +346,24 @@ public class Job {
      * @return String content
      */
     public String toString() {
-        //toString needs to include ALL fields for file printing
-        return parkManagerEmail + "," + parkName + "," + jobName + "," + 
-        new SimpleDateFormat("MM/dd/yyyy HH:mm a").format(date.getTime()) + 
-        "," + jobDuration + "," + currentLight + "," + maxLight + "," + 
-        currentMedium + "," +  maxMedium + "," +  
-        currentHeavy  + "," + maxHeavy + "," + volunteerSignUp(); 
+        //toString needs to include fields for file printing
+        StringBuilder sb = new StringBuilder();
+        sb.append(parkManagerEmail + ",");
+        sb.append(parkName + ",");
+        sb.append(jobName + ",");
+        sb.append(new SimpleDateFormat("MM/dd/yyyy HH:mm a").format(date.getTime()) + ",");
+        sb.append(jobDuration + ",");
+        sb.append(currentLight + ",");
+        sb.append(maxLight + ",");
+        sb.append(currentMedium + ",");
+        sb.append(maxMedium + ",");
+        sb.append(currentHeavy + ",");
+        sb.append(maxHeavy);
+        if(volunteers!=null) {
+            sb.append("," + volunteerSignUp()); 
+        }
+        
+        return sb.toString();
     }
 
     //	/**
