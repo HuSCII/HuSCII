@@ -163,15 +163,15 @@ public class VolunteerConsole {
 
         switch (workCat) {
             case "light":
-                upcomingJobs.get(choice).addVolunteer(volunteer.getEmail(),
+                upcomingJobs.get(choice-1).addVolunteer(volunteer.getEmail(),
                                                       WorkCatagories.LIGHT);
                 break;
             case "medium":
-                upcomingJobs.get(choice).addVolunteer(volunteer.getEmail(),
+                upcomingJobs.get(choice-1).addVolunteer(volunteer.getEmail(),
                                                       WorkCatagories.MEDIUM);
                 break;
             case "heavy":
-                upcomingJobs.get(choice).addVolunteer(volunteer.getEmail(),
+                upcomingJobs.get(choice-1).addVolunteer(volunteer.getEmail(),
                                                       WorkCatagories.HEAVY);
                 break;
             default:
