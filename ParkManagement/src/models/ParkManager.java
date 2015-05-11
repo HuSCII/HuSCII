@@ -4,9 +4,15 @@
 
 package models;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Scanner;
 
 import models.Job.WorkCatagories;
 
@@ -30,6 +36,36 @@ public class ParkManager extends User {
                        final String role) {
 
         super(email, firstName, lastName, role);
+
+    }
+
+    public List<String> retrieveManagedParks(final String inputFile) {
+
+        final List<String> managedParks = new ArrayList<String>();
+
+        try {
+            final URL url = ParkManager.class.getResource(inputFile);
+            final File userFile = new File(url.toURI());
+            final Scanner fileInput = new Scanner(userFile);
+
+            // For each line of text, split it up using "," as delimiter
+            while (fileInput.hasNext()) {
+                final List<String> userData = Arrays.asList(fileInput.nextLine().split(","));
+                if (userData.get(0).equals(getEmail())) {
+                    for (int i = 4; i < userData.size(); i++) {
+                        managedParks.add(userData.get(i));
+                    }
+                    return managedParks;
+                }
+
+            }
+            fileInput.close();
+
+        } catch (final FileNotFoundException | URISyntaxException e) {
+            e.printStackTrace();
+        }
+        return null;
+
     }
 
     /**
@@ -76,15 +112,7 @@ public class ParkManager extends User {
      */
     public String toString() {
 
-        return super.toString() + "  Park Lists: ";
+        return super.toString();
     }
 
-    /**
-     * main method to test the ParkManager class
-     * 
-     * @param args
-     */
-    public static void main(String[] args) {
-
-    }
 }

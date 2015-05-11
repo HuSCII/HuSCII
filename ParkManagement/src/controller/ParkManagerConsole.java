@@ -1,7 +1,8 @@
 
 package controller;
 
-import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import models.Job;
@@ -30,8 +31,8 @@ public class ParkManagerConsole {
         System.out.println("1. Submit a New Job");
         System.out.println("2. View Upcoming Jobs");
         System.out.println("3. View Volunteers");
-        System.out.println("4. Quit to program");
-        System.out.println("5. Quit");
+        System.out.println("4. Logout");
+        System.out.println("5. Exit");
         System.out.println("Please select menu choice 1-5: ");
 
         final int menu = keyboard.nextInt();
@@ -41,7 +42,7 @@ public class ParkManagerConsole {
                 submitJob();
                 break;
             case 2:
-                viewUpcomingJob();
+                viewMyJobs();
                 break;
             case 3:
                 viewVolunteers();
@@ -89,9 +90,25 @@ public class ParkManagerConsole {
                            hvyMax);
     }
 
-    public static void viewUpcomingJob() {
+    public static void viewMyJobs() {
         System.out.println("Viewing upcoming jobs:");
 
+        final List<String> myParks = parkManager.retrieveManagedParks("/testFile.csv");
+        final List<Job> myJobs = new ArrayList<Job>();
+
+        // Go through all jobs and extract ones belonging to this park manager
+        for (Job j : jobController.getUpcomingJobs()) {
+            System.out.println(j.getJobName());
+            System.out.println(j.getParkName());
+            for (String park : myParks) {
+                System.out.println(park);
+                if (park.equals(j.getParkName())) {
+                    myJobs.add(j);
+                    System.out.println(j.getParkName());
+                    System.out.println("SDFSD!");
+                }
+            }
+        }
     }
 
     public static void viewVolunteers() {

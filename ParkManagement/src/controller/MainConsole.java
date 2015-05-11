@@ -91,9 +91,9 @@ public class MainConsole {
                 break;
             case "park manager":
                 // Call park manager console controller class:
-                final ParkManagerConsole parkManager =
+                final ParkManagerConsole parkManagerConsole =
                                 new ParkManagerConsole(currentUser, jobController);
-                parkManager.displayMenu();
+                parkManagerConsole.displayMenu();
                 break;
             case "administrator":
                 // Call administrator console controller class:
