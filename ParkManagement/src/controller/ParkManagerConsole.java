@@ -1,6 +1,7 @@
 
 package controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -93,26 +94,25 @@ public class ParkManagerConsole {
 
     public static void viewMyJobs() {
         System.out.println("Viewing upcoming jobs:");
+        System.out.println();
 
-        // final List<String> myParks =
-        // parkManager.retrieveManagedParks("/testFile.csv");
-        // final List<Job> myJobs = new ArrayList<Job>();
-        //
-        // // Go through all jobs and extract ones belonging to this park
-        // manager
-        // for (Job j : jobController.getUpcomingJobs()) {
-        // System.out.println(j.getJobName());
-        // System.out.println(j.getParkName());
-        // for (String park : myParks) {
-        // System.out.println(park);
-        // if (park.equals(j.getParkName())) {
-        // myJobs.add(j);
-        // System.out.println(j.getParkName());
-        // }
-        // }
-        // }
-
-        System.out.println(parkManager.getMyJobs(jobController));
+        for (Job j : parkManager.getMyJobs(jobController)) {
+            System.out.println(j.getParkName());
+            System.out.println(j.getJobName());
+            System.out.println("Start date & time: "
+                               + new SimpleDateFormat("MM/dd/yyyy HH:mm a").format(j.getDate()
+                                               .getTime()));
+            System.out.println("Duration: " + j.getJobDuration() + " hours");
+            System.out.println(j.getCurrentLight() + " out of " + j.getMaxLight()
+                               + " light-duty volunteers.");
+            System.out.println(j.getCurrentMedium() + " out of " + j.getMaxMedium()
+                               + " medium-duty volunteers.");
+            System.out.println(j.getCurrentHard() + " out of " + j.getMaxHard()
+                               + " heavy-duty volunteers.");
+            System.out.println("Volunteers: ");
+            for(User u:j.get)
+        }
+        System.out.println();
 
     }
 

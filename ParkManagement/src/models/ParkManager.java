@@ -41,7 +41,6 @@ public class ParkManager extends User {
         super(email, firstName, lastName, role);
         managedJobs = new ArrayList<Job>();
         managedParks = new ArrayList<String>();
-        retrieveManagedParks("/testFile.csv");
 
     }
 
@@ -103,6 +102,7 @@ public class ParkManager extends User {
 
         // Retrieve list of Upcoming jobs
         final List<Job> upcomingJobs = jobController.getUpcomingJobs();
+        //System.out.println("Upcoming jobs" + upcomingJobs);
         final List<Job> parkManagerJobs = new ArrayList<Job>();
 
         for (Job j : upcomingJobs) {
@@ -113,5 +113,18 @@ public class ParkManager extends User {
 
         return parkManagerJobs;
 
+    }
+
+    public static void main(String[] args) {
+        System.out.println("Testing out parkmanager class");
+
+        JobController testJobController = new JobController("src/jobFile.csv");
+
+        ParkManager testManager =
+                        new ParkManager("walderfrey@gmail.com", "Walder", "Frey",
+                                        "park manager");
+
+        System.out.println(testManager.retrieveManagedParks("/testFile.csv"));
+        System.out.println(testManager.getMyJobs(testJobController));
     }
 }

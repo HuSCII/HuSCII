@@ -223,6 +223,7 @@ public class JobController {
 	    System.out.println(controller.addJob(job));
 	    System.out.println(controller.toString());
 	    jl = (ArrayList<Job>) controller.getUpcomingJobs();
+	    System.out.println(controller.getUpcomingJobs());
 	}
 	
 }
