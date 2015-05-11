@@ -112,7 +112,7 @@ public class ParkManagerConsole {
         // }
         // }
 
-        parkManager.getMyJobs(jobController);
+        System.out.println(parkManager.getMyJobs(jobController));
 
     }
 
