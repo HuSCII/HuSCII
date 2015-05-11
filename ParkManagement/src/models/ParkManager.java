@@ -50,12 +50,11 @@ public class ParkManager extends User {
      * @param jobDuration Length of job in hours.
      */
     public boolean addJob(String parkName, String jobName, String date, int jobDuration,
-                          int currentLight, int maxLight, int currentMed, int maxMed,
-                          int currentHvy, int maxHvy, Map<String, WorkCatagories> volunteers) {
+                          int maxLight, int maxMed, int maxHvy,
+                          Map<String, WorkCatagories> volunteers) {
 
         return jobController.addJob(new Job(getEmail(), parkName, jobName, date, jobDuration,
-                                            currentLight, maxLight, currentMed, maxMed,
-                                            currentHvy, maxHvy, volunteers));
+                                            0, maxLight, 0, maxMed, 0, maxHvy, volunteers));
 
     }
 
@@ -104,21 +103,9 @@ public class ParkManager extends User {
     /**
      * main method to test the ParkManager class
      * 
-     * @param agrs
+     * @param args
      */
-    public static void main(String[] agrs) {
-
-        ParkManager manager =
-                        new ParkManager("judeguo83@gmail.com", "Jude", "Guo", "park manager");
-
-        manager.addPark("alki");
-        manager.addPark("let's go");
-
-        manager.addJob(123, "alki", "trash picking up", "5/8/2015 9:30 am", 2);
-        manager.addJob(121, "alki", "trash picking up", "5/8/2015 9:30 am", 2);
-        manager.addJob(120, "alki", "trash picking up", "5/8/2015 9:30 am", 2);
-
-        System.out.println(manager.toString());
+    public static void main(String[] args) {
 
     }
 }
