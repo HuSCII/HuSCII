@@ -2,7 +2,6 @@
 package controller;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -10,19 +9,23 @@ import models.Job;
 import models.JobController;
 import models.ParkManager;
 import models.User;
+import models.UserController;
 
 public class ParkManagerConsole {
 
     public static JobController jobController;
+    public static UserController userController;
     private static Scanner keyboard;
     public static ParkManager parkManager;
 
-    public ParkManagerConsole(User user, JobController jobController) {
+    public ParkManagerConsole(User user, JobController jobController,
+                              UserController userController) {
         parkManager =
                         new ParkManager(user.getEmail(), user.getFirstName(),
                                         user.getLastName(), user.getRole());
         keyboard = new Scanner(System.in);
         ParkManagerConsole.jobController = jobController;
+        ParkManagerConsole.userController = userController;
     }
 
     public void displayMenu() {
@@ -34,7 +37,8 @@ public class ParkManagerConsole {
         System.out.println("3. View Volunteers");
         System.out.println("4. Logout");
         System.out.println("5. Exit");
-        System.out.println("Please select menu choice 1-5: ");
+        System.out.print("Please select menu choice 1-5: ");
+        System.out.println();
 
         final int menuSelect = keyboard.nextInt();
 
@@ -59,6 +63,7 @@ public class ParkManagerConsole {
                 displayMenu();
                 break;
         }
+        displayMenu();
     }
 
     public static void submitJob() {
@@ -109,16 +114,48 @@ public class ParkManagerConsole {
                                + " medium-duty volunteers.");
             System.out.println(j.getCurrentHard() + " out of " + j.getMaxHard()
                                + " heavy-duty volunteers.");
-            System.out.println("Volunteers: ");
-            for(User u:j.get)
         }
         System.out.println();
 
     }
 
     public static void viewVolunteers() {
-        System.out.println("Viewing voluteers:");
+
+        // Display the list pm's jobs:
+        System.out.println("Select a job to view its volunteers:");
+        List<Job> tempJobs = parkManager.getMyJobs(jobController);
+        int i = 1;
+        for (Job j : tempJobs) {
+            System.out.print(i++ + ") ");
+            System.out.print(j.getJobName() + " at ");
+            System.out.print(j.getParkName() + " on ");
+            System.out.println(new SimpleDateFormat("MM/dd/yyyy HH:mm a").format(j.getDate()
+                            .getTime()));
+            System.out.println();
+        }
+
+        // Ask user to choose from the list
+        keyboard = new Scanner(System.in);
+        System.out.print("Enter a number from the list: ");
+        int choice = keyboard.nextInt();
+        while (choice < 0 || choice > tempJobs.size()) {
+            System.out.print("Please make a selection from the list: ");
+            choice = keyboard.nextInt();
+        }
+
+        // Display volunteers of the selected jobs:
+        System.out.println("Volunteers:");
+        for (String volunteer : tempJobs.get(choice - 1).getVolunteerEmails()) {
+            for (User u : userController.getUserList()) {
+                if (u.getEmail().equals(volunteer)) {
+                    System.out.print(u.getFirstName() + " ");
+                    System.out.print(u.getLastName() + ", ");
+                    System.out.println(u.getEmail());
+                }
+            }
+        }
+
+        System.out.println(); // Spacer
 
     }
-
 }
