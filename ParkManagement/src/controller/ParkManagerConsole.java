@@ -71,9 +71,20 @@ public class ParkManagerConsole {
         keyboard = new Scanner(System.in);
 
         System.out.println("Submit a new park job:");
-
-        System.out.print("Enter Park Name: ");
-        String parkName = keyboard.nextLine();
+       
+        String parkName;
+        boolean check = true;
+        do{
+            System.out.print("Enter Park Name: ");
+            parkName = keyboard.nextLine();
+            for(parkManager.retrieveManagedParks("")) {
+                //search through list of parks
+            }
+            if(check) {
+                System.out.println("You don't manage that park.");
+            }
+        } while();
+        
 
         System.out.print("Enter a Job name (ie trash pickup): ");
         String jobName = keyboard.nextLine();
@@ -93,6 +104,11 @@ public class ParkManagerConsole {
         System.out.print("Enter max number of heavy-duty volunteers needed: ");
         int hvyMax = keyboard.nextInt();
 
+        //validate with business rules
+        if() {
+            
+        }
+        
         parkManager.addJob(jobController, parkName, jobName, date, duration, lightMax, medMax,
                            hvyMax);
     }

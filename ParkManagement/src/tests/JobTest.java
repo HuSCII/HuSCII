@@ -46,11 +46,11 @@ public class JobTest {
                            7, 1, 5, 2, 5, 3, 5, signedVolunteers);
 
         //represent future date
-        testJob2 = new Job("walderfrey111@gmail.com", "Wright Park Tacoma", "Trash Pickup", "05/08/2016 09:30 AM", 
+        testJob2 = new Job("walderfrey@gmail.com", "Wright Park Tacoma", "Trash Pickup", "05/08/2016 09:30 AM", 
                            48, 1, 5, 2, 5, 3, 5, signedVolunteers);
 
         //represent date within 3 months from today
-        testJob3 = new Job("walderfrey111@gmail.com", "Wright Park Tacoma", "Trash Pickup", "06/08/2015 09:30 AM", 
+        testJob3 = new Job("walderfrey@gmail.com", "Wright Park Tacoma", "Trash Pickup", "06/08/2015 09:30 AM", 
                            50, 1, 5, 2, 5, 3, 5, signedVolunteers);
     }
 

@@ -50,13 +50,13 @@ public class JobController {
 	 * Adds a job to the list if maximum hasn't been reached.
 	 * @param job job to be added to allJobs.
 	 */
-	public boolean addJob(Job job) {
-		if(checkMaxJobs() && checkJobWeek(job)) {
+	public void addJob(Job job) {
+		//if(checkMaxJobs() && checkJobWeek(job)) {
 			//check week
 			allJobs.add(job);
-			return true;
-		}
-		return false;
+			//return true;
+		//}
+		//return false;
 	}
 	
 	/**
@@ -180,7 +180,7 @@ public class JobController {
 	 * Checks if the maximum job limit has been reached.
 	 * @return whether maximum is met.
 	 */
-	private boolean checkMaxJobs() {
+	public boolean checkMaxJobs() {
 		if(allJobs.size()<MAX_JOBS) {
 			return true;
 		}
@@ -191,7 +191,7 @@ public class JobController {
 	 * Checks if the week quota(5) has been met for a given week.
 	 * @return whether week quota is met.
 	 */
-	private boolean checkJobWeek(Job job) {
+	public boolean checkJobWeek(Job job) {
 		GregorianCalendar pastDate = new GregorianCalendar(job.getDate().getTimeZone());
 		GregorianCalendar futureDate = new GregorianCalendar(job.getDate().getTimeZone());
 		int count = 0;

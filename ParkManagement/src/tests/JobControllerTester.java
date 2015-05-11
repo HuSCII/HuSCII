@@ -12,7 +12,7 @@ import org.junit.Test;
 
 public class JobControllerTester {
 	//variables
-	Job job1;
+	Job job1, job2, job3, job4;
 	JobController jc;
 	
 	@Before
