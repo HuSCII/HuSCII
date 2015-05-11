@@ -211,7 +211,7 @@ public class Job {
      * 			volunteers in this job 
      */
     public String volunteerSignUp() {
-        if(volunteers==null) {
+        if(volunteers.isEmpty()) {
             return null;
         }
 
@@ -359,7 +359,7 @@ public class Job {
         sb.append(maxMedium + ",");
         sb.append(currentHeavy + ",");
         sb.append(maxHeavy);
-        if(volunteers!=null) {
+        if(!volunteers.isEmpty()) {
             sb.append("," + volunteerSignUp()); 
         }
         
