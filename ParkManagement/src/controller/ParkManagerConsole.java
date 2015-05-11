@@ -112,7 +112,8 @@ public class ParkManagerConsole {
         // }
         // }
 
-        System.out.println(parkManager.getMyJobs(jobController));
+        parkManager.getMyJobs(jobController);
+
     }
 
     public static void viewVolunteers() {

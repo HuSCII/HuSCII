@@ -41,17 +41,17 @@ public class ParkManager extends User {
         super(email, firstName, lastName, role);
         managedJobs = new ArrayList<Job>();
         managedParks = new ArrayList<String>();
-        retrieveManagedParks("/jobFile.csv");
+        retrieveManagedParks("/testFile.csv");
 
     }
 
     public List<String> retrieveManagedParks(final String inputFile) {
 
+        Scanner fileInput = null;
         try {
             final URL url = ParkManager.class.getResource(inputFile);
             final File userFile = new File(url.toURI());
-            final Scanner fileInput = new Scanner(userFile);
-            System.out.println("HELLO!");
+            fileInput = new Scanner(userFile);
 
             // For each line of text, split it up using "," as delimiter
             while (fileInput.hasNext()) {
@@ -62,13 +62,15 @@ public class ParkManager extends User {
                     }
                     return managedParks;
                 }
-
             }
-            fileInput.close();
 
         }
         catch (final FileNotFoundException | URISyntaxException e) {
             e.printStackTrace();
+        }
+        finally {
+            fileInput.close();
+
         }
         return null;
 
@@ -101,7 +103,6 @@ public class ParkManager extends User {
 
         // Retrieve list of Upcoming jobs
         final List<Job> upcomingJobs = jobController.getUpcomingJobs();
-        System.out.println("Upcoming jobs" + upcomingJobs);
         final List<Job> parkManagerJobs = new ArrayList<Job>();
 
         for (Job j : upcomingJobs) {
