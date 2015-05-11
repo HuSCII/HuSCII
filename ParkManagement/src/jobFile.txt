@@ -1,6 +1,7 @@
-walderfrey@gmail.com,Hollow Hill,Tree Trimming,05/08/2015 09:30 AM,7,1,1,2,12,0,5
-walderfrey@gmail.com,Whispering Wood,Boar Hunting,06/14/2015 12:00 PM,5,1,1,2,12,0,5
-walderfrey@gmail.com,Hollow Hill,Trash Pickup,05/10/2015 10:00 AM,4,1,1,2,12,0,5
-walderfrey@gmail.com,Hollow Hill,Red Wedding,05/15/2015 09:30 AM,3,0,5,0,5,0,5
+walderfrey@gmail.com,Hollow Hill,Tree Trimming,05/08/2015 09:30 AM,7,1,1,2,12,0,5,mickeymouse@disney.com,babyitscold@thenorthpole.com,reindeermaster@thenorthpole.com
+walderfrey@gmail.com,Whispering Wood,Boar Hunting,06/14/2015 12:00 PM,5,1,1,2,12,0,5,mickeymouse@disney.com,babyitscold@thenorthpole.com,reindeermaster@thenorthpole.com
+walderfrey@gmail.com,Hollow Hill,Trash Pickup,05/10/2015 10:00 AM,4,1,1,2,12,0,5,mickeymouse@disney.com,babyitscold@thenorthpole.com,reindeermaster@thenorthpole.com
+walderfrey@gmail.com,Hollow Hill,Red Wedding,05/15/2015 09:30 AM,3,0,5,0,5,1,5,winteriscoming@winterfell.com
 headswillroll@winterfell.com,The Godswood,Picnic,06/13/2015 09:30 AM,8,1,3,1,2,2,4,mickeymouse@disney.com,winteriscoming@winterfell.com,sailormoon@moonkingdom.com,sharpneedle@winterfell.com
 bettercallsaul@earthlink.com,Skate Park,Litter Patrol,07/09/2015 11:30 AM,3,0,5,0,5,0,5
+iwuvteddies@bearsrus.com,Yellowstone National Park,Soft Speaking Contest,05/04/2015 08:00 AM,1,4,5,0,0,0,0,onering@theshire.com,snowy@apple.com,shaggydoo@clue.edu,sailormoon@moonkingdom.com
