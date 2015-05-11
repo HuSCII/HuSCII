@@ -41,6 +41,12 @@ public class ParkManager extends User {
         this.jobController = jobController;
     }
 
+    public ParkManager(User user, JobController jobController) {
+        super(user.getEmail(), user.getFirstName(), user.getLastName(), user.getRole());
+        this.myJobs = new ArrayList<Job>();
+        this.jobController = jobController;
+    }
+
     /**
      * Add job to park management system.
      * 
@@ -49,17 +55,12 @@ public class ParkManager extends User {
      * @param date Start date of job.
      * @param jobDuration Length of job in hours.
      */
-    public boolean addJob(String parkManagerEmail, String parkName, String jobName,
-                          String date, int jobDuration, int currentLight, int maxLight,
-                          int currentMed, int maxMed, int currentHvy, int maxHvy,
+    public boolean addJob(String parkName, String jobName, String date, int jobDuration,
+                          int maxLight, int maxMed, int maxHvy,
                           Map<String, WorkCatagories> volunteers) {
 
-        Job tempJob =
-                        new Job(parkManagerEmail, parkName, jobName, date, jobDuration,
-                                currentLight, maxLight, currentMed, maxMed, currentHvy,
-                                maxHvy, volunteers);
-
-        return jobController.addJob(tempJob);
+        return jobController.addJob(new Job(getEmail(), parkName, jobName, date, jobDuration,
+                                            0, maxLight, 0, maxMed, 0, maxHvy, volunteers));
 
     }
 
@@ -69,14 +70,14 @@ public class ParkManager extends User {
      * @param parkManager The park manager retrieving its job.
      * @return List of Upcoming job that I manage.
      */
-    public List<Job> getMyJobs(User parkManager) {
+    public List<Job> getMyJobs(final User parkManager) {
 
         // Retrieve list of Upcoming jobs
         final List<Job> upcomingJobs = jobController.getUpcomingJobs();
         final List<Job> parkManagerJobs = new ArrayList<Job>();
 
         for (Job j : upcomingJobs) {
-            if (parkManager.getEmail().equals(j.getParkManagerEmail())) {
+            if (getEmail().equals(j.getParkManagerEmail())) {
                 parkManagerJobs.add(j);
             }
         }
@@ -86,43 +87,19 @@ public class ParkManager extends User {
     }
 
     /**
-     * need to work on this method
-     * 
-     * @param volunteer
-     * @param job
-     * @return
-     */
-    public List<String> findVolunteer(final Volunteer volunteer, Job job) {
-
-        return null;
-    }
-
-    /**
      * print out park manager's info.
      */
     public String toString() {
 
-        return super.toString() + "  Park Lists: " + parkNames.toString();
+        return super.toString() + "  Park Lists: ";
     }
 
     /**
      * main method to test the ParkManager class
      * 
-     * @param agrs
+     * @param args
      */
-    public static void main(String[] agrs) {
-
-        ParkManager manager =
-                        new ParkManager("judeguo83@gmail.com", "Jude", "Guo", "park manager");
-
-        manager.addPark("alki");
-        manager.addPark("let's go");
-
-        manager.addJob(123, "alki", "trash picking up", "5/8/2015 9:30 am", 2);
-        manager.addJob(121, "alki", "trash picking up", "5/8/2015 9:30 am", 2);
-        manager.addJob(120, "alki", "trash picking up", "5/8/2015 9:30 am", 2);
-
-        System.out.println(manager.toString());
+    public static void main(String[] args) {
 
     }
 }
