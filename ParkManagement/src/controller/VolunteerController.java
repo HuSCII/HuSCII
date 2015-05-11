@@ -16,8 +16,9 @@ public class VolunteerController {
 			System.out.println("Welcome back Volunteer!");
 			System.out.println("Select an option from the list below.");
 			
-			System.out.println("1. View all upcoming jobs.");
-			System.out.println("2. View jobs volunteer has signed up for.");
+			System.out.println("1. View my contact information.");
+			System.out.println("2. View all upcoming jobs.");
+			System.out.println("3. View jobs volunteer has signed up for.");
 			System.out.println("0. Exit.");
 			System.out.print("Make a selection: ");
 			choice = in.nextInt();
@@ -27,6 +28,8 @@ public class VolunteerController {
 					break;
 				case 2:
 					break;
+				case 3:
+				    break;
 				case 0:
 					break;
 				default:
