@@ -5,8 +5,8 @@
 package models;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import models.Job.WorkCatagories;
 
@@ -56,11 +56,11 @@ public class ParkManager extends User {
      * @param jobDuration Length of job in hours.
      */
     public boolean addJob(String parkName, String jobName, String date, int jobDuration,
-                          int maxLight, int maxMed, int maxHvy,
-                          Map<String, WorkCatagories> volunteers) {
+                          int maxLight, int maxMed, int maxHvy) {
 
         return jobController.addJob(new Job(getEmail(), parkName, jobName, date, jobDuration,
-                                            0, maxLight, 0, maxMed, 0, maxHvy, volunteers));
+                                            0, maxLight, 0, maxMed, 0, maxHvy,
+                                            new HashMap<String, WorkCatagories>()));
 
     }
 

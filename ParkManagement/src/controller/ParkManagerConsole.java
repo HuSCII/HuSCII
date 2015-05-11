@@ -1,25 +1,26 @@
 
 package controller;
 
+import java.text.SimpleDateFormat;
 import java.util.Scanner;
 
 import models.Job;
 import models.JobController;
 import models.ParkManager;
+import models.User;
 
 public class ParkManagerConsole {
 
     public static JobController jobController;
     private static Scanner keyboard;
-    public ParkManager parkManager;
+    public static ParkManager parkManager;
 
-    public ParkManagerConsole(ParkManager pm) {
-        parkManager = pm;
+    public ParkManagerConsole(User user, JobController jobController) {
+        parkManager = new ParkManager(user, jobController);
+        keyboard = new Scanner(System.in);
     }
 
     public void displayMenu() {
-
-        keyboard = new Scanner(System.in);
 
         System.out.println("Welcome To Park Manager Page");
         System.out.println("------------------------------");
@@ -30,7 +31,7 @@ public class ParkManagerConsole {
         System.out.println("5. Quit");
         System.out.println("Please select menu choice 1-5: ");
 
-        int menu = keyboard.nextInt();
+        final int menu = keyboard.nextInt();
 
         switch (menu) {
             case 1:
@@ -43,9 +44,8 @@ public class ParkManagerConsole {
                 viewVolunteers();
                 break;
             case 4:
-                MainConsole mainTest = new MainConsole();
-                String[] args = {};
-                mainTest.main(args);
+                final String[] args = {};
+                MainConsole.main(args);
             case 5:
                 break;
             default:
@@ -59,21 +59,47 @@ public class ParkManagerConsole {
 
     public static void submitJob() {
 
-        // System.out.println("Enter Park Name: ");
-        // String parkName = keyboard.next();
+        keyboard = new Scanner(System.in);
 
+        System.out.print("Enter Park Name: ");
+        String parkName = keyboard.nextLine();
+        System.out.println();
+
+        System.out.print("Enter a Job name (ie trash pickup): ");
+        String jobName = keyboard.nextLine();
+        System.out.println();
+
+        System.out.print("Enter a start date & time (MM/DD/YYYY HH:mm AM/PM): ");
+        String date = keyboard.nextLine();
+        System.out.println();
+
+        System.out.print("Enter job duration (in hours): ");
+        int duration = keyboard.nextInt();
+        System.out.println();
+
+        System.out.print("Enter max number of light-duty volunteers needed: ");
+        int lightMax = keyboard.nextInt();
+        System.out.println();
+
+        System.out.print("Enter max number of medium-duty volunteers needed: ");
+        int medMax = keyboard.nextInt();
+        System.out.println();
+
+        System.out.print("Enter max number of heavy-duty volunteers needed: ");
+        int hvyMax = keyboard.nextInt();
+        System.out.println();
+
+        parkManager.addJob(parkName, jobName, date, duration, lightMax, medMax, hvyMax);
     }
 
     public static void viewUpcomingJob() {
+        System.out.println("Viewing upcoming jobs:");
 
     }
 
     public static void viewVolunteers() {
+        System.out.println("Viewing voluteers:");
 
     }
-
-    // public static void main(String[] args) {
-    // menuScreen();
-    // }
 
 }
