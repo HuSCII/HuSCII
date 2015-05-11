@@ -58,11 +58,11 @@ public class MainConsole {
 
     private static String retrieveEmail() {
 
-        Scanner input = new Scanner(System.in);
+        final Scanner input = new Scanner(System.in);
         return input.nextLine();
     }
 
-    private static boolean verifyEmail(String email) {
+    private static boolean verifyEmail(final String email) {
 
         for (User u : userController.getUserList()) {
             if (email.equals(u.getEmail())) {
@@ -78,7 +78,7 @@ public class MainConsole {
         return false;
     }
 
-    private static void displayRoleOptions(User user) {
+    private static void displayRoleOptions(final User user) {
 
         switch (user.getRole().toLowerCase()) {
             case "volunteer":
@@ -87,7 +87,7 @@ public class MainConsole {
                 break;
             case "park manager":
                 // Call park manager console controller class:
-                ParkManagerConsole parkManager =
+                final ParkManagerConsole parkManager =
                                 new ParkManagerConsole(new ParkManager(user, jobController));
                 parkManager.displayMenu();
                 break;

@@ -5,7 +5,7 @@ import java.util.Scanner;
 import models.User;
 import models.Volunteer;
 
-public class VolunteerConsole {
+public class VolunteerController {
 	
 	
 	public static void volunteerStart(Volunteer volunteer) {
