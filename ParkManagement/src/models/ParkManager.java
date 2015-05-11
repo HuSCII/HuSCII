@@ -114,4 +114,14 @@ public class ParkManager extends User {
         return parkManagerJobs;
 
     }
+    
+    public List<Job> getManagedJobs() {
+        
+        return managedJobs;
+    }
+    
+    public List<String> getManagedParks() {
+        
+        return managedParks;
+    }
 }

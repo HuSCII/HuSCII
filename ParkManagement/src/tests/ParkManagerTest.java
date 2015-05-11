@@ -1,6 +1,7 @@
 package tests;
 
 import static org.junit.Assert.*;
+import models.ParkManager;
 
 import org.junit.After;
 import org.junit.Before;
@@ -11,7 +12,7 @@ public class ParkManagerTest {
     @Before
     public void setUp() throws Exception {
         
-        
+        ParkManager manager = new ParkManager("manager@gmail.com", "John", "Iam", "manager");
     }
 
     @After
