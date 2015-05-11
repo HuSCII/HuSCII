@@ -14,7 +14,7 @@ public class AdministratorConsole {
     private static Scanner keyboard;
     private static UserController users;
 
-    public void menuScreen() {
+    public static void displayMenu() {
 
         keyboard = new Scanner(System.in);
 
@@ -27,7 +27,7 @@ public class AdministratorConsole {
 
         int menu = keyboard.nextInt();
 
-        switch(menu) {
+        switch (menu) {
             case 1:
                 searchVolunteer();
                 break;
@@ -42,9 +42,10 @@ public class AdministratorConsole {
                 System.out.println("Please Try Aagain!");
                 System.out.println("");
                 AdministratorConsole driver = new AdministratorConsole();
-                driver.menuScreen();
+                driver.displayMenu();
                 break;
         }
+
     }
 
     /**
@@ -72,30 +73,34 @@ public class AdministratorConsole {
 
         users = new UserController();
         users.readUserFile("/testFile.csv");
-        
+
         if (hasLastName(lastName)) {
-            
+
             System.out.println("");
             System.out.println("Volunteer Information ");
             System.out.println("---------------------");
 
             for (User u : users.getUserList()) {
-                if (u.getLastName().equals(lastName)
-                        && u.getRole().equals("volunteer")) {
+                if (u.getLastName().equals(lastName) && u.getRole().equals("volunteer")) {
                     System.out.println("Name: " + u.getFirstName() + " " + u.getLastName());
                     System.out.println("Email: " + u.getEmail());
+                    System.out.println();
                 }
             }
-        } else {
-            System.out.println("No Volunter Found!");
+        }
+        else {
+            System.out.println("No Volunteer Found!");
             System.out.println("Please Try Again!");
-            
+
             searchVolunteer();
         }
+        System.out.println();
+        // Go to menuScreen() again when done:
+        displayMenu();
     }
-//
-//    public static void main(String[] args) {
-//        menuScreen();
-//    }
+    //
+    // public static void main(String[] args) {
+    // menuScreen();
+    // }
 
 }

@@ -4,9 +4,15 @@
 
 package models;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Scanner;
 
 import models.Job.WorkCatagories;
 
@@ -17,6 +23,9 @@ import models.Job.WorkCatagories;
  * @version 3 May 2015
  */
 public class ParkManager extends User {
+
+    List<Job> managedJobs;
+    List<String> managedParks;
 
     /**
      * Create a User of the parks manager.
@@ -30,6 +39,41 @@ public class ParkManager extends User {
                        final String role) {
 
         super(email, firstName, lastName, role);
+        managedJobs = new ArrayList<Job>();
+        managedParks = new ArrayList<String>();
+        retrieveManagedParks("/testFile.csv");
+
+    }
+
+    public List<String> retrieveManagedParks(final String inputFile) {
+
+        Scanner fileInput = null;
+        try {
+            final URL url = ParkManager.class.getResource(inputFile);
+            final File userFile = new File(url.toURI());
+            fileInput = new Scanner(userFile);
+
+            // For each line of text, split it up using "," as delimiter
+            while (fileInput.hasNext()) {
+                final List<String> userData = Arrays.asList(fileInput.nextLine().split(","));
+                if (userData.get(0).equals(getEmail())) {
+                    for (int i = 4; i < userData.size(); i++) {
+                        managedParks.add(userData.get(i));
+                    }
+                    return managedParks;
+                }
+            }
+
+        }
+        catch (final FileNotFoundException | URISyntaxException e) {
+            e.printStackTrace();
+        }
+        finally {
+            fileInput.close();
+
+        }
+        return null;
+
     }
 
     /**
@@ -68,23 +112,6 @@ public class ParkManager extends User {
         }
 
         return parkManagerJobs;
-
-    }
-
-    /**
-     * print out park manager's info.
-     */
-    public String toString() {
-
-        return super.toString() + "  Park Lists: ";
-    }
-
-    /**
-     * main method to test the ParkManager class
-     * 
-     * @param args
-     */
-    public static void main(String[] args) {
 
     }
 }

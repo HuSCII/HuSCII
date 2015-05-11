@@ -21,7 +21,7 @@ public class MainConsole {
         userController.readUserFile("/testFile.csv");
 
         // Pre-load the Jobs persistent data:
-        jobController = new JobController();
+        jobController = new JobController("/jobFile.csv");
 
         // Display copyright info
         displayDoc();
@@ -87,18 +87,20 @@ public class MainConsole {
         switch (user.getRole().toLowerCase()) {
             case "volunteer":
                 // Call volunteer console controller class:
-                System.out.println("Volunteer console class here");
+                final VolunteerConsole volunteerConsole =
+                                new VolunteerConsole(currentUser, jobController);
+                volunteerConsole.displayMenu();
                 break;
             case "park manager":
                 // Call park manager console controller class:
-                final ParkManagerConsole parkManager =
+                final ParkManagerConsole parkManagerConsole =
                                 new ParkManagerConsole(currentUser, jobController);
-                parkManager.displayMenu();
+                parkManagerConsole.displayMenu();
                 break;
             case "administrator":
                 // Call administrator console controller class:
                 final AdministratorConsole admin = new AdministratorConsole();
-                admin.menuScreen();
+                admin.displayMenu();
                 break;
             default:
                 break;
