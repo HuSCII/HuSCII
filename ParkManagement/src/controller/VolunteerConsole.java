@@ -56,7 +56,7 @@ public class VolunteerConsole {
 		User user = new User("mickeymouse@gmail.com", 
 			"Mouse", "Mickey", "Volunteer");
 
-		volunteerStart(volunteer);
+		volunteerStart((Volunteer)user);
 	}
 
 }
