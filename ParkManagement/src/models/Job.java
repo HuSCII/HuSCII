@@ -216,17 +216,26 @@ public class Job {
         }
 
         StringBuilder sb = new StringBuilder();
-
-        int count = 0;
+        String light="";
+        String medium="";
+        String heavy="";
 
         for(String email : volunteers.keySet()) {
-            sb.append(email);
-            if(count < volunteers.size() - 1) {
-                sb.append(DELIM_STD);
+            if(volunteers.get(email)==WorkCatagories.LIGHT) {
+                light+= email + ",";
+            }else if(volunteers.get(email)==WorkCatagories.HEAVY) {
+                medium+= email + ",";
+            } else {
+                heavy+= email + ",";
             }
-            count++;
+        }
+        if(heavy.length()>0) {
+            heavy.substring(0, heavy.length()-1);
         }
 
+        sb.append(light);
+        sb.append(medium);
+        sb.append(heavy);
         return sb.toString();
     }
 
