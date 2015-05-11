@@ -285,7 +285,7 @@ public class Job {
      * 
      * @return true if the job is already completed (past job); otherwise, false.
      */
-    public boolean isCompleted(GregorianCalendar jobDate) {
+    public static boolean isCompleted(GregorianCalendar jobDate) {
 
         GregorianCalendar todayDate = 
                         (GregorianCalendar) GregorianCalendar.getInstance();
@@ -308,7 +308,7 @@ public class Job {
      * A job may not be added that is in the past or more than three months in the future.
      * @return true if a job can be added; otherwise, false.
      */
-    public boolean valiDate(GregorianCalendar jobDate) {
+    public static boolean valiDate(GregorianCalendar jobDate) {
         if(!isCompleted(jobDate) && !futureDate(jobDate)) {
             return true;
         }
@@ -321,7 +321,7 @@ public class Job {
      * @param jobDate date of the job
      * @return true if it's more than 3 months in the future; otherwise, false
      */
-    public boolean futureDate(GregorianCalendar jobDate) {
+    public static boolean futureDate(GregorianCalendar jobDate) {
 
         // create a new calendar
         GregorianCalendar todayDate = 

@@ -5,6 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
@@ -182,25 +183,25 @@ public class JobController {
 	 */
 	public boolean checkMaxJobs() {
 		if(allJobs.size()<MAX_JOBS) {
-			return true;
+			return false;
 		}
-		return false;
+		return true;
 	}
 	
 	/**
 	 * Checks if the week quota(5) has been met for a given week.
 	 * @return whether week quota is met.
 	 */
-	public boolean checkJobWeek(Job job) {
-		GregorianCalendar pastDate = new GregorianCalendar(job.getDate().getTimeZone());
-		GregorianCalendar futureDate = new GregorianCalendar(job.getDate().getTimeZone());
+	public static boolean checkJobWeek(JobController jobs, GregorianCalendar date) {
+		GregorianCalendar pastDate = new GregorianCalendar(date.getTimeZone());
+		GregorianCalendar futureDate = new GregorianCalendar(date.getTimeZone());
 		int count = 0;
 		pastDate.set(Calendar.DAY_OF_MONTH, pastDate.get(Calendar.DAY_OF_MONTH)-3);
 		futureDate.set(Calendar.DAY_OF_MONTH, pastDate.get(Calendar.DAY_OF_MONTH)+3);
 		
-		for(Job aJob:allJobs) {
+		for(Job aJob:jobs.allJobs) {
 			if(aJob.getDate().compareTo(pastDate)>=0 &&
-					job.getDate().compareTo(futureDate)<=0) {
+					date.compareTo(futureDate)<=0) {
 				count++;
 			}
 			if(count>=5) {
@@ -220,7 +221,7 @@ public class JobController {
 	    
 	    Job job = new Job("bettercallsaul@earthlink.com", "Skate Park", "Litter Patrol", "07/9/2015 11:30 AM", 3, 
 	                      0, 5, 0, 5, 0, 5, null);
-	    System.out.println(controller.addJob(job));
+//	    System.out.println(controller.addJob(job));
 	    System.out.println(controller.toString());
 	    jl = (ArrayList<Job>) controller.getUpcomingJobs();
 	    System.out.println(controller.getUpcomingJobs());

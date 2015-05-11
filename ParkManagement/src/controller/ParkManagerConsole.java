@@ -1,7 +1,9 @@
 
 package controller;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Scanner;
 
@@ -67,6 +69,10 @@ public class ParkManagerConsole {
     }
 
     public static void submitJob() {
+        if(jobController.checkMaxJobs()) {
+            System.out.println("Can't create job, job limit has been reached.");
+            return;
+        }
 
         keyboard = new Scanner(System.in);
 
@@ -77,23 +83,57 @@ public class ParkManagerConsole {
         do{
             System.out.print("Enter Park Name: ");
             parkName = keyboard.nextLine();
-            for(parkManager.retrieveManagedParks("")) {
+            for(String park:parkManager.retrieveManagedParks("testFile.csv")) {
                 //search through list of parks
+                if(park.equals(parkName)) {
+                    check=false;
+                    break;
+                }
             }
             if(check) {
                 System.out.println("You don't manage that park.");
             }
-        } while();
+        } while(check);
         
-
         System.out.print("Enter a Job name (ie trash pickup): ");
         String jobName = keyboard.nextLine();
 
-        System.out.print("Enter a start date & time (MM/DD/YYYY HH:mm AM/PM): ");
-        String date = keyboard.nextLine();
-
-        System.out.print("Enter job duration (in hours): ");
-        int duration = keyboard.nextInt();
+        String date;
+        check = true;
+        do {
+            System.out.print("Enter a start date & time (MM/DD/YYYY HH:mm AM/PM): ");
+             date = keyboard.nextLine();
+            GregorianCalendar greg = new GregorianCalendar();
+            try {
+                greg.setTime(new SimpleDateFormat("MM/dd/yyyy HH:mm a").parse(date));
+                check = Job.valiDate(greg);
+                if(check) {
+                    System.out.println("Date has already occurred "
+                                    + "or past 3 months into the future.");
+                } else {
+                    check = JobController.checkJobWeek(jobController, greg);
+                    if(check) {
+                        System.out.println("This week already has enough jobs.");
+                    }
+                }
+            }
+            catch (ParseException e) {
+                System.out.println("Date not in right format");
+                e.printStackTrace();
+            }
+            
+        } while(check);
+        
+        int duration;
+        while(true) {
+            System.out.print("Enter job duration (in hours): ");
+            duration = keyboard.nextInt();
+            if(duration>0 && duration<=48) {
+                break;
+            }
+            System.out.println("job duration not valid");
+        }
+        
 
         System.out.print("Enter max number of light-duty volunteers needed: ");
         int lightMax = keyboard.nextInt();
@@ -103,11 +143,6 @@ public class ParkManagerConsole {
 
         System.out.print("Enter max number of heavy-duty volunteers needed: ");
         int hvyMax = keyboard.nextInt();
-
-        //validate with business rules
-        if() {
-            
-        }
         
         parkManager.addJob(jobController, parkName, jobName, date, duration, lightMax, medMax,
                            hvyMax);
