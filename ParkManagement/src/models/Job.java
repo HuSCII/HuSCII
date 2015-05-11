@@ -141,7 +141,7 @@ public class Job {
         this.maxHeavy = maxHeavy;
 
         if(volunteers==null) {
-            volunteers = new HashMap<String, Job.WorkCatagories>();
+            this.volunteers = new HashMap<String, Job.WorkCatagories>();
         } else {
             this.volunteers = volunteers;
         }

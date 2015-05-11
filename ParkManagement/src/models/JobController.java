@@ -218,7 +218,7 @@ public class JobController {
 	    ArrayList<Job> jl = (ArrayList<Job>) controller.getAllJobs();
 	    System.out.println(jl.get(0).toString());
 	    
-	    Job job = new Job("walderfrey@gmail.com", "Mission Hill", "Red Wedding", "05/15/2015 09:30 AM", 3, 
+	    Job job = new Job("bettercallsaul@earthlink.com", "Skate Park", "Litter Patrol", "07/9/2015 11:30 AM", 3, 
 	                      0, 5, 0, 5, 0, 5, null);
 	    System.out.println(controller.addJob(job));
 	    System.out.println(controller.toString());
@@ -228,7 +228,7 @@ public class JobController {
 	        System.out.println(ajob.toString());
 	    }
 	    
-	    //controller.writeJobData(FILELOC);
+	    controller.writeJobData(FILELOC);
 	}
 	
 }
