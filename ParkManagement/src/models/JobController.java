@@ -228,7 +228,7 @@ public class JobController {
 	        System.out.println(ajob.toString());
 	    }
 	    
-	    controller.writeJobData(FILELOC);
+	    //controller.writeJobData(FILELOC);
 	}
 	
 }
