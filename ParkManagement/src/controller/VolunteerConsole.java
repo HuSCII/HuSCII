@@ -36,8 +36,9 @@ public class VolunteerConsole {
         System.out.println("------------------------------");
         System.out.println("1. View all upcoming jobs.");
         System.out.println("2. View jobs I have signed up for.");
-        System.out.println("3. Logout");
-        System.out.println("4. Exit");
+        System.out.println("3. Sign up for a job.");
+        System.out.println("4. Logout");
+        System.out.println("5. Exit");
         System.out.print("Please select menu choice 1-5: ");
 
         final int menuSelect = keyboard.nextInt();
@@ -49,11 +50,14 @@ public class VolunteerConsole {
             case 2:
                 viewSignedUpJobs();
                 break;
-            case 3: // Logout
+            case 3:
+                signMeUp();
+                break;
+            case 4: // Logout
                 final String[] args = {};
                 MainConsole.main(args);
                 break;
-            case 4: // Exit
+            case 5: // Exit
                 break;
             default:
                 System.out.println("Not in a menu choice");
@@ -72,15 +76,16 @@ public class VolunteerConsole {
     // }
     // }
 
-    public static void viewUpcomingJobs() {
+    public static List<Job> viewUpcomingJobs() {
 
         System.out.println("View available upcoming jobs:");
         System.out.println();
 
-        final List<Job> myJobs = new ArrayList<Job>();
+        final List<Job> upcomingJobs = new ArrayList<Job>();
 
         int i = 1;
         for (Job j : jobController.getUpcomingJobs()) {
+            upcomingJobs.add(j);
             System.out.print(i++ + ") ");
             System.out.println(j.getParkName());
             System.out.println(j.getJobName());
@@ -97,6 +102,8 @@ public class VolunteerConsole {
             System.out.println();
         }
         System.out.println();
+
+        return upcomingJobs;
 
         // System.out.println(volunteer.getMyJobs(jobController));
     }
@@ -120,6 +127,7 @@ public class VolunteerConsole {
     public static void viewSignedUpJobs() {
 
         System.out.println("Viewing the jobs you have signed up for:");
+        System.out.println();
 
         for (Job j : jobController.getUpcomingJobs()) {
             for (String vol : j.getVolunteerEmails()) {
@@ -137,14 +145,40 @@ public class VolunteerConsole {
 
     public static void signMeUp() {
 
-        System.out.println("Sign up for this job:");
-        keyboard = new Scanner(System.in);
+        System.out.println("Sign up for a job:");
+        List<Job> upcomingJobs = viewUpcomingJobs();
 
-        System.out.print("Enter a Job Name (ie trash pickup): ");
-        String jobName = keyboard.nextLine();
+        // User selects number:
+        System.out.print("Select a number corresponding to the job you are interested in: ");
+        keyboard = new Scanner(System.in);
+        int choice = keyboard.nextInt();
+        while (choice < 0 || choice > upcomingJobs.size()) {
+            System.out.print("Please make a selection from the list: ");
+            choice = keyboard.nextInt();
+        }
 
         System.out.print("Enter a work category (ie Light, Medium, Heavy) ");
         String workCat = keyboard.nextLine();
+        workCat = keyboard.nextLine().toLowerCase();
+
+        switch (workCat) {
+            case "light":
+                upcomingJobs.get(choice).addVolunteer(volunteer.getEmail(),
+                                                      WorkCatagories.LIGHT);
+                break;
+            case "medium":
+                upcomingJobs.get(choice).addVolunteer(volunteer.getEmail(),
+                                                      WorkCatagories.MEDIUM);
+                break;
+            case "heavy":
+                upcomingJobs.get(choice).addVolunteer(volunteer.getEmail(),
+                                                      WorkCatagories.HEAVY);
+                break;
+            default:
+                System.out.println("Please enter a valid work category");
+                System.out.println("Light, Medium, Heavy");
+                workCat = keyboard.nextLine().toLowerCase();
+        }
 
         // job.addVolunteer(volunteer.getEmail(), workCat);
         // volunteer.signUp(jobName, workCat);
