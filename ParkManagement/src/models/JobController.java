@@ -211,25 +211,25 @@ public class JobController {
 		return true;
 	}
 	
-	public static void main(String args[]) {
-	    System.out.println("Hello World");
-	    JobController controller = new JobController();
-	    System.out.println(controller.toString());
-	    
-	    ArrayList<Job> jl = (ArrayList<Job>) controller.getAllJobs();
-	    System.out.println(jl.get(0).toString());
-	    
-	    Job job = new Job("bettercallsaul@earthlink.com", "Skate Park", "Litter Patrol", "07/9/2015 11:30 AM", 3, 
-	                      0, 5, 0, 5, 0, 5, null);
-//	    System.out.println(controller.addJob(job));
-	    System.out.println(controller.toString());
-	    jl = (ArrayList<Job>) controller.getUpcomingJobs();
-	    System.out.println(controller.getUpcomingJobs());
-	    for(Job ajob: jl) {
-	        System.out.println(ajob.toString());
-	    }
-	    
-	    //controller.writeJobData(FILELOC);
-	}
+//	public static void main(String args[]) {
+//	    System.out.println("Hello World");
+//	    JobController controller = new JobController();
+//	    System.out.println(controller.toString());
+//	    
+//	    ArrayList<Job> jl = (ArrayList<Job>) controller.getAllJobs();
+//	    System.out.println(jl.get(0).toString());
+//	    
+//	    Job job = new Job("bettercallsaul@earthlink.com", "Skate Park", "Litter Patrol", "07/9/2015 11:30 AM", 3, 
+//	                      0, 5, 0, 5, 0, 5, null);
+////	    System.out.println(controller.addJob(job));
+//	    System.out.println(controller.toString());
+//	    jl = (ArrayList<Job>) controller.getUpcomingJobs();
+//	    System.out.println(controller.getUpcomingJobs());
+//	    for(Job ajob: jl) {
+//	        System.out.println(ajob.toString());
+//	    }
+//	    
+//	    //controller.writeJobData(FILELOC);
+//	}
 	
 }

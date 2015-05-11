@@ -115,16 +115,16 @@ public class ParkManager extends User {
 
     }
 
-    public static void main(String[] args) {
-        System.out.println("Testing out parkmanager class");
-
-        JobController testJobController = new JobController("src/jobFile.csv");
-
-        ParkManager testManager =
-                        new ParkManager("walderfrey@gmail.com", "Walder", "Frey",
-                                        "park manager");
-
-        System.out.println(testManager.retrieveManagedParks("/testFile.csv"));
-        System.out.println(testManager.getMyJobs(testJobController));
-    }
+//    public static void main(String[] args) {
+//        System.out.println("Testing out parkmanager class");
+//
+//        JobController testJobController = new JobController("src/jobFile.csv");
+//
+//        ParkManager testManager =
+//                        new ParkManager("walderfrey@gmail.com", "Walder", "Frey",
+//                                        "park manager");
+//
+//        System.out.println(testManager.retrieveManagedParks("/testFile.csv"));
+//        System.out.println(testManager.getMyJobs(testJobController));
+//    }
 }

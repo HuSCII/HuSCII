@@ -119,7 +119,7 @@ public class ParkManagerConsole {
             }
             catch (ParseException e) {
                 System.out.println("Date not in right format");
-                e.printStackTrace();
+//                e.printStackTrace();
             }
             
         } while(!check);
