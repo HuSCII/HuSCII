@@ -223,6 +223,11 @@ public class JobController {
 	    System.out.println(controller.addJob(job));
 	    System.out.println(controller.toString());
 	    jl = (ArrayList<Job>) controller.getUpcomingJobs();
+	    for(Job ajob: jl) {
+	        System.out.println(ajob.toString());
+	    }
+	    
+	    controller.writeJobData(FILELOC);
 	}
 	
 }
