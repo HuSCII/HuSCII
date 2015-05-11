@@ -21,7 +21,7 @@ public class MainConsole {
         userController.readUserFile("/testFile.csv");
 
         // Pre-load the Jobs persistent data:
-        jobController = new JobController();
+        jobController = new JobController("src/jobFile.txt");
 
         // Display copyright info
         displayDoc();

@@ -83,7 +83,7 @@ public class ParkManagerConsole {
         do{
             System.out.print("Enter Park Name: ");
             parkName = keyboard.nextLine();
-            for(String park:parkManager.retrieveManagedParks("testFile.csv")) {
+            for(String park:parkManager.retrieveManagedParks("/testFile.csv")) {
                 //search through list of parks
                 if(park.equals(parkName)) {
                     check=false;
@@ -107,12 +107,12 @@ public class ParkManagerConsole {
             try {
                 greg.setTime(new SimpleDateFormat("MM/dd/yyyy HH:mm a").parse(date));
                 check = Job.valiDate(greg);
-                if(check) {
+                if(!check) {
                     System.out.println("Date has already occurred "
                                     + "or past 3 months into the future.");
                 } else {
                     check = JobController.checkJobWeek(jobController, greg);
-                    if(check) {
+                    if(!check) {
                         System.out.println("This week already has enough jobs.");
                     }
                 }
@@ -122,7 +122,7 @@ public class ParkManagerConsole {
                 e.printStackTrace();
             }
             
-        } while(check);
+        } while(!check);
         
         int duration;
         while(true) {
