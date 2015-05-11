@@ -69,8 +69,6 @@ public class JobController {
 			if(!allJobs.get(i).isCompleted(allJobs.get(i).getDate())) {
 				//add copy of Job
 				upcoming.add(new Job(allJobs.get(i)));
-			} else {
-				break;
 			}
 		}
 		return upcoming;
@@ -210,6 +208,21 @@ public class JobController {
 			}
 		}
 		return true;
+	}
+	
+	public static void main(String args[]) {
+	    System.out.println("Hello World");
+	    JobController controller = new JobController();
+	    System.out.println(controller.toString());
+	    
+	    ArrayList<Job> jl = (ArrayList<Job>) controller.getAllJobs();
+	    System.out.println(jl.get(0).toString());
+	    
+	    Job job = new Job("walderfrey@gmail.com", "Mission Hill", "Red Wedding", "05/15/2015 09:30 AM", 3, 
+	                      0, 5, 0, 5, 0, 5, null);
+	    System.out.println(controller.addJob(job));
+	    System.out.println(controller.toString());
+	    jl = (ArrayList<Job>) controller.getUpcomingJobs();
 	}
 	
 }
