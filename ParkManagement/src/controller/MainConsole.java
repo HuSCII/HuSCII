@@ -87,7 +87,9 @@ public class MainConsole {
         switch (user.getRole().toLowerCase()) {
             case "volunteer":
                 // Call volunteer console controller class:
-                System.out.println("Volunteer console class here");
+                final VolunteerConsole volunteerConsole =
+                                new VolunteerConsole(currentUser, jobController);
+                volunteerConsole.displayMenu();
                 break;
             case "park manager":
                 // Call park manager console controller class:

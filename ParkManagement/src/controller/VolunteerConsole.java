@@ -15,7 +15,8 @@ public class VolunteerConsole {
 
     public VolunteerConsole(User user, JobController jobController) {
 
-        volunteer = (Volunteer) user;
+        volunteer = new Volunteer(user.getEmail(), user.getFirstName(),
+                                      user.getLastName(), user.getRole());
 
     }
 
