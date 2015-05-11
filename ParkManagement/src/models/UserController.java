@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -35,25 +36,21 @@ public class UserController {
 	 */
 	public void readUserFile(final String inputFile) {
 
-		try {
-			URL url = UserController.class.getResource(inputFile);
-			File userFile = new File(url.toURI());
-			final Scanner fileInput = new Scanner(userFile);
-
-			// For each line of text, split it up using "," as delimeter
-			while (fileInput.hasNext()) {
-				final List<String> userData = Arrays.asList(fileInput
-						.nextLine().split(","));
-
-				// Add each User to the List
-				userList.add(new User(userData.get(0), userData.get(1),
-						userData.get(2), userData.get(3)));
-			}
-			fileInput.close();
-
-		} catch (FileNotFoundException | URISyntaxException e) {
-			e.printStackTrace();
-		}
+		//			URL url = UserController.class.getResource(inputFile);
+        //			File userFile = new File(url.toURI());
+        		    InputStream in = this.getClass().getResourceAsStream(inputFile);
+        			final Scanner fileInput = new Scanner(in);
+        
+        			// For each line of text, split it up using "," as delimeter
+        			while (fileInput.hasNext()) {
+        				final List<String> userData = Arrays.asList(fileInput
+        						.nextLine().split(","));
+        
+        				// Add each User to the List
+        				userList.add(new User(userData.get(0), userData.get(1),
+        						userData.get(2), userData.get(3)));
+        			}
+        			fileInput.close();
 
 	}
 

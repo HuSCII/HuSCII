@@ -3,6 +3,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -108,52 +109,47 @@ public class JobController {
 	 * @return whether data was successfully loaded or not.
 	 */
 	public boolean loadJobData(String filename) {
-		File file = new File(filename);
-		try {
-			Scanner scanner = new Scanner(file);
-			while(scanner.hasNext()) {
-				StringTokenizer token = new StringTokenizer(scanner.nextLine(), ",");
-				
-				String parkManagerEmail = token.nextToken();
-				String parkName = token.nextToken();
-				String jobName = token.nextToken();
-				String date = token.nextToken();
-				int duration = Integer.parseInt(token.nextToken());
-				int currentLight = Integer.parseInt(token.nextToken());
-				int maxLight = Integer.parseInt(token.nextToken());
-				int currentMedium = Integer.parseInt(token.nextToken());
-				int maxMedium = Integer.parseInt(token.nextToken());
-				int currentHeavy = Integer.parseInt(token.nextToken());
-				int maxHeavy = Integer.parseInt(token.nextToken());
-				Map<String, WorkCatagories> signedVolunteers = new HashMap<String, WorkCatagories>();
-				//collect information
-				int i = 0;
-				while(token.hasMoreTokens()) {
-					//loop for emails
-					if(i>=currentLight) {
-						if(i>=currentLight+currentMedium) {
-							signedVolunteers.put(token.nextToken(), WorkCatagories.HEAVY);
-						} else {
-							signedVolunteers.put(token.nextToken(), WorkCatagories.MEDIUM);
-						}
-					} else {
-						signedVolunteers.put(token.nextToken(), WorkCatagories.LIGHT);
-					}
-					i++;
-				}
-				//create job
-				Job job = new Job(parkManagerEmail,parkName, jobName, date, duration, 
-						currentLight, maxLight, currentMedium, maxMedium, 
-						currentHeavy, maxHeavy, signedVolunteers);
-				//add job
-				addJob(job);
-			}
-			scanner.close();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return false;
-		}
+		//File file = new File(filename);
+	    InputStream in = this.getClass().getResourceAsStream(filename);
+		Scanner scanner = new Scanner(in);
+        while(scanner.hasNext()) {
+        	StringTokenizer token = new StringTokenizer(scanner.nextLine(), ",");
+        	
+        	String parkManagerEmail = token.nextToken();
+        	String parkName = token.nextToken();
+        	String jobName = token.nextToken();
+        	String date = token.nextToken();
+        	int duration = Integer.parseInt(token.nextToken());
+        	int currentLight = Integer.parseInt(token.nextToken());
+        	int maxLight = Integer.parseInt(token.nextToken());
+        	int currentMedium = Integer.parseInt(token.nextToken());
+        	int maxMedium = Integer.parseInt(token.nextToken());
+        	int currentHeavy = Integer.parseInt(token.nextToken());
+        	int maxHeavy = Integer.parseInt(token.nextToken());
+        	Map<String, WorkCatagories> signedVolunteers = new HashMap<String, WorkCatagories>();
+        	//collect information
+        	int i = 0;
+        	while(token.hasMoreTokens()) {
+        		//loop for emails
+        		if(i>=currentLight) {
+        			if(i>=currentLight+currentMedium) {
+        				signedVolunteers.put(token.nextToken(), WorkCatagories.HEAVY);
+        			} else {
+        				signedVolunteers.put(token.nextToken(), WorkCatagories.MEDIUM);
+        			}
+        		} else {
+        			signedVolunteers.put(token.nextToken(), WorkCatagories.LIGHT);
+        		}
+        		i++;
+        	}
+        	//create job
+        	Job job = new Job(parkManagerEmail,parkName, jobName, date, duration, 
+        			currentLight, maxLight, currentMedium, maxMedium, 
+        			currentHeavy, maxHeavy, signedVolunteers);
+        	//add job
+        	addJob(job);
+        }
+        scanner.close();
 		return true;
 	}
 	
