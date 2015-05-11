@@ -7,13 +7,13 @@ import models.Job;
 import models.JobController;
 import models.ParkManager;
 
-public class ParkManagerController {
+public class ParkManagerConsole {
 
     public static JobController jobController;
     private static Scanner keyboard;
     public ParkManager parkManager;
 
-    public ParkManagerController(ParkManager pm) {
+    public ParkManagerConsole(ParkManager pm) {
         parkManager = pm;
     }
 
