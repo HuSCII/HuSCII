@@ -3,10 +3,13 @@ package tests;
 import static org.junit.Assert.*;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 import models.Job;
 import models.JobController;
 import models.ParkManager;
+import models.Job.WorkCatagories;
 
 import org.junit.After;
 import org.junit.Before;
@@ -20,11 +23,15 @@ public class ParkManagerTest {
     
     Job job;
     
+    Map<String, WorkCatagories> volunteers;
+    
     @Before
     public void setUp() throws Exception {
          controller = new JobController();
          manager = new ParkManager("manager@gmail.com", "John", "Iam", "manager");
-         
+         volunteers = new HashMap<String, WorkCatagories>();
+         job = new Job("manager@gmail.com", "Disneyland Resort"
+, "picking up trash", "3/25/15", 12, 0, 3, 0, 5, 0, 7, volunteers);
         
     }
 
@@ -44,11 +51,12 @@ public class ParkManagerTest {
     @Test
     public void testRetrieveManagedParks() {
         
-        assertEquals(manager.getManagedParks(), manager.retrieveManagedParks("testFile.csv"));
+        assertEquals(manager.getManagedParks(), manager.retrieveManagedParks("/testFile.csv"));
     }
     @Test
     public void testAddJob() {
         
+        assertEquals(manager.addJob(controller, "Disneyland Resort", "picking up trash", "3/25/15", 12, 3, 5, 7), controller.addJob(job));
     }
 
     @Test
