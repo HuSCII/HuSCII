@@ -18,12 +18,6 @@ import models.Job.WorkCatagories;
  */
 public class ParkManager extends User {
 
-    /** Collection of the jobs this pm manages. */
-    private List<Job> myJobs;
-
-    /** Job controller. */
-    private JobController jobController;
-
     /**
      * Create a User of the parks manager.
      * 
@@ -31,20 +25,11 @@ public class ParkManager extends User {
      * @param lastName User's last name.
      * @param firstName User's first name.
      * @param role User's role.
-     * @param jobController Park Manager's JobController.
      */
     public ParkManager(final String email, final String firstName, final String lastName,
-                       final String role, final JobController jobController) {
+                       final String role) {
 
         super(email, firstName, lastName, role);
-        this.myJobs = new ArrayList<Job>();
-        this.jobController = jobController;
-    }
-
-    public ParkManager(User user, JobController jobController) {
-        super(user.getEmail(), user.getFirstName(), user.getLastName(), user.getRole());
-        this.myJobs = new ArrayList<Job>();
-        this.jobController = jobController;
     }
 
     /**
@@ -55,8 +40,8 @@ public class ParkManager extends User {
      * @param date Start date of job.
      * @param jobDuration Length of job in hours.
      */
-    public boolean addJob(String parkName, String jobName, String date, int jobDuration,
-                          int maxLight, int maxMed, int maxHvy) {
+    public boolean addJob(JobController jobController, String parkName, String jobName,
+                          String date, int jobDuration, int maxLight, int maxMed, int maxHvy) {
 
         return jobController.addJob(new Job(getEmail(), parkName, jobName, date, jobDuration,
                                             0, maxLight, 0, maxMed, 0, maxHvy,
@@ -70,7 +55,7 @@ public class ParkManager extends User {
      * @param parkManager The park manager retrieving its job.
      * @return List of Upcoming job that I manage.
      */
-    public List<Job> getMyJobs(final User parkManager) {
+    public List<Job> getMyJobs(JobController jobController) {
 
         // Retrieve list of Upcoming jobs
         final List<Job> upcomingJobs = jobController.getUpcomingJobs();

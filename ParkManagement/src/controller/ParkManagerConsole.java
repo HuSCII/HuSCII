@@ -16,8 +16,11 @@ public class ParkManagerConsole {
     public static ParkManager parkManager;
 
     public ParkManagerConsole(User user, JobController jobController) {
-        parkManager = new ParkManager(user, jobController);
+        parkManager =
+                        new ParkManager(user.getEmail(), user.getFirstName(),
+                                        user.getLastName(), user.getRole());
         keyboard = new Scanner(System.in);
+        ParkManagerConsole.jobController = jobController;
     }
 
     public void displayMenu() {
@@ -63,33 +66,27 @@ public class ParkManagerConsole {
 
         System.out.print("Enter Park Name: ");
         String parkName = keyboard.nextLine();
-        System.out.println();
 
         System.out.print("Enter a Job name (ie trash pickup): ");
         String jobName = keyboard.nextLine();
-        System.out.println();
 
         System.out.print("Enter a start date & time (MM/DD/YYYY HH:mm AM/PM): ");
         String date = keyboard.nextLine();
-        System.out.println();
 
         System.out.print("Enter job duration (in hours): ");
         int duration = keyboard.nextInt();
-        System.out.println();
 
         System.out.print("Enter max number of light-duty volunteers needed: ");
         int lightMax = keyboard.nextInt();
-        System.out.println();
 
         System.out.print("Enter max number of medium-duty volunteers needed: ");
         int medMax = keyboard.nextInt();
-        System.out.println();
 
         System.out.print("Enter max number of heavy-duty volunteers needed: ");
         int hvyMax = keyboard.nextInt();
-        System.out.println();
 
-        parkManager.addJob(parkName, jobName, date, duration, lightMax, medMax, hvyMax);
+        parkManager.addJob(jobController, parkName, jobName, date, duration, lightMax, medMax,
+                           hvyMax);
     }
 
     public static void viewUpcomingJob() {
