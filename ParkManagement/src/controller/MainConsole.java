@@ -38,6 +38,9 @@ public class MainConsole {
         // Display appropriate user options:
         displayRoleOptions(currentUser);
 
+        // Write new data on system exit:
+        exitSystem();
+
     }
 
     private static void displayDoc() {
@@ -99,6 +102,16 @@ public class MainConsole {
             default:
                 break;
         }
+    }
+
+    private static void exitSystem() {
+        System.out.println("Thank you for using the HuSCII Park Management System!");
+        System.out.println("Logging out...");
+        System.out.println("Program exiting...");
+
+        userController.writeUserFile("consoleTestingUserFile.csv");
+        jobController.writeJobData("consoleTestingJobsFile.csv");
+
     }
 
 }
