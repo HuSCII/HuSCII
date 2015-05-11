@@ -104,35 +104,10 @@ public class Job {
     //	 */
     //	private int jobID;
 
-    /** 
-     * A set of email values for each volunteer in this job. 
-     */
-    private Set<String> volunteers;
-
     /**
      * Maps of volunteer's email, and work categories.
      */
-    private Map<String, WorkCatagories> signedVolunteers;
-
-    //	/**
-    //	 * This represents a constructor method.
-    //	 * 
-    //	 * @param jobID unique ID number of each job.
-    //	 * @param parkName Name of the park.
-    //	 * @param jobName Name of the job.
-    //	 * @param date The date of the job.
-    //	 * @param jobDuration The length of the job in hours.
-    //	 */
-    //	public Job(final int jobID, final String parkName, final String jobName, 
-    //			final String date, final int jobDuration) {
-    //
-    //		this.jobID = jobID;
-    //		this.parkName = parkName;
-    //		this.jobName = jobName;
-    //		this.jobDuration = jobDuration;
-    //
-    //		setDate(date); //parse formatted string 'date' format:"m/d/yyyy hh:mmAM" see jobFile
-    //	}
+    private Map<String, WorkCatagories> volunteers;
 
     /**
      * This represents a constructor method.
@@ -166,9 +141,9 @@ public class Job {
         this.maxHeavy = maxHeavy;
 
         if(volunteers==null) {
-            signedVolunteers = new HashMap<String, Job.WorkCatagories>();
+            volunteers = new HashMap<String, Job.WorkCatagories>();
         } else {
-            signedVolunteers = volunteers;
+            volunteers = volunteers;
         }
 
     }
@@ -209,19 +184,19 @@ public class Job {
             switch(workCat) {
                 case LIGHT:
                     if ((getCurrentLight() < getMaxLight())) {
-                        volunteers.add(email);
+                        volunteers.put(email, WorkCatagories.LIGHT);
                         currentLight++;
                     } 
                     break;
                 case MEDIUM:
                     if ((getCurrentMedium() < getMaxMedium())) {
-                        volunteers.add(email);
+                        volunteers.put(email, WorkCatagories.MEDIUM);
                         currentMedium++;
                     }
                     break;
                 case HEAVY:
                     if (getCurrentHard() < getMaxHard()) {
-                        volunteers.add(email);
+                        volunteers.put(email, WorkCatagories.HEAVY);
                         currentHeavy++;
                     }
                     break;
@@ -241,7 +216,7 @@ public class Job {
 
         int count = 0;
 
-        for(String email : volunteers) {
+        for(String email : volunteers.keySet()) {
             sb.append(email);
             if(count < volunteers.size() - 1) {
                 sb.append(DELIM_STD);
@@ -279,7 +254,7 @@ public class Job {
      * @return True if they are, false if they are not.
      */
     public boolean containsVolunteer(String email) {
-        return volunteers.contains(email);
+        return volunteers.containsKey(email);
     }
 
     /**
@@ -373,7 +348,7 @@ public class Job {
         new SimpleDateFormat("MM/dd/yyyy HH:mm a").format(date.getTime()) + 
         "," + jobDuration + "," + currentLight + "," + maxLight + "," + 
         currentMedium + "," +  maxMedium + "," +  
-        currentHeavy  + "," + maxHeavy; 
+        currentHeavy  + "," + maxHeavy + "," + volunteerSignUp(); 
     }
 
     //	/**
@@ -536,15 +511,13 @@ public class Job {
     //		this.jobID = jobID;
     //	}
 
-    public void setVolunteers(Set<String> volunteers) {
-        this.volunteers = volunteers;
+    public void setVolunteers(Map<String, WorkCatagories> signedVolunteers) {
+        this.volunteers = signedVolunteers;
     }
 
-    public void setSignedVolunteers(Map<String, WorkCatagories> signedVolunteers) {
-        this.signedVolunteers = signedVolunteers;
+    public Set<String> getVolunteerEmails() {
+        return volunteers.keySet();
     }
-
-
 
     /**
      * An exception thrown when an operation is attempted on a full 
