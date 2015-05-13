@@ -114,8 +114,8 @@ public class MainConsole {
         System.out.println("Logging out...");
         System.out.println("Program exiting...");
 
-        userController.writeUserFile("consoleTestingUserFile.csv");
-        jobController.writeJobData("consoleTestingJobsFile.csv");
+        userController.writeUserFile("userFile.csv");
+        jobController.writeJobData("jobsFile.csv");
 
     }
 
