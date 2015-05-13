@@ -83,7 +83,7 @@ public class ParkManagerConsole {
         do{
             System.out.print("Enter Park Name: ");
             parkName = keyboard.nextLine();
-            for(String park:parkManager.retrieveManagedParks("/testFile.csv")) {
+            for(String park:parkManager.retrieveManagedParks("/userFile.csv")) {
                 //search through list of parks
                 if(park.equals(parkName)) {
                     check=false;

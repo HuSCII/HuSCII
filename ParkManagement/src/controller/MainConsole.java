@@ -18,7 +18,7 @@ public class MainConsole {
 
         // Pre-load the User persistent data:
         userController = new UserController();
-        userController.readUserFile("/testFile.csv");
+        userController.readUserFile("/userFile.csv");
 
         // Pre-load the Jobs persistent data:
         jobController = new JobController("/jobFile.csv");

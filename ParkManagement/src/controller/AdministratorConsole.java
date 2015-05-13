@@ -72,7 +72,7 @@ public class AdministratorConsole {
         String lastName = keyboard.next();
 
         users = new UserController();
-        users.readUserFile("/testFile.csv");
+        users.readUserFile("/userFile.csv");
 
         if (hasLastName(lastName)) {
 

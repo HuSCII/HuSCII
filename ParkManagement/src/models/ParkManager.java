@@ -124,7 +124,7 @@ public class ParkManager extends User {
 //                        new ParkManager("walderfrey@gmail.com", "Walder", "Frey",
 //                                        "park manager");
 //
-//        System.out.println(testManager.retrieveManagedParks("/testFile.csv"));
+//        System.out.println(testManager.retrieveManagedParks("/userFile.csv"));
 //        System.out.println(testManager.getMyJobs(testJobController));
 //    }
 }
