@@ -113,7 +113,7 @@ public class ParkManagerConsole {
                 } else {
                     check = JobController.checkJobWeek(jobController, greg);
                     if(!check) {
-                        System.out.println("This week already has enough jobs.");
+                        System.out.println("The capacity for this week has already been reached.");
                     }
                 }
             }

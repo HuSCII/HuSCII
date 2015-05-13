@@ -156,7 +156,7 @@ public class VolunteerConsole {
             System.out.print("Please make a selection from the list: ");
             choice = keyboard.nextInt();
         }
-
+        //add validation for Business Rule#7 (can't sign up for two jobs on the same day)
         System.out.print("Enter a work category (ie Light, Medium, Heavy) ");
         String workCat = keyboard.nextLine();
         workCat = keyboard.nextLine().toLowerCase();
