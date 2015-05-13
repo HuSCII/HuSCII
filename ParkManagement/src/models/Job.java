@@ -99,11 +99,6 @@ public class Job {
      */
     private int volunteerMax;
 
-    //	/**
-    //	 * The unique ID number of each job.
-    //	 */
-    //	private int jobID;
-
     /**
      * Maps of volunteer's email, and work categories.
      */
@@ -174,6 +169,8 @@ public class Job {
      * @param workCat different choice of work categories including light, medium, and heavy
      * @throws JobFullException exception is thrown when the maximum number of volunteer for that job is reached.
      */
+    //might need to split into separate functions so it's easier to do JUnit test
+    //print out sth when current vol == max needed in each categories
     public void addVolunteer(String email, WorkCatagories workCat) throws JobFullException {
 
         if (isJobFull()) {
@@ -214,26 +211,25 @@ public class Job {
         if(volunteers.isEmpty()) {
             return null;
         }
-
         StringBuilder sb = new StringBuilder();
         String light="";
         String medium="";
         String heavy="";
 
-        for(String email : volunteers.keySet()) {
-            if(volunteers.get(email)==WorkCatagories.LIGHT) {
-                light+= email + ",";
-            }else if(volunteers.get(email)==WorkCatagories.HEAVY) {
-                medium+= email + ",";
+        for (String email : volunteers.keySet()) {
+            if (volunteers.get(email) == WorkCatagories.LIGHT) {
+                light += email + ",";
+            } else if (volunteers.get(email) == WorkCatagories.HEAVY) {
+                medium += email + ",";
             } else {
-                heavy+= email + ",";
+                heavy += email + ",";
             }
         }
 
         sb.append(light);
         sb.append(medium);
         sb.append(heavy);
-        if(sb.length()>0) {
+        if(sb.length() > 0) {
             sb.deleteCharAt(sb.length()-1);
         }
         return sb.toString();
@@ -328,7 +324,7 @@ public class Job {
                         (GregorianCalendar) GregorianCalendar.getInstance();
 
         todayDate.add(Calendar.DAY_OF_MONTH, MAX_DAYS);
-        
+
         if(todayDate.before(jobDate)) {
             return true; 
         }
@@ -371,23 +367,18 @@ public class Job {
         if(!volunteers.isEmpty()) {
             sb.append("," + volunteerSignUp()); 
         }
-        
+
         return sb.toString();
     }
 
-    //	/**
-    //	 * This is a getter method that return the ID number of each job.
-    //	 * 
-    //	 * @return jobID unique ID number of each job
-    //	 */
-    //	public int getJobID() {
-    //		return jobID;
-    //	}
-
+    /**
+     * This is a getter method that return the email of the park manager.
+     * 
+     * @return parkManagerEmail park manager's email
+     */
     public String getParkManagerEmail() {
         return parkManagerEmail;
     }
-
 
     /**
      * This is a getter method that return the number of job length in hour.
@@ -530,10 +521,6 @@ public class Job {
     public void setVolunteerMax(int volunteerMax) {
         this.volunteerMax = volunteerMax;
     }
-
-    //	public void setJobID(int jobID) {
-    //		this.jobID = jobID;
-    //	}
 
     public void setVolunteers(Map<String, WorkCatagories> signedVolunteers) {
         this.volunteers = signedVolunteers;

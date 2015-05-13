@@ -165,6 +165,7 @@ public class ParkManagerConsole {
                                + " medium-duty volunteers.");
             System.out.println(j.getCurrentHard() + " out of " + j.getMaxHard()
                                + " heavy-duty volunteers.");
+            System.out.println();
         }
         System.out.println();
 
