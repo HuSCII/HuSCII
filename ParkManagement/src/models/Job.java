@@ -135,7 +135,7 @@ public class Job {
      */
     //might need to split into separate functions so it's easier to do JUnit test
     //print out sth when current vol == max needed in each categories
-    public void addVolunteer(String email, WorkCatagories workCat) {
+    public boolean addVolunteer(String email, WorkCatagories workCat) {
 
 //        if (isJobFull()) {
 //            throw new JobFullException(getJobName() + "is already full.");
@@ -147,21 +147,25 @@ public class Job {
                     if ((getCurrentLight() < getMaxLight())) {
                         volunteers.put(email, WorkCatagories.LIGHT);
                         currentLight++;
+                        return true;
                     } 
                     break;
                 case MEDIUM:
                     if ((getCurrentMedium() < getMaxMedium())) {
                         volunteers.put(email, WorkCatagories.MEDIUM);
                         currentMedium++;
+                        return true;
                     }
                     break;
                 case HEAVY:
                     if (getCurrentHard() < getMaxHard()) {
                         volunteers.put(email, WorkCatagories.HEAVY);
                         currentHeavy++;
+                        return true;
                     }
                     break;
             }
+            return false;
 //        }
     }
 
