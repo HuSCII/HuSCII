@@ -9,12 +9,9 @@ package models;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -28,9 +25,6 @@ public class Job {
 
     /** Delimiter used in string methods to separate values. */
     private static final String DELIM_STD = ","; 
-
-    /** The maximum days from the current date that the job can be added. */
-    public static final int MAX_DAYS = 90;
 
     /** The maximum hours of job length (2 days). */
     public static final int MAX_JOB_TIME = 48;
@@ -141,13 +135,13 @@ public class Job {
      */
     //might need to split into separate functions so it's easier to do JUnit test
     //print out sth when current vol == max needed in each categories
-    public void addVolunteer(String email, WorkCatagories workCat) throws JobFullException {
+    public void addVolunteer(String email, WorkCatagories workCat) {
 
-        if (isJobFull()) {
-            throw new JobFullException(getJobName() + "is already full.");
-        } else if (contains(email)) {
-            throw new VolunteerStateException("Volunteer is already in " + getJobName() + "list.");
-        } else {
+//        if (isJobFull()) {
+//            throw new JobFullException(getJobName() + "is already full.");
+//        } else if (contains(email)) {
+//            throw new VolunteerStateException("Volunteer is already in " + getJobName() + "list.");
+//        } else {
             switch(workCat) {
                 case LIGHT:
                     if ((getCurrentLight() < getMaxLight())) {
@@ -168,7 +162,7 @@ public class Job {
                     }
                     break;
             }
-        }
+//        }
     }
 
     /**
@@ -236,58 +230,11 @@ public class Job {
     }
 
     /**
-     * Comparing the job date, check if the job is completed or still a pending job.
-     * 
-     * @return true if the job is already completed (past job); otherwise, false.
-     */
-    public static boolean isCompleted(GregorianCalendar jobDate) {
-
-        GregorianCalendar todayDate = 
-                        (GregorianCalendar) GregorianCalendar.getInstance();
-        if(todayDate.compareTo(jobDate) >= 0) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    /**
      * A job may not be scheduled that lasts more than two days. 
      * @return true if the job length is less than 2 days; otherwise, false. 
      */
     public boolean checkJobDuration() {
         return jobDuration < MAX_JOB_TIME;
-    }
-
-    /**
-     * A job may not be added that is in the past or more than three months in the future.
-     * @return true if a job can be added; otherwise, false.
-     */
-    public static boolean valiDate(GregorianCalendar jobDate) {
-        if(isCompleted(jobDate) && !futureDate(jobDate)) {
-            return true;
-        }
-        return false;	
-    }
-
-    /**
-     * This method is to check if the job is more than 3 months from today date.
-     * 
-     * @param jobDate date of the job
-     * @return true if it's more than 3 months in the future; otherwise, false
-     */
-    public static boolean futureDate(GregorianCalendar jobDate) {
-
-        // create a new calendar
-        GregorianCalendar todayDate = 
-                        (GregorianCalendar) GregorianCalendar.getInstance();
-
-        todayDate.add(Calendar.DAY_OF_MONTH, MAX_DAYS);
-
-        if(todayDate.before(jobDate)) {
-            return true; 
-        }
-        return false;
     }
 
     /**
@@ -489,26 +436,26 @@ public class Job {
         return volunteers.keySet();
     }
 
-    /**
-     * An exception thrown when an operation is attempted on a full 
-     * job. 
-     */
-    @SuppressWarnings("serial")
-    public class JobFullException extends RuntimeException {
-        public JobFullException(String message) {
-            super(message);
-        }
-    }
-
-    /**
-     * An exception thrown when an operation is attempted between
-     * a volunteer and a job, but something goes wrong.
-     */
-    @SuppressWarnings("serial")
-    public class VolunteerStateException extends RuntimeException {
-        public VolunteerStateException(String message) {
-            super(message);
-        }
-    }
+//    /**
+//     * An exception thrown when an operation is attempted on a full 
+//     * job. 
+//     */
+//    @SuppressWarnings("serial")
+//    public class JobFullException extends RuntimeException {
+//        public JobFullException(String message) {
+//            super(message);
+//        }
+//    }
+//
+//    /**
+//     * An exception thrown when an operation is attempted between
+//     * a volunteer and a job, but something goes wrong.
+//     */
+//    @SuppressWarnings("serial")
+//    public class VolunteerStateException extends RuntimeException {
+//        public VolunteerStateException(String message) {
+//            super(message);
+//        }
+//    }
 
 }

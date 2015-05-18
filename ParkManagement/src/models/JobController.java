@@ -1,13 +1,8 @@
 package models;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,9 +17,6 @@ import models.Job.WorkCatagories;
  *
  */
 public class JobController {
-
-	/* holds current maximum number of allowed jobs at a given time. */
-	private static int MAX_JOBS = 30;
 	
 	/* stores a copy of all jobs in the system. */
 	private ArrayList<Job> allJobs;
@@ -55,7 +47,7 @@ public class JobController {
 	public List<Job> getUpcomingJobs() {
 		List<Job> upcoming = new ArrayList<Job>();
 		for(int i=0; i<allJobs.size(); i++) {
-			if(!allJobs.get(i).isCompleted(allJobs.get(i).getDate())) {
+			if(!BusinessRules.isCompleted(allJobs.get(i).getDate())) {
 				//add copy of Job
 				upcoming.add(new Job(allJobs.get(i)));
 			}

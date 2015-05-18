@@ -101,7 +101,7 @@ public class ParkManagerConsole {
             GregorianCalendar greg = new GregorianCalendar();
             try {
                 greg.setTime(new SimpleDateFormat("MM/dd/yyyy HH:mm a").parse(date));
-                check = Job.valiDate(greg);
+                check = BusinessRules.valiDate(greg);
                 if (!check) {
                     System.out.println("Date has already occurred "
                                        + "or past 3 months into the future.");
