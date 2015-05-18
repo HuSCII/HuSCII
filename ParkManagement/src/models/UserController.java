@@ -28,7 +28,7 @@ public class UserController {
     private final List<User> userList = new ArrayList<User>();
 
     /** A map of user and parks (for a park manager. */
-    private final Map<User, List<String>> managedParks = new HashMap<User, List<String>>();
+    private final Map<String, List<String>> managedParks = new HashMap<String, List<String>>();
 
     /**
      * Parses a text file, creating a User from each line.
@@ -42,7 +42,7 @@ public class UserController {
         final InputStream in = this.getClass().getResourceAsStream(inputFile);
         final Scanner fileInput = new Scanner(in);
 
-        // For each line of text, split it up using "," as delimeter
+        // For each line of text, split it up using "," as delimiter
         while (fileInput.hasNext()) {
             final List<String> userData = Arrays.asList(fileInput.nextLine().split(","));
 
@@ -61,9 +61,11 @@ public class UserController {
                 }
 
                 // 2. Add him/her as a User + parks List into the map:
-                managedParks.put(userList.get(userList.size() - 1), parks);
+                managedParks.put(userList.get(userList.size() - 1).getEmail(), parks);
             }
         }
+        System.out.println(managedParks);
+
         fileInput.close();
 
     }
