@@ -44,37 +44,6 @@ public class ParkManager extends User {
 
     }
 
-    public List<String> retrieveManagedParks(final String inputFile) {
-
-        Scanner fileInput = null;
-        try {
-            final URL url = ParkManager.class.getResource(inputFile);
-            final File userFile = new File(url.toURI());
-            fileInput = new Scanner(userFile);
-
-            // For each line of text, split it up using "," as delimiter
-            while (fileInput.hasNext()) {
-                final List<String> userData = Arrays.asList(fileInput.nextLine().split(","));
-                if (userData.get(0).equals(getEmail())) {
-                    for (int i = 4; i < userData.size(); i++) {
-                        managedParks.add(userData.get(i));
-                    }
-                    return managedParks;
-                }
-            }
-
-        }
-        catch (final FileNotFoundException | URISyntaxException e) {
-            e.printStackTrace();
-        }
-        finally {
-            fileInput.close();
-
-        }
-        return null;
-
-    }
-
     /**
      * Add job to park management system.
      * 
@@ -84,11 +53,11 @@ public class ParkManager extends User {
      * @param jobDuration Length of job in hours.
      */
     public void addJob(JobController jobController, String parkName, String jobName,
-                          String date, int jobDuration, int maxLight, int maxMed, int maxHvy) {
+                       String date, int jobDuration, int maxLight, int maxMed, int maxHvy) {
 
         jobController.addJob(new Job(getEmail(), parkName, jobName, date, jobDuration,
-                                            0, maxLight, 0, maxMed, 0, maxHvy,
-                                            new HashMap<String, WorkCatagories>()));
+                                     0, maxLight, 0, maxMed, 0, maxHvy,
+                                     new HashMap<String, WorkCatagories>()));
 
     }
 
@@ -102,7 +71,7 @@ public class ParkManager extends User {
 
         // Retrieve list of Upcoming jobs
         final List<Job> upcomingJobs = jobController.getUpcomingJobs();
-        //System.out.println("Upcoming jobs" + upcomingJobs);
+        // System.out.println("Upcoming jobs" + upcomingJobs);
         final List<Job> parkManagerJobs = new ArrayList<Job>();
 
         for (Job j : upcomingJobs) {
@@ -115,16 +84,16 @@ public class ParkManager extends User {
 
     }
 
-//    public static void main(String[] args) {
-//        System.out.println("Testing out parkmanager class");
-//
-//        JobController testJobController = new JobController("src/jobFile.csv");
-//
-//        ParkManager testManager =
-//                        new ParkManager("walderfrey@gmail.com", "Walder", "Frey",
-//                                        "park manager");
-//
-//        System.out.println(testManager.retrieveManagedParks("/userFile.csv"));
-//        System.out.println(testManager.getMyJobs(testJobController));
-//    }
+    // public static void main(String[] args) {
+    // System.out.println("Testing out parkmanager class");
+    //
+    // JobController testJobController = new JobController("src/jobFile.csv");
+    //
+    // ParkManager testManager =
+    // new ParkManager("walderfrey@gmail.com", "Walder", "Frey",
+    // "park manager");
+    //
+    // System.out.println(testManager.retrieveManagedParks("/userFile.csv"));
+    // System.out.println(testManager.getMyJobs(testJobController));
+    // }
 }
