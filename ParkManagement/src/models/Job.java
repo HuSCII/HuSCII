@@ -29,79 +29,49 @@ public class Job {
     /** Delimiter used in string methods to separate values. */
     private static final String DELIM_STD = ","; 
 
-    /**
-     * The maximum days from the current date that the job can be added.
-     */
+    /** The maximum days from the current date that the job can be added. */
     public static final int MAX_DAYS = 90;
 
-    /**
-     * The maximum hours of job length (2 days).
-     */
+    /** The maximum hours of job length (2 days). */
     public static final int MAX_JOB_TIME = 48;
 
-    /**
-     * Email for Park Manager who created job.
-     */
+    /** Email for Park Manager who created job. */
     private String parkManagerEmail;
 
-    /**
-     * Name of the park.
-     */
+    /** Name of the park. */
     private String parkName;
 
-    /**
-     * Name of the job.
-     */
+    /** Name of the job.*/
     private String jobName;
 
-    /**
-     * Date of a job using GregorianCalendar class.
-     */
+    /** Date of a job using GregorianCalendar class. */
     private GregorianCalendar date;
 
-    /**
-     * The length of a job in hours.
-     */
+    /** The length of a job in hours. */
     private int jobDuration;
 
-    /**
-     * The current number of volunteer for light work category.
-     */
+    /** The current number of volunteer for light work category. */
     private int currentLight;
 
-    /**
-     * The maximum number of volunteer for light work category.
-     */
+    /** The maximum number of volunteer for light work category. */
     private int maxLight;
 
-    /**
-     * The current number of volunteer for medium work category.
-     */
+    /** The current number of volunteer for medium work category. */
     private int currentMedium;
 
-    /**
-     * The maximum number of volunteer for medium work category.
-     */
+    /** The maximum number of volunteer for medium work category. */
     private int maxMedium;
 
-    /**
-     * The current number of volunteer for heavy work category.
-     */
+    /** The current number of volunteer for heavy work category. */
     private int currentHeavy;
 
-    /**
-     * The maximum number of volunteer for heavy work category.
-     */
+    /** The maximum number of volunteer for heavy work category. */
     private int maxHeavy;
 
-    /**
-     * The maximum number of volunteer.
-     */
+    /** The maximum number of volunteer. */
     private int volunteerMax;
 
-    /**
-     * Maps of volunteer's email, and work categories.
-     */
+    /** Maps of volunteer's email, and work categories. */
     private Map<String, WorkCatagories> volunteers;
 
     /**
