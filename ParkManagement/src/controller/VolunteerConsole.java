@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import models.Job;
-import models.Job.WorkCatagories;
+import models.Job.WorkCategories;
 import models.JobController;
 import models.User;
 import models.UserController;
@@ -182,19 +182,19 @@ public class VolunteerConsole {
         switch (workCat) {
             case 1:
                 upcomingJobs.get(choice - 1).addVolunteer(volunteer.getEmail(),
-                                                          WorkCatagories.LIGHT);
+                                                          WorkCategories.LIGHT);
                 System.out.println("You have successfully signed up for " + 
                                                           jobName + " at " + parkName + ".");
                 break;
             case 2:
                 upcomingJobs.get(choice - 1).addVolunteer(volunteer.getEmail(),
-                                                          WorkCatagories.MEDIUM);
+                                                          WorkCategories.MEDIUM);
                 System.out.println("You have successfully signed up for " + 
                                 jobName + " at " + parkName + ".");
                 break;
             case 3:
                 upcomingJobs.get(choice - 1).addVolunteer(volunteer.getEmail(),
-                                                          WorkCatagories.HEAVY);
+                                                          WorkCategories.HEAVY);
                 System.out.println("You have successfully signed up for " + 
                                 jobName + " at " + parkName + ".");
                 break;

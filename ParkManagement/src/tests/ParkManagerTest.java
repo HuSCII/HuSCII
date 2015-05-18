@@ -10,7 +10,7 @@ import java.util.Map;
 import models.Job;
 import models.JobController;
 import models.ParkManager;
-import models.Job.WorkCatagories;
+import models.Job.WorkCategories;
 
 import org.junit.After;
 import org.junit.Before;
@@ -24,7 +24,7 @@ public class ParkManagerTest {
     
     Job job;
     
-    Map<String, WorkCatagories> volunteers = new HashMap<String, WorkCatagories>();
+    Map<String, WorkCategories> volunteers = new HashMap<String, WorkCategories>();
     
     List<Job> managedJobs;
     
@@ -35,7 +35,7 @@ public class ParkManagerTest {
          
          controller = new JobController();
          manager = new ParkManager("manager@gmail.com", "Iam", "John", "manager");
-         volunteers.put("janedoe@gmail.com", WorkCatagories.LIGHT);
+         volunteers.put("janedoe@gmail.com", WorkCategories.LIGHT);
          job = new Job("manager@gmail.com", "Disneyland Resort"
                        , "picking up trash", "05/08/2016 09:30 AM", 12, 0, 3, 0, 5, 0, 7, volunteers);
         

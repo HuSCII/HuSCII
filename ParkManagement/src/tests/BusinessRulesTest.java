@@ -9,7 +9,7 @@ import java.util.Map;
 
 import models.BusinessRules;
 import models.Job;
-import models.Job.WorkCatagories;
+import models.Job.WorkCategories;
 import models.JobController;
 
 import org.junit.After;
@@ -36,7 +36,7 @@ public class BusinessRulesTest {
     private BusinessRules br;
 
     /** Map of volunteer's email and work categories */
-    private Map<String, WorkCatagories> signedVolunteers = new HashMap<String, WorkCatagories>();
+    private Map<String, WorkCategories> signedVolunteers = new HashMap<String, WorkCategories>();
 
     /** Stores a copy of all jobs in the system. */
     private ArrayList<Job> allJobs;

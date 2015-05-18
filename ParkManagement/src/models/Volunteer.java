@@ -1,6 +1,6 @@
 package models;
 
-import models.Job.WorkCatagories;
+import models.Job.WorkCategories;
 
 public class Volunteer extends User {
 
@@ -9,7 +9,7 @@ public class Volunteer extends User {
 		super(email, firstName, lastName, role);
 	}
 
-	public void signUp(Job parkJob, WorkCatagories category) {
+	public void signUp(Job parkJob, WorkCategories category) {
 		parkJob.addVolunteer(getEmail(), category);
 	}
 

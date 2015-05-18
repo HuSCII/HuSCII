@@ -65,7 +65,7 @@ public class Job {
     private int volunteerMax;
 
     /** Maps of volunteer's email, and work categories. */
-    private Map<String, WorkCatagories> volunteers;
+    private Map<String, WorkCategories> volunteers;
 
     /**
      * This represents a constructor method.
@@ -80,7 +80,7 @@ public class Job {
                final String date, final int jobDuration, final int currentLight,
                final int maxLight, final int currentMedium, final int maxMedium,
                final int currentHeavy, final int maxHeavy,
-               Map<String, WorkCatagories> volunteers) {
+               Map<String, WorkCategories> volunteers) {
 
         // this.jobID = jobID;
         this.parkManagerEmail = parkManagerEmail;
@@ -97,7 +97,7 @@ public class Job {
         this.maxHeavy = maxHeavy;
 
         if (volunteers == null) {
-            this.volunteers = new HashMap<String, Job.WorkCatagories>();
+            this.volunteers = new HashMap<String, Job.WorkCategories>();
         }
         else {
             this.volunteers = volunteers;
@@ -121,7 +121,7 @@ public class Job {
     /**
      * This represents different work categories that can be used.
      */
-    public enum WorkCatagories {
+    public enum WorkCategories {
         LIGHT, MEDIUM, HEAVY;
     }
 
@@ -137,7 +137,7 @@ public class Job {
     // might need to split into separate functions so it's easier to do JUnit
     // test
     // print out sth when current vol == max needed in each categories
-    public boolean addVolunteer(String email, WorkCatagories workCat) {
+    public boolean addVolunteer(String email, WorkCategories workCat) {
 
         // if (isJobFull()) {
         // throw new JobFullException(getJobName() + "is already full.");
@@ -148,21 +148,21 @@ public class Job {
         switch (workCat) {
             case LIGHT:
                 if ((getCurrentLight() < getMaxLight())) {
-                    volunteers.put(email, WorkCatagories.LIGHT);
+                    volunteers.put(email, WorkCategories.LIGHT);
                     currentLight++;
                     return true;
                 }
                 break;
             case MEDIUM:
                 if ((getCurrentMedium() < getMaxMedium())) {
-                    volunteers.put(email, WorkCatagories.MEDIUM);
+                    volunteers.put(email, WorkCategories.MEDIUM);
                     currentMedium++;
                     return true;
                 }
                 break;
             case HEAVY:
                 if (getCurrentHard() < getMaxHard()) {
-                    volunteers.put(email, WorkCatagories.HEAVY);
+                    volunteers.put(email, WorkCategories.HEAVY);
                     currentHeavy++;
                     return true;
                 }
@@ -187,10 +187,10 @@ public class Job {
         String heavy = "";
 
         for (String email : volunteers.keySet()) {
-            if (volunteers.get(email) == WorkCatagories.LIGHT) {
+            if (volunteers.get(email) == WorkCategories.LIGHT) {
                 light += email + ",";
             }
-            else if (volunteers.get(email) == WorkCatagories.HEAVY) {
+            else if (volunteers.get(email) == WorkCategories.HEAVY) {
                 medium += email + ",";
             }
             else {
@@ -438,7 +438,7 @@ public class Job {
         this.volunteerMax = volunteerMax;
     }
 
-    public void setVolunteers(Map<String, WorkCatagories> signedVolunteers) {
+    public void setVolunteers(Map<String, WorkCategories> signedVolunteers) {
         this.volunteers = signedVolunteers;
     }
 

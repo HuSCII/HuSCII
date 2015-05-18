@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
-import models.Job.WorkCatagories;
+import models.Job.WorkCategories;
 
 /**
  * 
@@ -113,19 +113,19 @@ public class JobController {
         	int maxMedium = Integer.parseInt(token.nextToken());
         	int currentHeavy = Integer.parseInt(token.nextToken());
         	int maxHeavy = Integer.parseInt(token.nextToken());
-        	Map<String, WorkCatagories> signedVolunteers = new HashMap<String, WorkCatagories>();
+        	Map<String, WorkCategories> signedVolunteers = new HashMap<String, WorkCategories>();
         	//collect information
         	int i = 0;
         	while(token.hasMoreTokens()) {
         		//loop for emails
         		if(i>=currentLight) {
         			if(i>=currentLight+currentMedium) {
-        				signedVolunteers.put(token.nextToken(), WorkCatagories.HEAVY);
+        				signedVolunteers.put(token.nextToken(), WorkCategories.HEAVY);
         			} else {
-        				signedVolunteers.put(token.nextToken(), WorkCatagories.MEDIUM);
+        				signedVolunteers.put(token.nextToken(), WorkCategories.MEDIUM);
         			}
         		} else {
-        			signedVolunteers.put(token.nextToken(), WorkCatagories.LIGHT);
+        			signedVolunteers.put(token.nextToken(), WorkCategories.LIGHT);
         		}
         		i++;
         	}
