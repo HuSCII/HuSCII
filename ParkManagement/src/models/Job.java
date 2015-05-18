@@ -256,24 +256,13 @@ public class Job {
     }
 
     /**
-     * Used to check if the passed volunteer is in this job
-     * @param email The volunteer to check if they are in 
-     * 					 this job as a volunteer.
-     * @return True if they are, false if they are not.
-     */
-    public boolean containsVolunteer(String email) {
-        return volunteers.containsKey(email);
-    }
-
-    /**
-     * A condensed version of containsVolunteer that checks to see if the volunteer
-     * is in the job as a volunteer.
+     * Used to check if the volunteer is in the job as a volunteer.
      * @param email Volunteer's email
      * @return True if the passed volunteer is in the job period, false
      * 			otherwise. 
      */
     public boolean contains(String email) {
-        return containsVolunteer(email);
+        return volunteers.containsKey(email);
     }
 
     /**
