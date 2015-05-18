@@ -264,7 +264,7 @@ public class Job {
      * @return true if a job can be added; otherwise, false.
      */
     public static boolean valiDate(GregorianCalendar jobDate) {
-        if(!isCompleted(jobDate) && !futureDate(jobDate)) {
+        if(isCompleted(jobDate) && !futureDate(jobDate)) {
             return true;
         }
         return false;	
