@@ -12,7 +12,11 @@ import models.User;
 public class AdministratorConsole {
 
     private static Scanner keyboard;
-    private static UserController users;
+    private static UserController userController;
+
+    public AdministratorConsole(UserController userController) {
+        AdministratorConsole.userController = userController;
+    }
 
     public static void displayMenu() {
 
@@ -32,20 +36,19 @@ public class AdministratorConsole {
                 searchVolunteer();
                 break;
             case 2:
-                MainConsole mainTest = new MainConsole();
-                String[] args = {};
-                mainTest.main(args);
+                final String[] args = {};
+                MainConsole.main(args);
             case 3:
                 break;
             default:
                 System.out.println("Not in a menu choice");
                 System.out.println("Please Try Aagain!");
                 System.out.println("");
-                AdministratorConsole driver = new AdministratorConsole();
-                driver.displayMenu();
+                displayMenu();
                 break;
         }
 
+        displayMenu();
     }
 
     /**
@@ -55,7 +58,7 @@ public class AdministratorConsole {
      * @return true if volunteer's last name exists; otherwise, false.
      */
     private static boolean hasLastName(final String lastName) {
-        for (User user : users.getVolunteers(lastName)) {
+        for (User user : userController.getVolunteers(lastName)) {
             if (lastName.equalsIgnoreCase(user.getLastName())) {
                 return true;
             }
@@ -71,24 +74,19 @@ public class AdministratorConsole {
         System.out.println("Please Enter Volunteer's Last Name: ");
         String lastName = keyboard.next();
 
-        users = new UserController();
-        users.readUserFile("/userFile.csv");
-
         if (hasLastName(lastName)) {
-
             System.out.println("");
             System.out.println("Volunteer Information ");
             System.out.println("---------------------");
 
-            for (User u : users.getUserList()) {
+            for (User u : userController.getUserList()) {
                 if (u.getLastName().equals(lastName) && u.getRole().equals("volunteer")) {
                     System.out.println("Name: " + u.getFirstName() + " " + u.getLastName());
                     System.out.println("Email: " + u.getEmail());
                     System.out.println();
                 }
             }
-        }
-        else {
+        } else {
             System.out.println("No Volunteer Found!");
             System.out.println("Please Try Again!");
 
@@ -98,9 +96,4 @@ public class AdministratorConsole {
         // Go to menuScreen() again when done:
         displayMenu();
     }
-    //
-    // public static void main(String[] args) {
-    // menuScreen();
-    // }
-
 }

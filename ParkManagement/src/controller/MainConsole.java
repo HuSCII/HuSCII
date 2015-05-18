@@ -100,7 +100,7 @@ public class MainConsole {
                 break;
             case "administrator":
                 // Call administrator console controller class:
-                final AdministratorConsole admin = new AdministratorConsole();
+                final AdministratorConsole admin = new AdministratorConsole(userController);
                 admin.displayMenu();
                 break;
             default:
