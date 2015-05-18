@@ -24,7 +24,7 @@ import models.Job.WorkCatagories;
  */
 public class ParkManager extends User {
 
-    List<Job> managedJobs;
+  //  List<Job> managedJobs;
     List<String> managedParks;
 
     /**
@@ -39,7 +39,7 @@ public class ParkManager extends User {
                        final String role) {
 
         super(email, firstName, lastName, role);
-        managedJobs = new ArrayList<Job>();
+   //     managedJobs = new ArrayList<Job>();
         managedParks = new ArrayList<String>();
 
     }
