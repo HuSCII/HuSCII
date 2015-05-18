@@ -157,27 +157,31 @@ public class VolunteerConsole {
             choice = keyboard.nextInt();
         }
         //add validation for Business Rule#7 (can't sign up for two jobs on the same day)
-        System.out.print("Enter a work category (ie Light, Medium, Heavy) ");
-        String workCat = keyboard.nextLine();
-        workCat = keyboard.nextLine().toLowerCase();
+        
+        System.out.print("Enter a work category (ie 1, 2, 3) ");
+        System.out.println("1. Light");
+        System.out.println("2. Medium");
+        System.out.println("3. Heavy");
+        System.out.print("Please select a work category choice 1-3: ");
+        int workCat = keyboard.nextInt();
 
         switch (workCat) {
-            case "light":
+            case 1:
                 upcomingJobs.get(choice-1).addVolunteer(volunteer.getEmail(),
                                                       WorkCatagories.LIGHT);
                 break;
-            case "medium":
+            case 2:
                 upcomingJobs.get(choice-1).addVolunteer(volunteer.getEmail(),
                                                       WorkCatagories.MEDIUM);
                 break;
-            case "heavy":
+            case 3:
                 upcomingJobs.get(choice-1).addVolunteer(volunteer.getEmail(),
                                                       WorkCatagories.HEAVY);
                 break;
             default:
                 System.out.println("Please enter a valid work category");
                 System.out.println("Light, Medium, Heavy");
-                workCat = keyboard.nextLine().toLowerCase();
+                workCat = keyboard.nextInt();
         }
 
         // job.addVolunteer(volunteer.getEmail(), workCat);
