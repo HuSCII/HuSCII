@@ -31,7 +31,7 @@ public class ParkManagerConsole {
         ParkManagerConsole.userController = userController;
     }
 
-    public void displayMenu() {
+    public boolean displayMenu() {
 
         System.out.println("Welcome To Park Manager Page");
         System.out.println("------------------------------");
@@ -55,17 +55,17 @@ public class ParkManagerConsole {
             case 3:
                 viewVolunteers();
                 break;
-            case 4:
-                final String[] args = {};
-                MainConsole.main(args);
-            case 5:
+            case 4: // Logout
                 break;
+            case 5: // Exit
+                return true;
             default:
                 System.out.println("Not in a menu choice");
                 System.out.println("Please Try Again!\n");
                 displayMenu();
                 break;
         }
+        displayMenu();
     }
 
     public static void submitJob() {

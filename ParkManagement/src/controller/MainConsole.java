@@ -26,17 +26,21 @@ public class MainConsole {
         // Display copyright info
         displayDoc();
 
-        // Display login prompt
-        displayLoginPrompt();
+        boolean exited = false;
+        while (!exited) {
 
-        // Retrieve and verify email:
-        boolean emailIsVerified = false;
-        while (!emailIsVerified) {
-            emailIsVerified = verifyEmail(retrieveEmail());
+            // Display login prompt
+            displayLoginPrompt();
+
+            // Retrieve and verify email:
+            boolean emailIsVerified = false;
+            while (!emailIsVerified) {
+                emailIsVerified = verifyEmail(retrieveEmail());
+            }
+
+            // Display appropriate user options:
+            displayRoleOptions(currentUser);
         }
-
-        // Display appropriate user options:
-        displayRoleOptions(currentUser);
 
         // Write new data on system exit:
         exitSystem();
@@ -114,8 +118,8 @@ public class MainConsole {
         System.out.println("Logging out...");
         System.out.println("Program exiting...");
 
-        //userController.writeUserFile("userFile.csv");
-        //jobController.writeJobData("jobsFile.csv");
+        // userController.writeUserFile("userFile.csv");
+        // jobController.writeJobData("jobsFile.csv");
 
     }
 
