@@ -16,49 +16,36 @@ import java.util.StringTokenizer;
 
 import models.Job.WorkCatagories;
 
-
+/**
+ * 
+ * @author Ian McPeek
+ *
+ */
 public class JobController {
 
-	/*
-	 * holds current maximum number of allowed jobs at a given time.
-	 */
+	/* holds current maximum number of allowed jobs at a given time. */
 	private static int MAX_JOBS = 30;
 	
-	/*
-	 * stores current location of input and output file for jobs.
-	 */
-	private static String FILELOC = "src/jobFile.txt";
-	
-	/*
-	 * stores a copy of all jobs in the system. 
-	 */
+	/* stores a copy of all jobs in the system. */
 	private ArrayList<Job> allJobs;
 	
 	/**
-	 * Creates a new instance of a JobController.
+	 * Creates a new instance of a JobController by loading from 
+	 * given filename.
 	 */
-	public JobController() {
-		allJobs = new ArrayList<Job>();
-		loadJobData(FILELOC);
-	}
-	
 	public JobController(String filename) {
 		allJobs = new ArrayList<Job>();
 		loadJobData(filename);
 	}
+	
 	//*****PUBLIC METHODS*****//
 	
 	/**
-	 * Adds a job to the list if maximum hasn't been reached.
+	 * Adds a job to the list.
 	 * @param job job to be added to allJobs.
 	 */
 	public void addJob(Job job) {
-		//if(checkMaxJobs() && checkJobWeek(job)) {
-			//check week
-			allJobs.add(job);
-			//return true;
-		//}
-		//return false;
+		allJobs.add(job);
 	}
 	
 	/**
@@ -75,7 +62,6 @@ public class JobController {
 		}
 		return upcoming;
 	}
-	
 	
 	/**
 	 * Returns a list of all jobs.
@@ -109,8 +95,17 @@ public class JobController {
 	 * @return whether data was successfully loaded or not.
 	 */
 	public boolean loadJobData(String filename) {
-		//File file = new File(filename);
 	    InputStream in = this.getClass().getResourceAsStream(filename);
+	    //check if filename is valid
+	    if(in==null) {
+	        try {
+                in.close();
+            }
+            catch (IOException e) {
+                //e.printStackTrace();
+            }
+	        return false;
+	    }
 		Scanner scanner = new Scanner(in);
         while(scanner.hasNext()) {
         	StringTokenizer token = new StringTokenizer(scanner.nextLine(), ",");
@@ -164,68 +159,10 @@ public class JobController {
 			writer.write(toString());
 			writer.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//e.printStackTrace();
 			return false;
 		}
 		return true;
 	}
-	
-	//*****VALIDATION METHODS*****//
-	
-	/**
-	 * Checks if the maximum job limit has been reached.
-	 * @return whether maximum is met.
-	 */
-	public boolean checkMaxJobs() {
-		if(allJobs.size()<MAX_JOBS) {
-			return false;
-		}
-		return true;
-	}
-	
-	/**
-	 * Checks if the week quota(5) has been met for a given week.
-	 * @return whether week quota is met.
-	 */
-	public static boolean checkJobWeek(JobController jobs, GregorianCalendar date) {
-		GregorianCalendar pastDate = new GregorianCalendar(date.getTimeZone());
-		GregorianCalendar futureDate = new GregorianCalendar(date.getTimeZone());
-		int count = 0;
-		pastDate.set(Calendar.DAY_OF_MONTH, pastDate.get(Calendar.DAY_OF_MONTH)-3);
-		futureDate.set(Calendar.DAY_OF_MONTH, pastDate.get(Calendar.DAY_OF_MONTH)+3);
-		
-		for(Job aJob:jobs.allJobs) {
-			if(aJob.getDate().compareTo(pastDate)>=0 &&
-					date.compareTo(futureDate)<=0) {
-				count++;
-			}
-			if(count>=5) {
-				return false;
-			}
-		}
-		return true;
-	}
-	
-//	public static void main(String args[]) {
-//	    System.out.println("Hello World");
-//	    JobController controller = new JobController();
-//	    System.out.println(controller.toString());
-//	    
-//	    ArrayList<Job> jl = (ArrayList<Job>) controller.getAllJobs();
-//	    System.out.println(jl.get(0).toString());
-//	    
-//	    Job job = new Job("bettercallsaul@earthlink.com", "Skate Park", "Litter Patrol", "07/9/2015 11:30 AM", 3, 
-//	                      0, 5, 0, 5, 0, 5, null);
-////	    System.out.println(controller.addJob(job));
-//	    System.out.println(controller.toString());
-//	    jl = (ArrayList<Job>) controller.getUpcomingJobs();
-//	    System.out.println(controller.getUpcomingJobs());
-//	    for(Job ajob: jl) {
-//	        System.out.println(ajob.toString());
-//	    }
-//	    
-//	    //controller.writeJobData(FILELOC);
-//	}
 	
 }
