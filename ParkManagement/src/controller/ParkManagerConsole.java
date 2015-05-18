@@ -70,7 +70,7 @@ public class ParkManagerConsole {
     }
 
     public static void submitJob() {
-        if(BusinessRules.checkMaxJobs(jobController.getAllJobs())) {
+        if (BusinessRules.checkMaxJobs(jobController.getAllJobs())) {
             System.out.println("Can't create job, job limit has been reached.");
             return;
         }
@@ -78,63 +78,58 @@ public class ParkManagerConsole {
         keyboard = new Scanner(System.in);
 
         System.out.println("Submit a new park job:");
-       
-        String parkName;
-        boolean check = true;
-        do{
-            System.out.print("Enter Park Name: ");
-            parkName = keyboard.nextLine();
-            for(String park:parkManager.retrieveManagedParks("/userFile.csv")) {
-                //search through list of parks
-                if(park.equals(parkName)) {
-                    check=false;
-                    break;
-                }
-            }
-            if(check) {
-                System.out.println("You don't manage that park.");
-            }
-        } while(check);
-        
+
+        // SELECT A PARK YOU MANAGE:
+        System.out.println("Which of your parks do you want to add a new job to?");
+        int selection = 1;
+        for (String parkName : userController.getManagedParks(parkManager.getEmail())) {
+            System.out.println(selection++ + ") " + parkName);
+        }
+        int parkSelection = keyboard.nextInt() - 1;
+        keyboard.nextLine(); // Skip a line
+        String parkName = userController.getManagedParks(parkManager.getEmail())
+                        .get(parkSelection);
+
         System.out.print("Enter a Job name (ie trash pickup): ");
         String jobName = keyboard.nextLine();
 
         String date;
-        check = true;
+        boolean check = true;
         do {
             System.out.print("Enter a start date & time (MM/DD/YYYY HH:mm AM/PM): ");
-             date = keyboard.nextLine();
+            date = keyboard.nextLine();
             GregorianCalendar greg = new GregorianCalendar();
             try {
                 greg.setTime(new SimpleDateFormat("MM/dd/yyyy HH:mm a").parse(date));
                 check = Job.valiDate(greg);
-                if(!check) {
+                if (!check) {
                     System.out.println("Date has already occurred "
-                                    + "or past 3 months into the future.");
-                } else {
+                                       + "or past 3 months into the future.");
+                }
+                else {
                     check = BusinessRules.checkJobWeek(jobController.getAllJobs(), greg);
-                    if(!check) {
+                    if (!check) {
                         System.out.println("The capacity for this week has already been reached.");
                     }
                 }
             }
             catch (ParseException e) {
                 System.out.println("Date not in right format");
-//                e.printStackTrace();
+                // e.printStackTrace();
             }
-            
-        } while(!check);
-        
+
+        }
+        while (!check);
+
         int duration;
-        while(true) {
+        while (true) {
             System.out.print("Enter job duration (in hours): ");
             duration = keyboard.nextInt();
-            if(duration>0 && duration<=48) {
+            if (duration > 0 && duration <= 48) {
                 break;
             }
             System.out.println("job duration not valid");
         }
-        
 
         System.out.print("Enter max number of light-duty volunteers needed: ");
         int lightMax = keyboard.nextInt();
@@ -144,7 +139,7 @@ public class ParkManagerConsole {
 
         System.out.print("Enter max number of heavy-duty volunteers needed: ");
         int hvyMax = keyboard.nextInt();
-        
+
         parkManager.addJob(jobController, parkName, jobName, date, duration, lightMax, medMax,
                            hvyMax);
     }

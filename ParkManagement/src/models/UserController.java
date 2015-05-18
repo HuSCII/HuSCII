@@ -64,8 +64,6 @@ public class UserController {
                 managedParks.put(userList.get(userList.size() - 1).getEmail(), parks);
             }
         }
-        System.out.println(managedParks);
-
         fileInput.close();
 
     }
@@ -120,8 +118,8 @@ public class UserController {
      * @param parkManager The User (park manager) whose parks we want to retrieve.
      * @return List of parks this park manager manages.
      */
-    public List<String> getManagedParks(final User parkManager) {
-        return managedParks.get(parkManager);
+    public List<String> getManagedParks(final String parkManagerEmail) {
+        return managedParks.get(parkManagerEmail);
     }
 
     @Override
