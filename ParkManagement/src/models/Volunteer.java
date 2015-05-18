@@ -14,8 +14,8 @@ public class Volunteer extends User {
 	}
 
 	public void findSignUpJobs() {
-		JobController allJobs = new JobController();
-		allJobs.getAllJobs();
+//		JobController allJobs = new JobController();
+//		allJobs.getAllJobs();
 	}
 
 }

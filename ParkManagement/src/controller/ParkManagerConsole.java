@@ -7,6 +7,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Scanner;
 
+import models.BusinessRules;
 import models.Job;
 import models.JobController;
 import models.ParkManager;
@@ -69,7 +70,7 @@ public class ParkManagerConsole {
     }
 
     public static void submitJob() {
-        if(jobController.checkMaxJobs()) {
+        if(BusinessRules.checkMaxJobs(jobController.getAllJobs())) {
             System.out.println("Can't create job, job limit has been reached.");
             return;
         }
@@ -111,7 +112,7 @@ public class ParkManagerConsole {
                     System.out.println("Date has already occurred "
                                     + "or past 3 months into the future.");
                 } else {
-                    check = JobController.checkJobWeek(jobController, greg);
+                    check = BusinessRules.checkJobWeek(jobController.getAllJobs(), greg);
                     if(!check) {
                         System.out.println("The capacity for this week has already been reached.");
                     }
