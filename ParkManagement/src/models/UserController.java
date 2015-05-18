@@ -11,7 +11,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 /**
@@ -23,7 +25,10 @@ import java.util.Scanner;
 public class UserController {
 
     /** A collection of Users. */
-    final List<User> userList = new ArrayList<User>();
+    private final List<User> userList = new ArrayList<User>();
+
+    /** A map of user and parks (for a park manager. */
+    private final Map<User, List<String>> managedParks = new HashMap<User, List<String>>();
 
     /**
      * Parses a text file, creating a User from each line.
@@ -41,9 +46,23 @@ public class UserController {
         while (fileInput.hasNext()) {
             final List<String> userData = Arrays.asList(fileInput.nextLine().split(","));
 
-            // Add each User to the List
-            userList.add(new User(userData.get(0), userData.get(1), userData.get(2), userData
-                            .get(3)));
+            // Add each User of the file to the List
+            int i = 0;
+            userList.add(new User(userData.get(i++), userData.get(i++), userData.get(i++),
+                                  userData.get(i)));
+
+            // If the User that was just added was PM, create its parks list too.
+            if (userData.get(i++).equalsIgnoreCase("park manager")) {
+
+                // 1. Put his/her park(s) into a List
+                final List<String> parks = new ArrayList<String>();
+                while (i < userData.size()) {
+                    parks.add(userData.get(i++));
+                }
+
+                // 2. Add him/her as a User + parks List into the map:
+                managedParks.put(userList.get(userList.size() - 1), parks);
+            }
         }
         fileInput.close();
 
@@ -83,26 +102,34 @@ public class UserController {
      */
     public List<User> getVolunteers(final String lastName) {
 
+        // For each user, check if user has the last name AND is "volunteer" role.
         final List<User> tempList = new ArrayList<User>();
-
         for (User u : userList) {
-            if (u.getLastName().equals(lastName) && u.getRole().equals("volunteer")) {
+            if (u.getLastName().equals(lastName) && u.getRole().equalsIgnoreCase("volunteer")) {
                 tempList.add(u);
             }
         }
         return tempList;
     }
 
+    /**
+     * Retrieve this Park Manager's managed parks in a list.
+     * 
+     * @param parkManager The User (park manager) whose parks we want to retrieve.
+     * @return List of parks this park manager manages.
+     */
+    public List<String> getManagedParks(final User parkManager) {
+        return managedParks.get(parkManager);
+    }
+
     @Override
     public String toString() {
 
         final StringBuilder sb = new StringBuilder();
-
         // Append each user line
         for (User u : userList) {
             sb.append(u.toString() + "\r\n");
         }
-
         return sb.toString();
     }
 
