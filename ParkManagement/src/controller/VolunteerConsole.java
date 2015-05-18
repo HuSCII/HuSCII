@@ -129,9 +129,13 @@ public class VolunteerConsole {
         System.out.println("Viewing the jobs you have signed up for:");
         System.out.println();
 
+        boolean emailFound = false;
+
         for (Job j : jobController.getUpcomingJobs()) {
+
             for (String vol : j.getVolunteerEmails()) {
                 if (volunteer.getEmail().equals(vol)) {
+                    emailFound = true;
                     System.out.print(j.getJobName() + " at ");
                     System.out.print(j.getParkName() + " on ");
                     System.out.println(new SimpleDateFormat("MM/dd/yyyy HH:mm a").format(j
@@ -139,6 +143,12 @@ public class VolunteerConsole {
                     System.out.println();
                 }
             }
+        }
+
+        // The case when volunteer has no jobs:
+        if (!emailFound) {
+            System.out.println("You have not signed up for any jobs yet!");
+            System.out.println();
         }
 
     }
@@ -156,27 +166,28 @@ public class VolunteerConsole {
             System.out.print("Please make a selection from the list: ");
             choice = keyboard.nextInt();
         }
-        //add validation for Business Rule#7 (can't sign up for two jobs on the same day)
-        
-        System.out.print("Enter a work category (ie 1, 2, 3) ");
+        // add validation for Business Rule#7 (can't sign up for two jobs on the same day)
+
+        System.out.println("Enter a work category (ie 1, 2, 3) ");
         System.out.println("1. Light");
         System.out.println("2. Medium");
         System.out.println("3. Heavy");
         System.out.print("Please select a work category choice 1-3: ");
+        System.out.println();
         int workCat = keyboard.nextInt();
 
         switch (workCat) {
             case 1:
-                upcomingJobs.get(choice-1).addVolunteer(volunteer.getEmail(),
-                                                      WorkCatagories.LIGHT);
+                upcomingJobs.get(choice - 1).addVolunteer(volunteer.getEmail(),
+                                                          WorkCatagories.LIGHT);
                 break;
             case 2:
-                upcomingJobs.get(choice-1).addVolunteer(volunteer.getEmail(),
-                                                      WorkCatagories.MEDIUM);
+                upcomingJobs.get(choice - 1).addVolunteer(volunteer.getEmail(),
+                                                          WorkCatagories.MEDIUM);
                 break;
             case 3:
-                upcomingJobs.get(choice-1).addVolunteer(volunteer.getEmail(),
-                                                      WorkCatagories.HEAVY);
+                upcomingJobs.get(choice - 1).addVolunteer(volunteer.getEmail(),
+                                                          WorkCatagories.HEAVY);
                 break;
             default:
                 System.out.println("Please enter a valid work category");
