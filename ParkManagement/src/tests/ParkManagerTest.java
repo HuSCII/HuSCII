@@ -54,13 +54,7 @@ public class ParkManagerTest {
         
     }
 
-    @Test
-    public void testRetrieveManagedParks() {
-        
-        assertEquals(null, manager.retrieveManagedParks("/testFile.csv"));
-        assertEquals(manager.getManagedParks(), manager.retrieveManagedParks("/testFile.csv"));
-    }
-    @Test
+    
     public void testAddJob() {
         
         assertEquals(manager.addJob(controller, "Disneyland Resort", "picking up trash", "05/08/2016 09:30 AM", 12, 3, 5, 7), 
