@@ -150,7 +150,6 @@ public class VolunteerConsole {
             System.out.println("You have not signed up for any jobs yet!");
             System.out.println();
         }
-
     }
 
     public static void signMeUp() {
@@ -202,7 +201,7 @@ public class VolunteerConsole {
             default:
                 System.out.println("Please enter a valid work category");
                 System.out.println("Light, Medium, Heavy");
-                workCat = keyboard.nextInt();
+                workCat = keyboard.nextInt(); 
         }
 
         System.out.println();
