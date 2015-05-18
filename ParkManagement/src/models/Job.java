@@ -1,6 +1,5 @@
 /*
- * This class represents park job that volunteers sign up for.
- * Group 2 - HuSCII
+ * This class represents park job that volunteers sign up for. Group 2 - HuSCII
  * TCSS 360, Spring 2015
  */
 
@@ -24,7 +23,7 @@ import java.util.Set;
 public class Job {
 
     /** Delimiter used in string methods to separate values. */
-    private static final String DELIM_STD = ","; 
+    private static final String DELIM_STD = ",";
 
     /** The maximum hours of job length (2 days). */
     public static final int MAX_JOB_TIME = 48;
@@ -35,7 +34,7 @@ public class Job {
     /** Name of the park. */
     private String parkName;
 
-    /** Name of the job.*/
+    /** Name of the job. */
     private String jobName;
 
     /** Date of a job using GregorianCalendar class. */
@@ -77,15 +76,13 @@ public class Job {
      * @param date The date of the job.
      * @param jobDuration The length of the job in hours.
      */
-    public Job(final String parkManagerEmail, 
-               final String parkName, final String jobName, 
-               final String date, final int jobDuration, 
-               final int currentLight, final int maxLight,
-               final int currentMedium, final int maxMedium,
+    public Job(final String parkManagerEmail, final String parkName, final String jobName,
+               final String date, final int jobDuration, final int currentLight,
+               final int maxLight, final int currentMedium, final int maxMedium,
                final int currentHeavy, final int maxHeavy,
                Map<String, WorkCatagories> volunteers) {
 
-        //this.jobID = jobID;
+        // this.jobID = jobID;
         this.parkManagerEmail = parkManagerEmail;
         this.parkName = parkName;
         this.jobName = jobName;
@@ -99,9 +96,10 @@ public class Job {
         this.currentHeavy = currentHeavy;
         this.maxHeavy = maxHeavy;
 
-        if(volunteers==null) {
+        if (volunteers == null) {
             this.volunteers = new HashMap<String, Job.WorkCatagories>();
-        } else {
+        }
+        else {
             this.volunteers = volunteers;
         }
 
@@ -109,14 +107,15 @@ public class Job {
 
     /**
      * A copy constructor that creates a copy of the existing job.
+     * 
      * @param job job to be cloned.
      */
     public Job(Job job) {
         this(job.getParkManagerEmail(), job.getParkName(), job.getJobName(),
-             new SimpleDateFormat("MM/dd/yyyy HH:mm a").format(job.getDate().getTime()), 
-             job.getJobDuration(), job.getCurrentLight(), job.getMaxLight(), 
-             job.getCurrentMedium(), job.getMaxMedium(), 
-             job.getCurrentHard(), job.getMaxHard(), job.volunteers);//needs getVolunteers()
+             new SimpleDateFormat("MM/dd/yyyy HH:mm a").format(job.getDate().getTime()), job
+                             .getJobDuration(), job.getCurrentLight(), job.getMaxLight(), job
+                             .getCurrentMedium(), job.getMaxMedium(), job.getCurrentHard(),
+             job.getMaxHard(), job.volunteers);// needs getVolunteers()
     }
 
     /**
@@ -130,66 +129,71 @@ public class Job {
      * This method is for adding volunteer to a job.
      * 
      * @param email volunteer's email address
-     * @param workCat different choice of work categories including light, medium, and heavy
-     * @throws JobFullException exception is thrown when the maximum number of volunteer for that job is reached.
+     * @param workCat different choice of work categories including light,
+     *            medium, and heavy
+     * @throws JobFullException exception is thrown when the maximum number of
+     *             volunteer for that job is reached.
      */
-    //might need to split into separate functions so it's easier to do JUnit test
-    //print out sth when current vol == max needed in each categories
+    // might need to split into separate functions so it's easier to do JUnit
+    // test
+    // print out sth when current vol == max needed in each categories
     public boolean addVolunteer(String email, WorkCatagories workCat) {
 
-//        if (isJobFull()) {
-//            throw new JobFullException(getJobName() + "is already full.");
-//        } else if (contains(email)) {
-//            throw new VolunteerStateException("Volunteer is already in " + getJobName() + "list.");
-//        } else {
-            switch(workCat) {
-                case LIGHT:
-                    if ((getCurrentLight() < getMaxLight())) {
-                        volunteers.put(email, WorkCatagories.LIGHT);
-                        currentLight++;
-                        return true;
-                    } 
-                    break;
-                case MEDIUM:
-                    if ((getCurrentMedium() < getMaxMedium())) {
-                        volunteers.put(email, WorkCatagories.MEDIUM);
-                        currentMedium++;
-                        return true;
-                    }
-                    break;
-                case HEAVY:
-                    if (getCurrentHard() < getMaxHard()) {
-                        volunteers.put(email, WorkCatagories.HEAVY);
-                        currentHeavy++;
-                        return true;
-                    }
-                    break;
-            }
-            return false;
-//        }
+        // if (isJobFull()) {
+        // throw new JobFullException(getJobName() + "is already full.");
+        // } else if (contains(email)) {
+        // throw new VolunteerStateException("Volunteer is already in " +
+        // getJobName() + "list.");
+        // } else {
+        switch (workCat) {
+            case LIGHT:
+                if ((getCurrentLight() < getMaxLight())) {
+                    volunteers.put(email, WorkCatagories.LIGHT);
+                    currentLight++;
+                    return true;
+                }
+                break;
+            case MEDIUM:
+                if ((getCurrentMedium() < getMaxMedium())) {
+                    volunteers.put(email, WorkCatagories.MEDIUM);
+                    currentMedium++;
+                    return true;
+                }
+                break;
+            case HEAVY:
+                if (getCurrentHard() < getMaxHard()) {
+                    volunteers.put(email, WorkCatagories.HEAVY);
+                    currentHeavy++;
+                    return true;
+                }
+                break;
+        }
+        return false;
+        // }
     }
 
     /**
      * List of volunteers sign up for a job.
      * 
-     * @return A string containing the emails of all the
-     * 			volunteers in this job 
+     * @return A string containing the emails of all the volunteers in this job
      */
     public String volunteerSignUp() {
-        if(volunteers.isEmpty()) {
+        if (volunteers.isEmpty()) {
             return null;
         }
         StringBuilder sb = new StringBuilder();
-        String light="";
-        String medium="";
-        String heavy="";
+        String light = "";
+        String medium = "";
+        String heavy = "";
 
         for (String email : volunteers.keySet()) {
             if (volunteers.get(email) == WorkCatagories.LIGHT) {
                 light += email + ",";
-            } else if (volunteers.get(email) == WorkCatagories.HEAVY) {
+            }
+            else if (volunteers.get(email) == WorkCatagories.HEAVY) {
                 medium += email + ",";
-            } else {
+            }
+            else {
                 heavy += email + ",";
             }
         }
@@ -197,25 +201,28 @@ public class Job {
         sb.append(light);
         sb.append(medium);
         sb.append(heavy);
-        if(sb.length() > 0) {
-            sb.deleteCharAt(sb.length()-1);
+        if (sb.length() > 0) {
+            sb.deleteCharAt(sb.length() - 1);
         }
         return sb.toString();
     }
 
-
     /**
-     * This method is to check whether the job is full or volunteer can still sign up.
+     * This method is to check whether the job is full or volunteer can still
+     * sign up.
+     * 
      * @return True if this job can no longer accept volunteers.
      * 
-     * add all getMax for each work categories to get if job is full or not
+     *         add all getMax for each work categories to get if job is full or
+     *         not
      */
     public boolean isJobFull() {
         return getVolunteerMax() <= volunteers.size();
-    }	
+    }
 
     /**
      * Get the maximum number of volunteers.
+     * 
      * @return The max number of volunteers for this job.
      */
     public int getVolunteerMax() {
@@ -225,24 +232,18 @@ public class Job {
 
     /**
      * Used to check if the volunteer is in the job as a volunteer.
+     * 
      * @param email Volunteer's email
      * @return True if the passed volunteer is in the job period, false
-     * 			otherwise. 
+     *         otherwise.
      */
     public boolean contains(String email) {
         return volunteers.containsKey(email);
     }
 
     /**
-     * A job may not be scheduled that lasts more than two days. 
-     * @return true if the job length is less than 2 days; otherwise, false. 
-     */
-    public boolean checkJobDuration() {
-        return jobDuration < MAX_JOB_TIME;
-    }
-
-    /**
      * This method represents the date format from the jobFile file.
+     * 
      * @param date the date of the job
      */
     public void setDate(String date) {
@@ -251,17 +252,19 @@ public class Job {
             Date aDate = formatter.parse(date);
             this.date = new GregorianCalendar();
             this.date.setTime(aDate);
-        } catch (ParseException e) {
+        }
+        catch (ParseException e) {
             e.printStackTrace();
         }
     }
 
     /**
      * This represents toString() method.
+     * 
      * @return String content
      */
     public String toString() {
-        //toString needs to include fields for file printing
+        // toString needs to include fields for file printing
         StringBuilder sb = new StringBuilder();
         sb.append(parkManagerEmail + ",");
         sb.append(parkName + ",");
@@ -274,8 +277,8 @@ public class Job {
         sb.append(maxMedium + ",");
         sb.append(currentHeavy + ",");
         sb.append(maxHeavy);
-        if(!volunteers.isEmpty()) {
-            sb.append("," + volunteerSignUp()); 
+        if (!volunteers.isEmpty()) {
+            sb.append("," + volunteerSignUp());
         }
 
         return sb.toString();
@@ -301,6 +304,7 @@ public class Job {
 
     /**
      * This is a getter method that returns a park name.
+     * 
      * @return parkName name of a park
      */
     public String getParkName() {
@@ -309,13 +313,16 @@ public class Job {
 
     /**
      * This is a getter method that return the date of a job.
+     * 
      * @return date the date of a job.
      */
     public GregorianCalendar getDate() {
         return date;
     }
+
     /**
      * This is a getter method that returns a job name.
+     * 
      * @return jobName name of a job
      */
     public String getJobName() {
@@ -323,66 +330,65 @@ public class Job {
     }
 
     /**
-     * This is a getter method that returns a number of current 
-     * volunteers sign up for light work category.
+     * This is a getter method that returns a number of current volunteers sign
+     * up for light work category.
      * 
-     * @return currentLight the number of current 
-     * volunteers sign up for light work category.
+     * @return currentLight the number of current volunteers sign up for light
+     *         work category.
      */
     public int getCurrentLight() {
         return currentLight;
     }
 
     /**
-     * This is a getter method that returns a number of maximum 
-     * volunteers in which that light work category requires.
+     * This is a getter method that returns a number of maximum volunteers in
+     * which that light work category requires.
      * 
-     * @return maxLight the number of maximum 
-     * volunteers for light work category.
+     * @return maxLight the number of maximum volunteers for light work
+     *         category.
      */
     public int getMaxLight() {
         return maxLight;
     }
 
     /**
-     * This is a getter method that returns a number of current 
-     * volunteers sign up for medium work category.
+     * This is a getter method that returns a number of current volunteers sign
+     * up for medium work category.
      * 
-     * @return currentMedium the number of current 
-     * volunteers sign up for medium work category.
+     * @return currentMedium the number of current volunteers sign up for medium
+     *         work category.
      */
     public int getCurrentMedium() {
         return currentMedium;
     }
 
     /**
-     * This is a getter method that returns a number of maximum 
-     * volunteers in which that medium work category requires.
+     * This is a getter method that returns a number of maximum volunteers in
+     * which that medium work category requires.
      * 
-     * @return maxMedium the number of maximum 
-     * volunteers for medium work category.
+     * @return maxMedium the number of maximum volunteers for medium work
+     *         category.
      */
     public int getMaxMedium() {
         return maxMedium;
     }
 
     /**
-     * This is a getter method that returns a number of current 
-     * volunteers sign up for heavy work category.
+     * This is a getter method that returns a number of current volunteers sign
+     * up for heavy work category.
      * 
-     * @return currentHard the number of current 
-     * volunteers sign up for heavy work category.
+     * @return currentHard the number of current volunteers sign up for heavy
+     *         work category.
      */
     public int getCurrentHard() {
         return currentHeavy;
     }
 
     /**
-     * This is a getter method that returns a number of maximum 
-     * volunteers in which that heavy work category requires.
+     * This is a getter method that returns a number of maximum volunteers in
+     * which that heavy work category requires.
      * 
-     * @return maxHard the number of maximum 
-     * volunteers for heavy work category.
+     * @return maxHard the number of maximum volunteers for heavy work category.
      */
     public int getMaxHard() {
         return maxHeavy;
@@ -440,26 +446,26 @@ public class Job {
         return volunteers.keySet();
     }
 
-//    /**
-//     * An exception thrown when an operation is attempted on a full 
-//     * job. 
-//     */
-//    @SuppressWarnings("serial")
-//    public class JobFullException extends RuntimeException {
-//        public JobFullException(String message) {
-//            super(message);
-//        }
-//    }
-//
-//    /**
-//     * An exception thrown when an operation is attempted between
-//     * a volunteer and a job, but something goes wrong.
-//     */
-//    @SuppressWarnings("serial")
-//    public class VolunteerStateException extends RuntimeException {
-//        public VolunteerStateException(String message) {
-//            super(message);
-//        }
-//    }
+    // /**
+    // * An exception thrown when an operation is attempted on a full
+    // * job.
+    // */
+    // @SuppressWarnings("serial")
+    // public class JobFullException extends RuntimeException {
+    // public JobFullException(String message) {
+    // super(message);
+    // }
+    // }
+    //
+    // /**
+    // * An exception thrown when an operation is attempted between
+    // * a volunteer and a job, but something goes wrong.
+    // */
+    // @SuppressWarnings("serial")
+    // public class VolunteerStateException extends RuntimeException {
+    // public VolunteerStateException(String message) {
+    // super(message);
+    // }
+    // }
 
 }
