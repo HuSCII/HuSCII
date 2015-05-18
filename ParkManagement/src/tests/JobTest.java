@@ -79,38 +79,11 @@ public class JobTest {
     }
 
     @Test
-    public void testIsCompleted() {
-        assertTrue("A job is not completed.", testJob1.isCompleted(testJob1.getDate())); //past job
-        assertFalse("A job is completed.", testJob2.isCompleted(testJob2.getDate())); //future job
-        assertFalse("A job is completed.", testJob3.isCompleted(testJob3.getDate())); //future job
-    }
-
-    @Test
     public void testCheckJobDuration() {
         assertTrue("A job may not be scheduled that lasts more than two days.", testJob1.checkJobDuration());
         assertFalse("A job may be scheduled that lasts more than two days.", 
                     testJob2.checkJobDuration()); //last more than 2 days
         assertFalse("A job may be scheduled that lasts more than two days.", 
                     testJob3.checkJobDuration()); //last more than 2 days
-    }
-
-    @Test
-    public void testFutureMonth() {
-        assertFalse("A job is less than 3 months in the future.", testJob1.futureDate(testJob1.getDate()));
-
-        assertTrue("A job is more than 3 months in the future.", 
-                   testJob1.futureDate(testJob2.getDate())); //more than 3 months in the future
-
-        assertFalse("A job is more than 3 months in the future.", testJob1.futureDate(testJob3.getDate()));
-    }
-
-    @Test
-    public void testValiDate() {
-        assertFalse("A job may be added that is in the past or "
-                        + "more than three months in the future.", testJob1.valiDate(testJob1.getDate()));
-        assertFalse("A job may be added that is in the past or "
-                        + "more than three months in the future.", testJob2.valiDate(testJob2.getDate()));
-        assertTrue("A job may not be added that is in the past or "
-                        + "more than three months in the future.", testJob3.valiDate(testJob3.getDate()));
     }
 }
