@@ -3,108 +3,107 @@
  * TCSS 360 - Spring '15
  * UserController.java
  */
+
 package models;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
 /**
- * This class retrieves and handles user data.
+ * Parses text file of Users and creates collections of users.
  * 
  * @author HuSCII
  * @version 3 May 2015
  */
 public class UserController {
 
-	/** A collection of Users. */
-	final List<User> userList = new ArrayList<User>();
+    /** A collection of Users. */
+    final List<User> userList = new ArrayList<User>();
 
-	/**
-	 * Parses a text file, creating a User for each line
-	 * 
-	 * @param inputFile
-	 *            Text file of user data.
-	 */
-	public void readUserFile(final String inputFile) {
+    /**
+     * Parses a text file, creating a User from each line.
+     * 
+     * @param inputFile Text file of user data.
+     */
+    public void readUserFile(final String inputFile) {
 
-		//			URL url = UserController.class.getResource(inputFile);
-        //			File userFile = new File(url.toURI());
-        		    InputStream in = this.getClass().getResourceAsStream(inputFile);
-        			final Scanner fileInput = new Scanner(in);
-        
-        			// For each line of text, split it up using "," as delimeter
-        			while (fileInput.hasNext()) {
-        				final List<String> userData = Arrays.asList(fileInput
-        						.nextLine().split(","));
-        
-        				// Add each User to the List
-        				userList.add(new User(userData.get(0), userData.get(1),
-        						userData.get(2), userData.get(3)));
-        			}
-        			fileInput.close();
+        // URL url = UserController.class.getResource(inputFile);
+        // File userFile = new File(url.toURI());
+        final InputStream in = this.getClass().getResourceAsStream(inputFile);
+        final Scanner fileInput = new Scanner(in);
 
-	}
+        // For each line of text, split it up using "," as delimeter
+        while (fileInput.hasNext()) {
+            final List<String> userData = Arrays.asList(fileInput.nextLine().split(","));
 
-	/** Write List of Users into textfile. */
-	public void writeUserFile(final String outputFile) {
+            // Add each User to the List
+            userList.add(new User(userData.get(0), userData.get(1), userData.get(2), userData
+                            .get(3)));
+        }
+        fileInput.close();
 
-		try {
-			FileWriter writer = new FileWriter(outputFile);
-			writer.append(toString());
-			writer.flush();
-			writer.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+    }
 
-	/**
-	 * Returns the Users in a List.
-	 * 
-	 * @return List of Users.
-	 */
-	public List<User> getUserList() {
-		return userList;
-	}
+    /**
+     * Write List of Users into textfile.
+     * 
+     * @param outputFile Name of text file.
+     */
+    public void writeUserFile(final String outputFile) {
 
-	/**
-	 * Returns only Volunteers with the specified last name as a new List.
-	 * 
-	 * @return List of Volunteers of a specified last name.
-	 */
-	public List<User> getVolunteers(final String lastName) {
+        try {
+            final FileWriter writer = new FileWriter(outputFile);
+            writer.append(toString());
+            writer.close();
+        }
+        catch (final IOException e) {
+            e.printStackTrace();
+        }
+    }
 
-		List<User> tempList = new ArrayList<User>();
+    /**
+     * Returns the Users in a List.
+     * 
+     * @return List of all Users in system.
+     */
+    public List<User> getUserList() {
+        return userList;
+    }
 
-		for (User u : userList) {
-			if (u.getLastName().equals(lastName)
-					&& u.getRole().equals("volunteer")) {
-				tempList.add(u);
-			}
-		}
-		return tempList;
-	}
+    /**
+     * Returns only Volunteers with the specified last name as a new List.
+     * 
+     * @return List of Volunteers of a specified last name.
+     * @param lastName Volunteer's last name.
+     */
+    public List<User> getVolunteers(final String lastName) {
 
-	/** String representation of users and their data. */
-	public String toString() {
+        final List<User> tempList = new ArrayList<User>();
 
-		final StringBuilder sb = new StringBuilder();
+        for (User u : userList) {
+            if (u.getLastName().equals(lastName) && u.getRole().equals("volunteer")) {
+                tempList.add(u);
+            }
+        }
+        return tempList;
+    }
 
-		// Append each user line
-		for (User u : userList) {
-			sb.append(u.toString() + "\r\n");
-		}
+    @Override
+    public String toString() {
 
-		return sb.toString(); 
-	}
+        final StringBuilder sb = new StringBuilder();
+
+        // Append each user line
+        for (User u : userList) {
+            sb.append(u.toString() + "\r\n");
+        }
+
+        return sb.toString();
+    }
 
 }
