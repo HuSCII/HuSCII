@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import models.Job;
-import models.Job.WorkCatagories;
+import models.Job.WorkCategories;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -30,7 +30,7 @@ public class JobTest {
     Job testJob1, testJob2, testJob3;
     Job testDate1, testDate2;
     GregorianCalendar jobDate;
-    Map<String, WorkCatagories> signedVolunteers = new HashMap<String, WorkCatagories>();
+    Map<String, WorkCategories> signedVolunteers = new HashMap<String, WorkCategories>();
 
     /**
      * Initialize the objects.
@@ -39,7 +39,7 @@ public class JobTest {
     @Before
     public void setUp() throws Exception {
 
-        signedVolunteers.put("janedoe@gmail.com", WorkCatagories.LIGHT);
+        signedVolunteers.put("janedoe@gmail.com", WorkCategories.LIGHT);
 
         //represent past date
         testJob1 = new Job("walderfrey@gmail.com", "Wright Park", "Tree Trimming", "05/08/2014 09:30 AM", 
@@ -69,7 +69,7 @@ public class JobTest {
         assertEquals("Number of volunteer in medium work category is not equal", 5, testJob1.getMaxMedium());
         assertEquals("Number of volunteer in heavy work category is not equal", 3, testJob1.getCurrentHard());
         assertEquals("Number of volunteer in heavy work category is not equal", 5, testJob1.getMaxHard());
-        assertEquals("Volunteer who signed up for Light", signedVolunteers.get("janedoe@gmail.com"), WorkCatagories.LIGHT);
+        assertEquals("Volunteer who signed up for Light", signedVolunteers.get("janedoe@gmail.com"), WorkCategories.LIGHT);
     }
 
     @Test

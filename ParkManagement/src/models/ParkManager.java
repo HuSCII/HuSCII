@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
-import models.Job.WorkCatagories;
+import models.Job.WorkCategories;
 
 /**
  * park manager.
@@ -57,7 +57,7 @@ public class ParkManager extends User {
 
         jobController.addJob(new Job(getEmail(), parkName, jobName, date, jobDuration,
                                      0, maxLight, 0, maxMed, 0, maxHvy,
-                                     new HashMap<String, WorkCatagories>()));
+                                     new HashMap<String, WorkCategories>()));
 
     }
 

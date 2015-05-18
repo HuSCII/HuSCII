@@ -66,7 +66,6 @@ public class ParkManagerConsole {
                 displayMenu();
                 break;
         }
-        displayMenu();
     }
 
     public static void submitJob() {
@@ -87,8 +86,9 @@ public class ParkManagerConsole {
         }
         int parkSelection = keyboard.nextInt() - 1;
         keyboard.nextLine(); // Skip a line
-        String parkName = userController.getManagedParks(parkManager.getEmail())
-                        .get(parkSelection);
+        String parkName =
+                        userController.getManagedParks(parkManager.getEmail())
+                                        .get(parkSelection);
 
         System.out.print("Enter a Job name (ie trash pickup): ");
         String jobName = keyboard.nextLine();
@@ -193,14 +193,20 @@ public class ParkManagerConsole {
 
         // Display volunteers of the selected jobs:
         System.out.println("Volunteers:");
+
+        boolean volunteerFound = false;
         for (String volunteer : tempJobs.get(choice - 1).getVolunteerEmails()) {
             for (User u : userController.getUserList()) {
                 if (u.getEmail().equals(volunteer)) {
+                    volunteerFound = true;
                     System.out.print(u.getFirstName() + " ");
                     System.out.print(u.getLastName() + ", ");
                     System.out.println(u.getEmail());
                 }
             }
+        }
+        if (!volunteerFound) {
+            System.out.println("No volunteers have signed up yet!");
         }
 
         System.out.println(); // Spacer
