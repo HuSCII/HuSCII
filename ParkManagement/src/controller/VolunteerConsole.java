@@ -175,19 +175,29 @@ public class VolunteerConsole {
         System.out.print("Please select a work category choice 1-3: ");
         System.out.println();
         int workCat = keyboard.nextInt();
-
+        System.out.println();
+        
+        String parkName = upcomingJobs.get(choice - 1).getParkName();
+        String jobName = upcomingJobs.get(choice - 1).getJobName();
+        
         switch (workCat) {
             case 1:
                 upcomingJobs.get(choice - 1).addVolunteer(volunteer.getEmail(),
                                                           WorkCatagories.LIGHT);
+                System.out.println("You have successfully signed up for " + 
+                                                          jobName + " at " + parkName + ".");
                 break;
             case 2:
                 upcomingJobs.get(choice - 1).addVolunteer(volunteer.getEmail(),
                                                           WorkCatagories.MEDIUM);
+                System.out.println("You have successfully signed up for " + 
+                                jobName + " at " + parkName + ".");
                 break;
             case 3:
                 upcomingJobs.get(choice - 1).addVolunteer(volunteer.getEmail(),
                                                           WorkCatagories.HEAVY);
+                System.out.println("You have successfully signed up for " + 
+                                jobName + " at " + parkName + ".");
                 break;
             default:
                 System.out.println("Please enter a valid work category");
@@ -195,6 +205,7 @@ public class VolunteerConsole {
                 workCat = keyboard.nextInt();
         }
 
+        System.out.println();
         // job.addVolunteer(volunteer.getEmail(), workCat);
         // volunteer.signUp(jobName, workCat);
 
