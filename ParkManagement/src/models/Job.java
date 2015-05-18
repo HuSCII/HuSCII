@@ -274,7 +274,7 @@ public class Job {
 
         GregorianCalendar todayDate = 
                         (GregorianCalendar) GregorianCalendar.getInstance();
-        if(todayDate.compareTo(jobDate) <= 0) {
+        if(todayDate.compareTo(jobDate) >= 0) {
             return false;
         } else {
             return true;
