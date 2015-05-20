@@ -29,7 +29,7 @@ public class VolunteerConsole {
 
     }
 
-    public void displayMenu() {
+    public static void displayMenu() {
         keyboard = new Scanner(System.in);
 
         System.out.println("Welcome To Volunteer Page");
@@ -147,7 +147,17 @@ public class VolunteerConsole {
 
         // The case when volunteer has no jobs:
         if (!emailFound) {
-            System.out.println("You have not signed up for any jobs yet!");
+            Scanner console = new Scanner(System.in);
+            System.out.print("You have not signed up for any jobs yet! Do you want to sign "
+                            + "up a job? Yes/No ");
+            String answer = console.next();
+            if(answer.equalsIgnoreCase("yes")) {
+                signMeUp();
+            } else {
+                System.out.println();
+                displayMenu();
+            }
+            
             System.out.println();
         }
     }

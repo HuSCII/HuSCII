@@ -143,6 +143,20 @@ public class ParkManagerConsole {
         parkManager.addJob(jobController, parkName, jobName, date, duration, lightMax, medMax,
                            hvyMax);
     }
+    
+//    private int validVolunteerNumber (int number) {
+//        boolean positiveNumber = false;
+//        int validNumber = number;
+//        if (validNumber < 0) {
+//            positiveNumber = true;
+//     
+//            while(positiveNumber) {
+//                System.out.println("Please input a valid max number!");
+//            
+//            }
+//        }
+//        return 0;
+//    }
 
     public static void viewMyJobs() {
         System.out.println("Viewing upcoming jobs:");

@@ -39,6 +39,8 @@ public class AdministratorConsole {
                 final String[] args = {};
                 MainConsole.main(args);
             case 3:
+//                System.out.println("Thank you!");
+//                System.exit(0);
                 break;
             default:
                 System.out.println("Not in a menu choice");
