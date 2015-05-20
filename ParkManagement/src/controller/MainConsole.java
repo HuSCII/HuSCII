@@ -74,6 +74,7 @@ public class MainConsole {
         for (User u : userController.getUserList()) {
             if (email.equals(u.getEmail())) {
                 System.out.println("Logging in ... SUCCESS!");
+                System.out.println("Welcome " + u.getFirstName() + " " + u.getLastName());
                 System.out.println("You are registered as: " + u.getRole());
                 System.out.println("");
                 currentUser = u;
