@@ -10,21 +10,19 @@ import models.Job;
 import models.Job.WorkCategories;
 import models.JobController;
 import models.User;
-import models.UserController;
-import models.Volunteer;
 
 public class VolunteerConsole {
 
     public static JobController jobController;
     private static Scanner keyboard;
-    public static Volunteer volunteer;
+    public static User volunteer;
     public static Job job;
 
     public VolunteerConsole(User user, JobController jobController) {
 
         volunteer =
-                        new Volunteer(user.getEmail(), user.getFirstName(),
-                                      user.getLastName(), user.getRole());
+                        new User(user.getEmail(), user.getFirstName(), user.getLastName(),
+                                 user.getRole());
         VolunteerConsole.jobController = jobController;
 
     }
@@ -54,10 +52,9 @@ public class VolunteerConsole {
                 signMeUp();
                 break;
             case 4: // Logout
-                final String[] args = {};
-                MainConsole.main(args);
+                MainConsole.signIn();
                 break;
-            case 5: // Exit
+            case 5: // Exit program
                 break;
             default:
                 System.out.println("Not in a menu choice");
@@ -65,8 +62,6 @@ public class VolunteerConsole {
                 displayMenu();
                 break;
         }
-
-        displayMenu(); // Display menu when done:
 
     }
 
@@ -149,15 +144,16 @@ public class VolunteerConsole {
         if (!emailFound) {
             Scanner console = new Scanner(System.in);
             System.out.print("You have not signed up for any jobs yet! Do you want to sign "
-                            + "up a job? Yes/No ");
+                             + "up a job? Yes/No ");
             String answer = console.next();
-            if(answer.equalsIgnoreCase("yes")) {
+            if (answer.equalsIgnoreCase("yes")) {
                 signMeUp();
-            } else {
+            }
+            else {
                 System.out.println();
                 displayMenu();
             }
-            
+
             System.out.println();
         }
     }
@@ -175,7 +171,8 @@ public class VolunteerConsole {
             System.out.print("Please make a selection from the list: ");
             choice = keyboard.nextInt();
         }
-        // add validation for Business Rule#7 (can't sign up for two jobs on the same day)
+        // add validation for Business Rule#7 (can't sign up for two jobs on the
+        // same day)
 
         System.out.println("Enter a work category (ie 1, 2, 3) ");
         System.out.println("1. Light");
@@ -185,33 +182,33 @@ public class VolunteerConsole {
         System.out.println();
         int workCat = keyboard.nextInt();
         System.out.println();
-        
+
         String parkName = upcomingJobs.get(choice - 1).getParkName();
         String jobName = upcomingJobs.get(choice - 1).getJobName();
-        
+
         switch (workCat) {
             case 1:
                 upcomingJobs.get(choice - 1).addVolunteer(volunteer.getEmail(),
                                                           WorkCategories.LIGHT);
-                System.out.println("You have successfully signed up for " + 
-                                                          jobName + " at " + parkName + ".");
+                System.out.println("You have successfully signed up for " + jobName + " at "
+                                   + parkName + ".");
                 break;
             case 2:
                 upcomingJobs.get(choice - 1).addVolunteer(volunteer.getEmail(),
                                                           WorkCategories.MEDIUM);
-                System.out.println("You have successfully signed up for " + 
-                                jobName + " at " + parkName + ".");
+                System.out.println("You have successfully signed up for " + jobName + " at "
+                                   + parkName + ".");
                 break;
             case 3:
                 upcomingJobs.get(choice - 1).addVolunteer(volunteer.getEmail(),
                                                           WorkCategories.HEAVY);
-                System.out.println("You have successfully signed up for " + 
-                                jobName + " at " + parkName + ".");
+                System.out.println("You have successfully signed up for " + jobName + " at "
+                                   + parkName + ".");
                 break;
             default:
                 System.out.println("Please enter a valid work category");
                 System.out.println("Light, Medium, Heavy");
-                workCat = keyboard.nextInt(); 
+                workCat = keyboard.nextInt();
         }
 
         System.out.println();

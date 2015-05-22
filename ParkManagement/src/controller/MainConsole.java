@@ -4,7 +4,6 @@ package controller;
 import java.util.Scanner;
 
 import models.JobController;
-import models.ParkManager;
 import models.User;
 import models.UserController;
 
@@ -17,30 +16,13 @@ public class MainConsole {
     public static void main(String[] args) {
 
         // Pre-load the User persistent data:
-        userController = new UserController();
-        userController.readUserFile("/userFile.csv");
+        userController = new UserController("/userFile.csv");
 
         // Pre-load the Jobs persistent data:
         jobController = new JobController("/jobFile.csv");
 
-        // Display copyright info
-        displayDoc();
-
-        boolean exited = false;
-        while (!exited) {
-
-            // Display login prompt
-            displayLoginPrompt();
-
-            // Retrieve and verify email:
-            boolean emailIsVerified = false;
-            while (!emailIsVerified) {
-                emailIsVerified = verifyEmail(retrieveEmail());
-            }
-
-            // Display appropriate user options:
-            displayRoleOptions(currentUser);
-        }
+        // User signs in and display appropriate menu
+        signIn();
 
         // Write new data on system exit:
         exitSystem();
@@ -55,6 +37,25 @@ public class MainConsole {
         System.out.println("* Copyright (c) 2015 HuSCII, TCSS 360 Spring '15 Project Group. *");
         System.out.println("*                                                               *");
         System.out.println("*****************************************************************");
+    }
+
+    public static void signIn() {
+
+        // Display copyright info
+        displayDoc();
+
+        // Display login prompt
+        displayLoginPrompt();
+
+        // Retrieve and verify email:
+        boolean emailIsVerified = false;
+        while (!emailIsVerified) {
+            emailIsVerified = verifyEmail(retrieveEmail());
+
+            // Display appropriate user options:
+            displayRoleOptions(currentUser);
+        }
+
     }
 
     private static void displayLoginPrompt() {

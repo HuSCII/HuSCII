@@ -1,7 +1,5 @@
 /*
- * HuSCII (Group 2)
- * TCSS 360 - Spring '15
- * UserController.java
+ * HuSCII (Group 2) TCSS 360 - Spring '15 UserController.java
  */
 
 package models;
@@ -25,10 +23,15 @@ import java.util.Scanner;
 public class UserController {
 
     /** A collection of Users. */
-    private final List<User> userList = new ArrayList<User>();
+    private final List<User> userList;
 
     /** A map of user and parks (for a park manager. */
     private final Map<String, List<String>> managedParks = new HashMap<String, List<String>>();
+
+    public UserController(String filename) {
+        userList = new ArrayList<User>();
+        readUserFile(filename);
+    }
 
     /**
      * Parses a text file, creating a User from each line.
@@ -51,7 +54,8 @@ public class UserController {
             userList.add(new User(userData.get(i++), userData.get(i++), userData.get(i++),
                                   userData.get(i)));
 
-            // If the User that was just added was PM, create its parks list too.
+            // If the User that was just added was PM, create its parks list
+            // too.
             if (userData.get(i++).equalsIgnoreCase("park manager")) {
 
                 // 1. Put his/her park(s) into a List
@@ -102,7 +106,8 @@ public class UserController {
      */
     public List<User> getVolunteers(final String lastName) {
 
-        // For each user, check if user has the last name AND is "volunteer" role.
+        // For each user, check if user has the last name AND is "volunteer"
+        // role.
         final List<User> tempList = new ArrayList<User>();
         for (User u : userList) {
             if (u.getLastName().equals(lastName) && u.getRole().equalsIgnoreCase("volunteer")) {
@@ -115,7 +120,8 @@ public class UserController {
     /**
      * Retrieve this Park Manager's managed parks in a list.
      * 
-     * @param parkManager The User (park manager) whose parks we want to retrieve.
+     * @param parkManager The User (park manager) whose parks we want to
+     *            retrieve.
      * @return List of parks this park manager manages.
      */
     public List<String> getManagedParks(final String parkManagerEmail) {

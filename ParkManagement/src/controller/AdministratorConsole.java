@@ -35,12 +35,10 @@ public class AdministratorConsole {
             case 1:
                 searchVolunteer();
                 break;
-            case 2:
-                final String[] args = {};
-                MainConsole.main(args);
-            case 3:
-//                System.out.println("Thank you!");
-//                System.exit(0);
+            case 2: // Logout
+                MainConsole.signIn();
+                break;
+            case 3: // Exit program
                 break;
             default:
                 System.out.println("Not in a menu choice");
@@ -50,7 +48,6 @@ public class AdministratorConsole {
                 break;
         }
 
-        displayMenu();
     }
 
     /**
@@ -88,7 +85,8 @@ public class AdministratorConsole {
                     System.out.println();
                 }
             }
-        } else {
+        }
+        else {
             System.out.println("No Volunteer Found!");
             System.out.println("Please Try Again!");
 
