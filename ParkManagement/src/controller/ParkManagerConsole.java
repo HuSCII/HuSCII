@@ -48,12 +48,15 @@ public class ParkManagerConsole {
         switch (menuSelect) {
             case 1:
                 submitJob();
+                displayMenu();
                 break;
             case 2:
                 viewMyJobs();
+                displayMenu();
                 break;
             case 3:
                 viewVolunteers();
+                displayMenu();
                 break;
             case 4: // Logout
                 MainConsole.signIn();
@@ -148,21 +151,29 @@ public class ParkManagerConsole {
         System.out.println("Viewing upcoming jobs:");
         System.out.println();
 
-        for (Job j : parkManager.getMyJobs(jobController)) {
-            System.out.println(j.getParkName());
-            System.out.println(j.getJobName());
-            System.out.println("Start date & time: "
-                               + new SimpleDateFormat("MM/dd/yyyy HH:mm a").format(j.getDate()
-                                               .getTime()));
-            System.out.println("Duration: " + j.getJobDuration() + " hours");
-            System.out.println(j.getCurrentLight() + " out of " + j.getMaxLight()
-                               + " light-duty volunteers.");
-            System.out.println(j.getCurrentMedium() + " out of " + j.getMaxMedium()
-                               + " medium-duty volunteers.");
-            System.out.println(j.getCurrentHard() + " out of " + j.getMaxHard()
-                               + " heavy-duty volunteers.");
-            System.out.println();
+        List<Job> parkManagersJobs = parkManager.getMyJobs(jobController);
+
+        if (parkManagersJobs.isEmpty()) {
+            System.out.println("You currently do not have any jobs!");
         }
+        else {
+            for (Job j : parkManagersJobs) {
+                System.out.println(j.getParkName());
+                System.out.println(j.getJobName());
+                System.out.println("Start date & time: "
+                                   + new SimpleDateFormat("MM/dd/yyyy HH:mm a").format(j
+                                                   .getDate().getTime()));
+                System.out.println("Duration: " + j.getJobDuration() + " hours");
+                System.out.println(j.getCurrentLight() + " out of " + j.getMaxLight()
+                                   + " light-duty volunteers.");
+                System.out.println(j.getCurrentMedium() + " out of " + j.getMaxMedium()
+                                   + " medium-duty volunteers.");
+                System.out.println(j.getCurrentHard() + " out of " + j.getMaxHard()
+                                   + " heavy-duty volunteers.");
+                System.out.println();
+            }
+        }
+
         System.out.println();
 
     }
@@ -172,44 +183,49 @@ public class ParkManagerConsole {
         // Display the list pm's jobs:
         System.out.println("Select a job to view its volunteers:");
         List<Job> tempJobs = parkManager.getMyJobs(jobController);
-        int i = 1;
-        for (Job j : tempJobs) {
-            System.out.print(i++ + ") ");
-            System.out.print(j.getJobName() + " at ");
-            System.out.print(j.getParkName() + " on ");
-            System.out.println(new SimpleDateFormat("MM/dd/yyyy HH:mm a").format(j.getDate()
-                            .getTime()));
-            System.out.println();
+
+        if (tempJobs.isEmpty()) {
+            System.out.println("You currently do not have any jobs, so no volunteers!");
         }
+        else {
+            int i = 1;
+            for (Job j : tempJobs) {
+                System.out.print(i++ + ") ");
+                System.out.print(j.getJobName() + " at ");
+                System.out.print(j.getParkName() + " on ");
+                System.out.println(new SimpleDateFormat("MM/dd/yyyy HH:mm a").format(j
+                                .getDate().getTime()));
+                System.out.println();
+            }
 
-        // Ask user to choose from the list
-        keyboard = new Scanner(System.in);
-        System.out.print("Enter a number from the list: ");
-        int choice = keyboard.nextInt();
-        while (choice < 0 || choice > tempJobs.size()) {
-            System.out.print("Please make a selection from the list: ");
-            choice = keyboard.nextInt();
-        }
+            // Ask user to choose from the list
+            keyboard = new Scanner(System.in);
+            System.out.print("Enter a number from the list: ");
+            int choice = keyboard.nextInt();
+            while (choice < 0 || choice > tempJobs.size()) {
+                System.out.print("Please make a selection from the list: ");
+                choice = keyboard.nextInt();
+            }
 
-        // Display volunteers of the selected jobs:
-        System.out.println("Volunteers:");
+            // Display volunteers of the selected jobs:
+            System.out.println("Volunteers:");
 
-        boolean volunteerFound = false;
-        for (String volunteer : tempJobs.get(choice - 1).getVolunteerEmails()) {
-            for (User u : userController.getUserList()) {
-                if (u.getEmail().equals(volunteer)) {
-                    volunteerFound = true;
-                    System.out.print(u.getFirstName() + " ");
-                    System.out.print(u.getLastName() + ", ");
-                    System.out.println(u.getEmail());
+            boolean volunteerFound = false;
+            for (String volunteer : tempJobs.get(choice - 1).getVolunteerEmails()) {
+                for (User u : userController.getUserList()) {
+                    if (u.getEmail().equals(volunteer)) {
+                        volunteerFound = true;
+                        System.out.print(u.getFirstName() + " ");
+                        System.out.print(u.getLastName() + ", ");
+                        System.out.println(u.getEmail());
+                    }
                 }
             }
+            if (!volunteerFound) {
+                System.out.println("No volunteers have signed up yet!");
+            }
         }
-        if (!volunteerFound) {
-            System.out.println("No volunteers have signed up yet!");
-        }
-
         System.out.println(); // Spacer
-
     }
+
 }

@@ -19,7 +19,7 @@ public class MainConsole {
         userController = new UserController("/userFile.csv");
 
         // Pre-load the Jobs persistent data:
-        jobController = new JobController("/jobFile.csv");
+        jobController = new JobController("/jobFile1.csv");
 
         // User signs in and display appropriate menu
         signIn();
@@ -52,9 +52,9 @@ public class MainConsole {
         while (!emailIsVerified) {
             emailIsVerified = verifyEmail(retrieveEmail());
 
-            // Display appropriate user options:
-            displayRoleOptions(currentUser);
         }
+        // Display appropriate user options:
+        displayRoleOptions(currentUser);
 
     }
 

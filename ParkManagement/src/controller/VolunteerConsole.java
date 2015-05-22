@@ -65,12 +65,6 @@ public class VolunteerConsole {
 
     }
 
-    // private static void listMyJobs() {
-    // for (Job job: jobController.getUpcomingJobs()) {
-    // System.out.println(job.toString());
-    // }
-    // }
-
     public static List<Job> viewUpcomingJobs() {
 
         System.out.println("View available upcoming jobs:");
@@ -96,11 +90,15 @@ public class VolunteerConsole {
                                + " heavy-duty volunteers.");
             System.out.println();
         }
+
+        if (upcomingJobs.isEmpty()) {
+            System.out.println("There are no upcoming jobs to display!");
+        }
+
         System.out.println();
 
         return upcomingJobs;
 
-        // System.out.println(volunteer.getMyJobs(jobController));
     }
 
     public static List<Job> getMyJobs() {
@@ -161,59 +159,67 @@ public class VolunteerConsole {
     public static void signMeUp() {
 
         System.out.println("Sign up for a job:");
-        List<Job> upcomingJobs = viewUpcomingJobs();
+        List<Job> upcomingJobs = viewUpcomingJobs(); // remember, this lists
+                                                     // jobs in console.
 
-        // User selects number:
-        System.out.print("Select a number corresponding to the job you are interested in: ");
-        keyboard = new Scanner(System.in);
-        int choice = keyboard.nextInt();
-        while (choice < 0 || choice > upcomingJobs.size()) {
-            System.out.print("Please make a selection from the list: ");
-            choice = keyboard.nextInt();
+        if (!upcomingJobs.isEmpty()) {
+            // User selects number:
+            System.out.print("Select a number corresponding to the job you are interested in: ");
+            keyboard = new Scanner(System.in);
+            int choice = keyboard.nextInt();
+
+            // Make sure user selects job in valid range (prevent index oob)
+            while (choice < 0 || choice > upcomingJobs.size()) {
+                System.out.print("Please make a selection from the list: ");
+                choice = keyboard.nextInt();
+            }
+            // add validation for Business Rule#7 (can't sign up for two jobs on
+            // the
+            // same day)
+
+            
+            // Check if the job is already TOTALLY full in all workcats
+            
+            // Also need to check if volunteer already signed up for job here
+            
+            
+            System.out.println("Enter a work category (ie 1, 2, 3) ");
+            System.out.println("1. Light");
+            System.out.println("2. Medium");
+            System.out.println("3. Heavy");
+            System.out.print("Please select a work category choice 1-3: ");
+            System.out.println();
+            int workCat = keyboard.nextInt();
+            System.out.println();
+
+            String parkName = upcomingJobs.get(choice - 1).getParkName();
+            String jobName = upcomingJobs.get(choice - 1).getJobName();
+
+            switch (workCat) {
+                case 1:
+                    upcomingJobs.get(choice - 1).addVolunteer(volunteer.getEmail(),
+                                                              WorkCategories.LIGHT);
+                    System.out.println("You have successfully signed up for " + jobName
+                                       + " at " + parkName + ".");
+                    break;
+                case 2:
+                    upcomingJobs.get(choice - 1).addVolunteer(volunteer.getEmail(),
+                                                              WorkCategories.MEDIUM);
+                    System.out.println("You have successfully signed up for " + jobName
+                                       + " at " + parkName + ".");
+                    break;
+                case 3:
+                    upcomingJobs.get(choice - 1).addVolunteer(volunteer.getEmail(),
+                                                              WorkCategories.HEAVY);
+                    System.out.println("You have successfully signed up for " + jobName
+                                       + " at " + parkName + ".");
+                    break;
+                default:
+                    System.out.println("Please enter a valid work category");
+                    System.out.println("Light, Medium, Heavy");
+                    workCat = keyboard.nextInt();
+            }
+            System.out.println();
         }
-        // add validation for Business Rule#7 (can't sign up for two jobs on the
-        // same day)
-
-        System.out.println("Enter a work category (ie 1, 2, 3) ");
-        System.out.println("1. Light");
-        System.out.println("2. Medium");
-        System.out.println("3. Heavy");
-        System.out.print("Please select a work category choice 1-3: ");
-        System.out.println();
-        int workCat = keyboard.nextInt();
-        System.out.println();
-
-        String parkName = upcomingJobs.get(choice - 1).getParkName();
-        String jobName = upcomingJobs.get(choice - 1).getJobName();
-
-        switch (workCat) {
-            case 1:
-                upcomingJobs.get(choice - 1).addVolunteer(volunteer.getEmail(),
-                                                          WorkCategories.LIGHT);
-                System.out.println("You have successfully signed up for " + jobName + " at "
-                                   + parkName + ".");
-                break;
-            case 2:
-                upcomingJobs.get(choice - 1).addVolunteer(volunteer.getEmail(),
-                                                          WorkCategories.MEDIUM);
-                System.out.println("You have successfully signed up for " + jobName + " at "
-                                   + parkName + ".");
-                break;
-            case 3:
-                upcomingJobs.get(choice - 1).addVolunteer(volunteer.getEmail(),
-                                                          WorkCategories.HEAVY);
-                System.out.println("You have successfully signed up for " + jobName + " at "
-                                   + parkName + ".");
-                break;
-            default:
-                System.out.println("Please enter a valid work category");
-                System.out.println("Light, Medium, Heavy");
-                workCat = keyboard.nextInt();
-        }
-
-        System.out.println();
-        // job.addVolunteer(volunteer.getEmail(), workCat);
-        // volunteer.signUp(jobName, workCat);
-
     }
 }
