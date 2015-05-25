@@ -12,20 +12,21 @@ import java.util.List;
  */
 public class BusinessRules {
 
-    /** The maximum days from the current date that the job can be added. */
-    public static final int MAX_DAYS = 90;
+    /** The maximum months from the current date that the job can be added. */
+    public static final int MAX_MONTHS = 3;
 
-    /** holds current maximum number of allowed jobs at a given time. */
+    /** Holds current maximum number of allowed jobs at a given time. */
     private static final int MAX_JOBS = 30;
     
-    private static final int MAX_JOB_LENGTH = 2;
+    /** The maximum length of each job in hours. */
+    private static final int MAX_JOB_LENGTH = 48;
 
     /**
      * Comparing the job date, check if the job is completed or still a pending
      * job.
      * 
-     * @return true if the job is already completed (past job); otherwise,
-     *         false.
+     * @return true if the job is in the future; otherwise,
+     *         false (past job).
      */
     public static boolean isCompleted(GregorianCalendar jobDate) {
 
@@ -62,9 +63,9 @@ public class BusinessRules {
         // create a new calendar
         GregorianCalendar todayDate = (GregorianCalendar) GregorianCalendar.getInstance();
 
-        todayDate.add(Calendar.DAY_OF_MONTH, MAX_DAYS);
+        todayDate.add(Calendar.MONTH, MAX_MONTHS);
 
-        if (todayDate.before(jobDate)) {
+        if (todayDate.compareTo(jobDate) <= 0) {
             return true;
         }
         return false;
@@ -110,8 +111,8 @@ public class BusinessRules {
      * 
      * @return true if the job length is less than 2 days; otherwise, false.
      */
-    public boolean checkJobDuration(Job job) {
-        return job.getJobDuration() < MAX_JOB_LENGTH;
+    public static boolean checkJobDuration(Job job) {
+        return job.getJobDuration() <= MAX_JOB_LENGTH;
     }
 
 }
