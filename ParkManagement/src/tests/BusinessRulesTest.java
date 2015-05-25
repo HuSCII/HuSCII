@@ -144,4 +144,13 @@ public class BusinessRulesTest {
         assertTrue("Break Business Rule!", br.checkJobWeek(jobController.getAllJobs(), testJob1.getDate()));
     }
 
+//    @Test
+//    public void testCheckJobDuration() {
+//        assertTrue("A job may not be scheduled that lasts more than two days.", br.checkJobDuration());
+//        assertFalse("A job may be scheduled that lasts more than two days.", 
+//                    testJob2.checkJobDuration()); //last more than 2 days
+//        assertFalse("A job may be scheduled that lasts more than two days.", 
+//                    testJob3.checkJobDuration()); //last more than 2 days
+//    }
+    
 }
