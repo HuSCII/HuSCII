@@ -53,9 +53,9 @@ public class ParkManager extends User {
      * @param jobDuration Length of job in hours.
      */
     public void addJob(JobController jobController, String parkName, String jobName,
-                       String date, int jobDuration, int maxLight, int maxMed, int maxHvy) {
+                       String startDate, String endDate, int maxLight, int maxMed, int maxHvy) {
 
-        jobController.addJob(new Job(getEmail(), parkName, jobName, date, jobDuration,
+        jobController.addJob(new Job(getEmail(), parkName, jobName, startDate, endDate,
                                      0, maxLight, 0, maxMed, 0, maxHvy,
                                      new HashMap<String, WorkCategories>()));
 

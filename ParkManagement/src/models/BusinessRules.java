@@ -96,9 +96,10 @@ public class BusinessRules {
         futureDate.set(Calendar.DAY_OF_MONTH, pastDate.get(Calendar.DAY_OF_MONTH) + 3);
 
         for (Job aJob : allJobs) {
-            if (aJob.getDate().compareTo(pastDate) >= 0 && date.compareTo(futureDate) <= 0) {
+            if (aJob.getStartDate().compareTo(pastDate) >= 0 && date.compareTo(futureDate) <= 0) {
                 count++;
             }
+            //TODO: needs to also check end date
             if (count >= 5) {
                 return false;
             }
@@ -113,6 +114,7 @@ public class BusinessRules {
      */
     public static boolean checkJobDuration(Job job) {
         return job.getJobDuration() <= MAX_JOB_LENGTH;
+        //TODO: needs to use start and end dates
     }
 
 }

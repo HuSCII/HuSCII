@@ -47,7 +47,7 @@ public class JobController {
 	public List<Job> getUpcomingJobs() {
 		List<Job> upcoming = new ArrayList<Job>();
 		for(int i=0; i<allJobs.size(); i++) {
-			if(!BusinessRules.isCompleted(allJobs.get(i).getDate())) {
+			if(!BusinessRules.isCompleted(allJobs.get(i).getEndDate())) {
 				//add copy of Job
 				upcoming.add(new Job(allJobs.get(i)));
 			}
@@ -105,8 +105,9 @@ public class JobController {
         	String parkManagerEmail = token.nextToken();
         	String parkName = token.nextToken();
         	String jobName = token.nextToken();
-        	String date = token.nextToken();
-        	int duration = Integer.parseInt(token.nextToken());
+        	String startDate = token.nextToken();
+        	String endDate = token.nextToken();
+        	//int duration = Integer.parseInt(token.nextToken());
         	int currentLight = Integer.parseInt(token.nextToken());
         	int maxLight = Integer.parseInt(token.nextToken());
         	int currentMedium = Integer.parseInt(token.nextToken());
@@ -130,7 +131,7 @@ public class JobController {
         		i++;
         	}
         	//create job
-        	Job job = new Job(parkManagerEmail,parkName, jobName, date, duration, 
+        	Job job = new Job(parkManagerEmail,parkName, jobName, startDate, endDate, 
         			currentLight, maxLight, currentMedium, maxMedium, 
         			currentHeavy, maxHeavy, signedVolunteers);
         	//add job

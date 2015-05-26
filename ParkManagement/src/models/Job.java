@@ -25,9 +25,6 @@ public class Job {
     /** Delimiter used in string methods to separate values. */
     private static final String DELIM_STD = ",";
 
-    /** The maximum hours of job length (2 days). */
-    public static final int MAX_JOB_TIME = 48;
-
     /** Email for Park Manager who created job. */
     private String parkManagerEmail;
 
@@ -38,10 +35,13 @@ public class Job {
     private String jobName;
 
     /** Date of a job using GregorianCalendar class. */
-    private GregorianCalendar date;
+    private GregorianCalendar startDate;
+    
+    /** Date of a job using GregorianCalendar class. */
+    private GregorianCalendar endDate;
 
-    /** The length of a job in hours. */
-    private int jobDuration;
+//    /** The length of a job in hours. */
+//    private int jobDuration;
 
     /** The current number of volunteer for light work category. */
     private int currentLight;
@@ -73,11 +73,11 @@ public class Job {
      * @param jobID unique ID number of each job.
      * @param parkName Name of the park.
      * @param jobName Name of the job.
-     * @param date The date of the job.
-     * @param jobDuration The length of the job in hours.
+     * @param date The start date of the job.
+     * * @param date The end date of the job.
      */
     public Job(final String parkManagerEmail, final String parkName, final String jobName,
-               final String date, final int jobDuration, final int currentLight,
+               final String startDate, final String endDate, final int currentLight,
                final int maxLight, final int currentMedium, final int maxMedium,
                final int currentHeavy, final int maxHeavy,
                Map<String, WorkCategories> volunteers) {
@@ -86,8 +86,9 @@ public class Job {
         this.parkManagerEmail = parkManagerEmail;
         this.parkName = parkName;
         this.jobName = jobName;
-        this.jobDuration = jobDuration;
-        setDate(date);
+        //this.jobDuration = jobDuration;
+        setDate(this.startDate,startDate);
+        setDate(this.endDate, endDate);
 
         this.currentLight = currentLight;
         this.maxLight = maxLight;
@@ -112,8 +113,8 @@ public class Job {
      */
     public Job(Job job) {
         this(job.getParkManagerEmail(), job.getParkName(), job.getJobName(),
-             new SimpleDateFormat("MM/dd/yyyy HH:mm a").format(job.getDate().getTime()), job
-                             .getJobDuration(), job.getCurrentLight(), job.getMaxLight(), job
+             new SimpleDateFormat("MM/dd/yyyy HH:mm a").format(job.getStartDate().getTime()), 
+             new SimpleDateFormat("MM/dd/yyyy HH:mm a").format(job.getEndDate().getTime()), job.getCurrentLight(), job.getMaxLight(), job
                              .getCurrentMedium(), job.getMaxMedium(), job.getCurrentHard(),
              job.getMaxHard(), job.volunteers);// needs getVolunteers()
     }
@@ -246,12 +247,12 @@ public class Job {
      * 
      * @param date the date of the job
      */
-    public void setDate(String date) {
+    public void setDate(GregorianCalendar date, String dateString) {
         DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm a");
         try {
-            Date aDate = formatter.parse(date);
-            this.date = new GregorianCalendar();
-            this.date.setTime(aDate);
+            Date aDate = formatter.parse(dateString);
+            date = new GregorianCalendar();
+            date.setTime(aDate);
         }
         catch (ParseException e) {
             e.printStackTrace();
@@ -269,8 +270,8 @@ public class Job {
         sb.append(parkManagerEmail + ",");
         sb.append(parkName + ",");
         sb.append(jobName + ",");
-        sb.append(new SimpleDateFormat("MM/dd/yyyy HH:mm a").format(date.getTime()) + ",");
-        sb.append(jobDuration + ",");
+        sb.append(new SimpleDateFormat("MM/dd/yyyy HH:mm a").format(startDate.getTime()) + ",");
+        sb.append(new SimpleDateFormat("MM/dd/yyyy HH:mm a").format(endDate.getTime()) + ",");
         sb.append(currentLight + ",");
         sb.append(maxLight + ",");
         sb.append(currentMedium + ",");
@@ -293,14 +294,14 @@ public class Job {
         return parkManagerEmail;
     }
 
-    /**
-     * This is a getter method that return the number of job length in hour.
-     * 
-     * @return jobDuration the length of a job in hour
-     */
-    public int getJobDuration() {
-        return jobDuration;
-    }
+//    /**
+//     * This is a getter method that return the number of job length in hour.
+//     * 
+//     * @return jobDuration the length of a job in hour
+//     */
+//    public int getJobDuration() {
+//        return jobDuration;
+//    }
 
     /**
      * This is a getter method that returns a park name.
@@ -316,8 +317,12 @@ public class Job {
      * 
      * @return date the date of a job.
      */
-    public GregorianCalendar getDate() {
-        return date;
+    public GregorianCalendar getStartDate() {
+        return startDate;
+    }
+    
+    public GregorianCalendar getEndDate() {
+        return startDate;
     }
 
     /**
@@ -402,13 +407,13 @@ public class Job {
         this.jobName = jobName;
     }
 
-    public void setDate(GregorianCalendar date) {
-        this.date = date;
-    }
+//    public void setDate(GregorianCalendar date) {
+//        this.date = date;
+//    }
 
-    public void setJobDuration(int jobDuration) {
-        this.jobDuration = jobDuration;
-    }
+//    public void setJobDuration(int jobDuration) {
+//        this.jobDuration = jobDuration;
+//    }
 
     public void setCurrentLight(int currentLight) {
         this.currentLight = currentLight;
