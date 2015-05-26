@@ -79,9 +79,11 @@ public class VolunteerConsole {
             System.out.println(j.getParkName());
             System.out.println(j.getJobName());
             System.out.println("Start date & time: "
-                               + new SimpleDateFormat("MM/dd/yyyy HH:mm a").format(j.getDate()
+                               + new SimpleDateFormat("MM/dd/yyyy HH:mm a").format(j.getStartDate()
                                                .getTime()));
-            System.out.println("Duration: " + j.getJobDuration() + " hours");
+            System.out.println("End date & time: "
+                            + new SimpleDateFormat("MM/dd/yyyy HH:mm a").format(j.getEndDate()
+                                               .getTime()));
             System.out.println(j.getCurrentLight() + " out of " + j.getMaxLight()
                                + " light-duty volunteers.");
             System.out.println(j.getCurrentMedium() + " out of " + j.getMaxMedium()
@@ -132,7 +134,7 @@ public class VolunteerConsole {
                     System.out.print(j.getJobName() + " at ");
                     System.out.print(j.getParkName() + " on ");
                     System.out.println(new SimpleDateFormat("MM/dd/yyyy HH:mm a").format(j
-                                    .getDate().getTime()));
+                                    .getStartDate().getTime()));
                     System.out.println();
                 }
             }

@@ -98,10 +98,11 @@ public class BusinessRules {
         for (Job aJob : allJobs) {
             if (aJob.getStartDate().compareTo(pastDate) >= 0 && date.compareTo(futureDate) <= 0) {
                 count++;
+            }//check for 2 day jobs
+            if(aJob.getEndDate().get(Calendar.DAY_OF_YEAR) >
+                aJob.getStartDate().get(Calendar.DAY_OF_YEAR)) {
+                count++;
             }
-//            if(aJob.getStartDate().get) {
-//                
-//            }
             //TODO: needs to also check end date
             if (count >= 5) {
                 return false;

@@ -143,9 +143,11 @@ public class ParkManagerConsole {
         System.out.print("Enter max number of heavy-duty volunteers needed: ");
         int hvyMax = keyboard.nextInt();
 
-        parkManager.addJob(jobController, parkName, jobName, date, duration, lightMax, medMax,
+        parkManager.addJob(jobController, parkName, jobName, date, date, lightMax, medMax,
                            hvyMax);
     }
+    
+    //create date collector
 
     public static void viewMyJobs() {
         System.out.println("Viewing upcoming jobs:");
@@ -162,8 +164,10 @@ public class ParkManagerConsole {
                 System.out.println(j.getJobName());
                 System.out.println("Start date & time: "
                                    + new SimpleDateFormat("MM/dd/yyyy HH:mm a").format(j
-                                                   .getDate().getTime()));
-                System.out.println("Duration: " + j.getJobDuration() + " hours");
+                                                   .getStartDate().getTime()));
+                System.out.println("End date & time: "
+                                + new SimpleDateFormat("MM/dd/yyyy HH:mm a").format(j
+                                                .getEndDate().getTime()));
                 System.out.println(j.getCurrentLight() + " out of " + j.getMaxLight()
                                    + " light-duty volunteers.");
                 System.out.println(j.getCurrentMedium() + " out of " + j.getMaxMedium()
@@ -194,7 +198,7 @@ public class ParkManagerConsole {
                 System.out.print(j.getJobName() + " at ");
                 System.out.print(j.getParkName() + " on ");
                 System.out.println(new SimpleDateFormat("MM/dd/yyyy HH:mm a").format(j
-                                .getDate().getTime()));
+                                .getStartDate().getTime()));
                 System.out.println();
             }
 
