@@ -1,5 +1,7 @@
 /*
- * HuSCII (Group 2) TCSS 360 - Spring '15 UserController.java
+ * HuSCII (Group 2)
+ * TCSS 360 - Spring '15
+ * UserController.java
  */
 
 package models;
@@ -28,7 +30,12 @@ public class UserController {
     /** A map of user and parks (for a park manager. */
     private final Map<String, List<String>> managedParks = new HashMap<String, List<String>>();
 
-    public UserController(String filename) {
+    /**
+     * Reads from a file containing user data.
+     * 
+     * @param filename File name of user data.
+     */
+    public UserController(final String filename) {
         userList = new ArrayList<User>();
         readUserFile(filename);
     }
@@ -40,8 +47,6 @@ public class UserController {
      */
     public void readUserFile(final String inputFile) {
 
-        // URL url = UserController.class.getResource(inputFile);
-        // File userFile = new File(url.toURI());
         final InputStream in = this.getClass().getResourceAsStream(inputFile);
         final Scanner fileInput = new Scanner(in);
 
@@ -54,18 +59,18 @@ public class UserController {
             userList.add(new User(userData.get(i++), userData.get(i++), userData.get(i++),
                                   userData.get(i)));
 
-            // If the User that was just added was PM, create its parks list
-            // too.
-            if (userData.get(i++).equalsIgnoreCase("park manager")) {
+            // If User was park manager, create separate List for its parks.
+            if ("park manager".equalsIgnoreCase(userData.get(i++))) {
 
-                // 1. Put his/her park(s) into a List
+                // 1. Put park manager's parks into a List
                 final List<String> parks = new ArrayList<String>();
                 while (i < userData.size()) {
                     parks.add(userData.get(i++));
                 }
 
-                // 2. Add him/her as a User + parks List into the map:
-                managedParks.put(userList.get(userList.size() - 1).getEmail(), parks);
+                // 2. Add User's email and List of parks to a map collection.
+                final int currentUser = userList.size() - 1;
+                managedParks.put(userList.get(currentUser).getEmail(), parks);
             }
         }
         fileInput.close();
@@ -83,8 +88,7 @@ public class UserController {
             final FileWriter writer = new FileWriter(outputFile);
             writer.append(toString());
             writer.close();
-        }
-        catch (final IOException e) {
+        } catch (final IOException e) {
             e.printStackTrace();
         }
     }
@@ -106,12 +110,12 @@ public class UserController {
      */
     public List<User> getVolunteers(final String lastName) {
 
-        // For each user, check if user has the last name AND is "volunteer"
-        // role.
+        // Check each user for last name and "volunteer" role.
         final List<User> tempList = new ArrayList<User>();
         for (User u : userList) {
-            if (u.getLastName().equals(lastName) && u.getRole().equalsIgnoreCase("volunteer")) {
-                tempList.add(u);
+            if (u.getLastName().equalsIgnoreCase(lastName)
+                && u.getRole().equalsIgnoreCase("volunteer")) {
+                tempList.add(u); // Add this user to the list to be returned
             }
         }
         return tempList;
@@ -120,8 +124,7 @@ public class UserController {
     /**
      * Retrieve this Park Manager's managed parks in a list.
      * 
-     * @param parkManager The User (park manager) whose parks we want to
-     *            retrieve.
+     * @param parkManagerEmail The user (park manager) whose parks we want to retrieve.
      * @return List of parks this park manager manages.
      */
     public List<String> getManagedParks(final String parkManagerEmail) {
