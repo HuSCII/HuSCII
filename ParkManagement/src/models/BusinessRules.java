@@ -99,6 +99,9 @@ public class BusinessRules {
             if (aJob.getStartDate().compareTo(pastDate) >= 0 && date.compareTo(futureDate) <= 0) {
                 count++;
             }
+//            if(aJob.getStartDate().get) {
+//                
+//            }
             //TODO: needs to also check end date
             if (count >= 5) {
                 return false;
@@ -113,8 +116,8 @@ public class BusinessRules {
      * @return true if the job length is less than 2 days; otherwise, false.
      */
     public static boolean checkJobDuration(Job job) {
-        return job.getJobDuration() <= MAX_JOB_LENGTH;
-        //TODO: needs to use start and end dates
+        long joblength = job.getEndDate().getTime().getTime() - job.getStartDate().getTime().getTime();
+        return joblength / (60 * 60 * 1000)<= MAX_JOB_LENGTH;
     }
 
 }
