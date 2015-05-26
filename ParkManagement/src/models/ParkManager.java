@@ -1,34 +1,27 @@
 /*
- * HuSCII (Group 2) TCSS 360 - Spring '15 UserController.java
+ * HuSCII (Group 2)
+ * TCSS 360 - Spring '15
+ * ParkManager.java
  */
 
 package models;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Scanner;
 
 import models.Job.WorkCategories;
 
 /**
- * park manager.
+ * Park manager of the park management system.
  * 
  * @author Jingzhu Guo
  * @version 3 May 2015
  */
 public class ParkManager extends User {
 
-  //  List<Job> managedJobs;
-    List<String> managedParks;
-
     /**
-     * Create a User of the parks manager.
+     * Create a "Park Manager" User.
      * 
      * @param email User's email address.
      * @param lastName User's last name.
@@ -39,18 +32,20 @@ public class ParkManager extends User {
                        final String role) {
 
         super(email, firstName, lastName, role);
-   //     managedJobs = new ArrayList<Job>();
-        managedParks = new ArrayList<String>();
 
     }
 
     /**
      * Add job to park management system.
      * 
-     * @param parkName Name of the park.
-     * @param jobName Name of the job.
-     * @param date Start date of job.
-     * @param jobDuration Length of job in hours.
+     * @param jobController The JobController to store job in.
+     * @param parkName Name of park.
+     * @param jobName Name of job.
+     * @param startDate Start date for job.
+     * @param endDate End date for job.
+     * @param maxLight Maximum light-duty volunteers.
+     * @param maxMed Maximum medium-duty volunteers.
+     * @param maxHvy Maximum heavy-duty volunteers.
      */
     public void addJob(JobController jobController, String parkName, String jobName,
                        String startDate, String endDate, int maxLight, int maxMed, int maxHvy) {
@@ -64,16 +59,18 @@ public class ParkManager extends User {
     /**
      * Retrieve this park manager's jobs.
      * 
-     * @param parkManager The park manager retrieving its job.
+     * @param jobController The JobController that stores the jobs to be retrieved from.
      * @return List of Upcoming job that I manage.
      */
-    public List<Job> getMyJobs(JobController jobController) {
+    public List<Job> getMyJobs(final JobController jobController) {
 
         // Retrieve list of Upcoming jobs
         final List<Job> upcomingJobs = jobController.getUpcomingJobs();
-        // System.out.println("Upcoming jobs" + upcomingJobs);
+
+        // Create list of park manager's job to return.
         final List<Job> parkManagerJobs = new ArrayList<Job>();
 
+        // For each job, check to see if park manager's email is there.
         for (Job j : upcomingJobs) {
             if (getEmail().equals(j.getParkManagerEmail())) {
                 parkManagerJobs.add(j);
