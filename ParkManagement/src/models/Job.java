@@ -224,16 +224,16 @@ public class Job {
         return volunteerMax;
     }
 
-//    /**
-//     * Used to check if the volunteer is in the job as a volunteer.
-//     * 
-//     * @param email Volunteer's email
-//     * @return True if the passed volunteer is in the job period, false
-//     *         otherwise.
-//     */
-//    public boolean contains(String email) {
-//        return volunteers.containsKey(email);
-//    }
+    //    /**
+    //     * Used to check if the volunteer is in the job as a volunteer.
+    //     * 
+    //     * @param email Volunteer's email
+    //     * @return True if the passed volunteer is in the job period, false
+    //     *         otherwise.
+    //     */
+    //    public boolean contains(String email) {
+    //        return volunteers.containsKey(email);
+    //    }
 
     /**
      * This method represents the date format from the jobFile file.
