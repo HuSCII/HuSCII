@@ -9,17 +9,23 @@ import models.UserController;
 
 public class MainConsole {
 
-    static UserController userController;
-    static JobController jobController;
-    static User currentUser;
+    /** User file name. */
+    private static final String USER_FILE = "/userFile.csv";
+
+    /** Job file name. */
+    private static final String JOB_FILE = "/jobFile1.csv";
+
+    public static UserController userController;
+    public static JobController jobController;
+    public static User currentUser;
 
     public static void main(String[] args) {
 
         // Pre-load the User persistent data:
-        userController = new UserController("/userFile.csv");
+        userController = new UserController(USER_FILE);
 
         // Pre-load the Jobs persistent data:
-        jobController = new JobController("/jobFile1.csv");
+        jobController = new JobController(JOB_FILE);
 
         // User signs in and display appropriate menu
         signIn();
