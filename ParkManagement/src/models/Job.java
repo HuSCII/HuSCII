@@ -40,9 +40,6 @@ public class Job {
     /** Date of a job using GregorianCalendar class. */
     private GregorianCalendar endDate;
 
-    //    /** The length of a job in hours. */
-    //    private int jobDuration;
-
     /** The current number of volunteer for light work category. */
     private int currentLight;
 
@@ -138,9 +135,6 @@ public class Job {
      * @throws JobFullException exception is thrown when the maximum number of
      *             volunteer for that job is reached.
      */
-    // might need to split into separate functions so it's easier to do JUnit
-    // test
-    // print out sth when current vol == max needed in each categories
     public boolean addVolunteer(String email, WorkCategories workCat) {
 
         // if (isJobFull()) {
@@ -192,16 +186,15 @@ public class Job {
 
         for (String email : volunteers.keySet()) {
             if (volunteers.get(email) == WorkCategories.LIGHT) {
-                light += email + ",";
+                light += email + DELIM_STD;
             }
-            else if (volunteers.get(email) == WorkCategories.HEAVY) {
-                medium += email + ",";
+            else if (volunteers.get(email) == WorkCategories.MEDIUM) {
+                medium += email + DELIM_STD;
             }
             else {
-                heavy += email + ",";
+                heavy += email + DELIM_STD;
             }
         }
-
         sb.append(light);
         sb.append(medium);
         sb.append(heavy);
@@ -216,9 +209,6 @@ public class Job {
      * sign up.
      * 
      * @return True if this job can no longer accept volunteers.
-     * 
-     *         add all getMax for each work categories to get if job is full or
-     *         not
      */
     public boolean isJobFull() {
         return getVolunteerMax() <= volunteers.size();
@@ -234,16 +224,16 @@ public class Job {
         return volunteerMax;
     }
 
-    /**
-     * Used to check if the volunteer is in the job as a volunteer.
-     * 
-     * @param email Volunteer's email
-     * @return True if the passed volunteer is in the job period, false
-     *         otherwise.
-     */
-    public boolean contains(String email) {
-        return volunteers.containsKey(email);
-    }
+//    /**
+//     * Used to check if the volunteer is in the job as a volunteer.
+//     * 
+//     * @param email Volunteer's email
+//     * @return True if the passed volunteer is in the job period, false
+//     *         otherwise.
+//     */
+//    public boolean contains(String email) {
+//        return volunteers.containsKey(email);
+//    }
 
     /**
      * This method represents the date format from the jobFile file.
@@ -294,19 +284,19 @@ public class Job {
     public String toString() {
         // toString needs to include fields for file printing
         StringBuilder sb = new StringBuilder();
-        sb.append(parkManagerEmail + ",");
-        sb.append(parkName + ",");
-        sb.append(jobName + ",");
-        sb.append(new SimpleDateFormat("MM/dd/yyyy HH:mm a").format(startDate.getTime()) + ",");
-        sb.append(new SimpleDateFormat("MM/dd/yyyy HH:mm a").format(endDate.getTime()) + ",");
-        sb.append(currentLight + ",");
-        sb.append(maxLight + ",");
-        sb.append(currentMedium + ",");
-        sb.append(maxMedium + ",");
-        sb.append(currentHeavy + ",");
+        sb.append(parkManagerEmail + DELIM_STD);
+        sb.append(parkName + DELIM_STD);
+        sb.append(jobName + DELIM_STD);
+        sb.append(new SimpleDateFormat("MM/dd/yyyy HH:mm a").format(startDate.getTime()) + DELIM_STD);
+        sb.append(new SimpleDateFormat("MM/dd/yyyy HH:mm a").format(endDate.getTime()) + DELIM_STD);
+        sb.append(currentLight + DELIM_STD);
+        sb.append(maxLight + DELIM_STD);
+        sb.append(currentMedium + DELIM_STD);
+        sb.append(maxMedium + DELIM_STD);
+        sb.append(currentHeavy + DELIM_STD);
         sb.append(maxHeavy);
         if (!volunteers.isEmpty()) {
-            sb.append("," + volunteerSignUp());
+            sb.append(DELIM_STD + volunteerSignUp());
         }
 
         return sb.toString();
@@ -320,15 +310,6 @@ public class Job {
     public String getParkManagerEmail() {
         return parkManagerEmail;
     }
-
-    //    /**
-    //     * This is a getter method that return the number of job length in hour.
-    //     * 
-    //     * @return jobDuration the length of a job in hour
-    //     */
-    //    public int getJobDuration() {
-    //        return jobDuration;
-    //    }
 
     /**
      * This is a getter method that returns a park name.
@@ -424,50 +405,6 @@ public class Job {
      */
     public int getMaxHard() {
         return maxHeavy;
-    }
-
-    public void setParkName(String parkName) {
-        this.parkName = parkName;
-    }
-
-    public void setJobName(String jobName) {
-        this.jobName = jobName;
-    }
-
-    //    public void setDate(GregorianCalendar date) {
-    //        this.date = date;
-    //    }
-
-    //    public void setJobDuration(int jobDuration) {
-    //        this.jobDuration = jobDuration;
-    //    }
-
-    public void setCurrentLight(int currentLight) {
-        this.currentLight = currentLight;
-    }
-
-    public void setMaxLight(int maxLight) {
-        this.maxLight = maxLight;
-    }
-
-    public void setCurrentMedium(int currentMedium) {
-        this.currentMedium = currentMedium;
-    }
-
-    public void setMaxMedium(int maxMedium) {
-        this.maxMedium = maxMedium;
-    }
-
-    public void setCurrentHeavy(int currentHeavy) {
-        this.currentHeavy = currentHeavy;
-    }
-
-    public void setMaxHeavy(int maxHeavy) {
-        this.maxHeavy = maxHeavy;
-    }
-
-    public void setVolunteerMax(int volunteerMax) {
-        this.volunteerMax = volunteerMax;
     }
 
     public void setVolunteers(Map<String, WorkCategories> signedVolunteers) {
