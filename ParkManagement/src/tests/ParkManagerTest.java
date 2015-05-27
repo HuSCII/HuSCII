@@ -30,6 +30,8 @@ public class ParkManagerTest {
     
     List<String> managedParks;
     
+    
+    
     @Before
     public void setUp() throws Exception {
          
@@ -37,7 +39,8 @@ public class ParkManagerTest {
          manager = new ParkManager("manager@gmail.com", "Iam", "John", "manager");
          volunteers.put("janedoe@gmail.com", WorkCategories.LIGHT);
          job = new Job("manager@gmail.com", "Disneyland Resort"
-                       , "picking up trash", "05/08/2016 09:30 AM", 12, 0, 3, 0, 5, 0, 7, volunteers);
+                       ,"picking up trash", "05/08/2015 09:30 AM","05/08/2015 04:30 PM", 0, 3, 0, 5, 0, 7, null);
+         manager.addJob()
         
     }
 
@@ -57,8 +60,9 @@ public class ParkManagerTest {
     
     public void testAddJob() {
         
-        assertEquals(manager.addJob(controller, "Disneyland Resort", "picking up trash", "05/08/2016 09:30 AM", 12, 3, 5, 7), 
-                     controller.addJob(job));
+        assertEquals(manager.addJob(controller, "Disneyland Resort", "picking up trash", 
+                                    "05/08/2016 09:30 AM", "05/08/2015 04:30 PM",3, 5, 7), 
+                                    controller.addJob(job));
     }
 
     @Test
