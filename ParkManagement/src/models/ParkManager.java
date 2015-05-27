@@ -50,15 +50,10 @@ public class ParkManager extends User {
      */
     public void addJob(JobController jobController, String parkName, String jobName,
                        String startDate, String endDate, int maxLight, int maxMed, int maxHvy) {
-        if(rules.checkMaxJobs(jobController.getUpcomingJobs())) {
+       
         jobController.addJob(new Job(getEmail(), parkName, jobName, startDate, endDate,
                                      0, maxLight, 0, maxMed, 0, maxHvy,
                                      new HashMap<String, WorkCategories>()));
-        } else {
-            
-            System.out.println("The Pending Job are full, You cannot add job right now!");
-        }
-
     }
 
     /**
