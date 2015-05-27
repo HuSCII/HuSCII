@@ -45,7 +45,7 @@ public class UserController {
      * 
      * @param inputFile Text file of user data.
      */
-    public void readUserFile(final String inputFile) {
+    private void readUserFile(final String inputFile) {
 
         final InputStream in = this.getClass().getResourceAsStream(inputFile);
         final Scanner fileInput = new Scanner(in);

@@ -8,13 +8,17 @@ package tests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+
+import java.util.List;
+
+import models.User;
 import models.UserController;
 
 import org.junit.Before;
 import org.junit.Test;
 
 /**
- * JUnit testing of UserController
+ * JUnit testing of UserController.
  * 
  * @author Duy Huynh
  * @version 3 May 2015
@@ -22,26 +26,31 @@ import org.junit.Test;
  */
 public class UserControllerTest {
 
-    UserController testController;
+    /** UserController used for testing. */
+    private UserController testController;
 
     /** Create UserController for test use. */
     @Before
     public void setUp() {
 
-        testController = new UserController();
+        testController = new UserController("/userTestFile.csv");
+        testController.readUserFile("/userTestFile.csv");
     }
 
+    /** Tests to see if a List object was created that should contain Users. */
     @Test
     public void testReadUserFile() {
-
-        // Populate the User List from CSV file:
-        testController.readUserFile("/testFile.csv");
 
         // Test when User List has been populated
         assertFalse("The list is supposed to be populated!", testController
                         .getUserList().isEmpty());
+    }
 
-        // Test the first entry (Albert Einstein)
+    /** Test reading in user file and creating the Users. */
+    @Test
+    public void testReadUserFileFirstUser() {
+
+        // Test the first entry
         assertEquals("Error: Emails are different!", "emc2@relativity.com",
                      testController.getUserList().get(0).getEmail());
 
@@ -54,33 +63,37 @@ public class UserControllerTest {
         assertEquals("Error: roles don't match!", "administrator",
                      testController.getUserList().get(0).getRole());
 
-        // Test the last entry (Sailor Moon)
+    }
+
+    /** Tests to see if the last User created is the last user in file. */
+    @Test
+    public void testReadUserFileLastUser() {
+
+        final List<User> userList = testController.getUserList();
+
+        // Test the last entry
         assertEquals("Error: Emails are different!",
-                     "sailormoon@moonkingdom.com",
-                     testController.getUserList().get(19).getEmail());
+                     "damonsalvatore@tvd.com",
+                     userList.get(userList.size() - 1).getEmail());
 
-        assertEquals("Error: First names don't match!", "Serena",
-                     testController.getUserList().get(19).getFirstName());
+        assertEquals("Error: First names don't match!", "Damon",
+                     userList.get(userList.size() - 1).getFirstName());
 
-        assertEquals("Error: Last names don't match!", "Tsukino",
-                     testController.getUserList().get(19).getLastName());
+        assertEquals("Error: Last names don't match!", "Salvatore",
+                     userList.get(userList.size() - 1).getLastName());
 
-        assertEquals("Error: roles don't match!", "volunteer", testController
-                        .getUserList().get(19).getRole());
-
+        assertEquals("Error: roles don't match!", "volunteer",
+                     userList.get(userList.size() - 1).getRole());
     }
 
     @Test
     public void testWriteUserFile() {
 
-        // Read in text first:
-        testController.readUserFile("/testFile.csv");
-
         // Now write it out as a different name:
         testController.writeUserFile("src/testOutputFile.csv");
 
         // Now check the new file created:
-        testController.readUserFile("/testOutputFile.csv");
+        // testController.readUserFile("/testOutputFile.csv");
 
         // Check if array is empty, it shouldn't be:
         assertFalse("Error: List shouldn't be empty!", testController
@@ -93,9 +106,6 @@ public class UserControllerTest {
     @Test
     public void testGetUserList() {
 
-        // Read in text first:
-        testController.readUserFile("/testFile.csv");
-
         // User List should not be empty after reading in a file:
         assertFalse("The list is supposed to be empty!", testController
                         .getUserList().isEmpty());
@@ -104,9 +114,6 @@ public class UserControllerTest {
 
     @Test
     public void testGetVolunteers() {
-
-        // Read in text first:
-        testController.readUserFile("/testFile.csv");
 
         // There should be 2 volunteers with "Stark" as last name:
         // (Tony Stark and Nedd Stark are not volunteers and shouldn't appear)
@@ -124,9 +131,6 @@ public class UserControllerTest {
 
     @Test
     public void testToString() {
-
-        // Read in text first:
-        testController.readUserFile("/testFileOneUser.csv");
 
         // Compare toString output (don't forget the endofline):
         assertEquals("Output not same!",
