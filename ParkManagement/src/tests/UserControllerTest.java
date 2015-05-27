@@ -34,7 +34,6 @@ public class UserControllerTest {
     public void setUp() {
 
         testController = new UserController("/userTestFile.csv");
-        testController.readUserFile("/userTestFile.csv");
     }
 
     /** Tests to see if a List object was created that should contain Users. */
@@ -46,7 +45,7 @@ public class UserControllerTest {
                         .getUserList().isEmpty());
     }
 
-    /** Test reading in user file and creating the Users. */
+    /** Test to see if first user was read correctly from file. */
     @Test
     public void testReadUserFileFirstUser() {
 
@@ -65,7 +64,7 @@ public class UserControllerTest {
 
     }
 
-    /** Tests to see if the last User created is the last user in file. */
+    /** Test to see if last user was read correctly from file. */
     @Test
     public void testReadUserFileLastUser() {
 
@@ -86,14 +85,15 @@ public class UserControllerTest {
                      userList.get(userList.size() - 1).getRole());
     }
 
+    /** Write User file then read it in again and test if it's not empty.*/
     @Test
-    public void testWriteUserFile() {
+    public void testWriteUserFileIfEmpty() {
 
         // Now write it out as a different name:
-        testController.writeUserFile("src/testOutputFile.csv");
+        testController.writeUserFile("src/userFileTestOutput.csv");
 
         // Now check the new file created:
-        // testController.readUserFile("/testOutputFile.csv");
+        testController.readUserFile("/testOutputFile.csv");
 
         // Check if array is empty, it shouldn't be:
         assertFalse("Error: List shouldn't be empty!", testController
