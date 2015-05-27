@@ -29,10 +29,10 @@ public class ParkManager extends User {
      * @param firstName User's first name.
      * @param role User's role.
      */
-    public ParkManager(final String email, final String firstName, final String lastName,
+    public ParkManager(final String email, final String lastName, final String firstName,
                        final String role) {
 
-        super(email, firstName, lastName, role);
+        super(email, lastName, firstName, role);
 
     }
 
