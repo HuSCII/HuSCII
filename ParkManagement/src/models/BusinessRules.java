@@ -103,7 +103,6 @@ public class BusinessRules {
                 aJob.getStartDate().get(Calendar.DAY_OF_YEAR)) {
                 count++;
             }
-            //TODO: needs to also check end date
             if (count >= 5) {
                 return false;
             }
