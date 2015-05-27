@@ -185,12 +185,12 @@ public class BusinessRulesTest {
         assertFalse("There're more than 30 jobs in the system.", BusinessRules.checkMaxJobs(oneJob));
     }
 
-//    @Test
-//    public void testCheckJobWeek() {
-//        assertTrue("Break Business Rule!", BusinessRules.checkJobWeek(jobController.getAllJobs(), testJob1.getStartDate()));
-//
-//        assertTrue("Break Business Rule!", BusinessRules.checkJobWeek(jobController.getAllJobs(), testJob1.getStartDate()));
-//    }
+    @Test
+    public void testCheckJobWeek() {
+        assertTrue("Break Business Rule!", BusinessRules.checkJobWeek(jobController.getAllJobs(), testJob1.getStartDate()));
+
+        assertFalse("Break Business Rule!", BusinessRules.checkJobWeek(jobController.getAllJobs(), testJob2.getStartDate()));
+    }
 
     @Test
     public void testCheckJobDuration() {
