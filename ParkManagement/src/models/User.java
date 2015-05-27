@@ -35,14 +35,10 @@ public class User {
     /**
      * Create a User of the parks management system.
      * 
-     * @param email
-     *            User's email address.
-     * @param lastName
-     *            User's last name.
-     * @param firstName
-     *            User's first name.
-     * @param role
-     *            User's role.
+     * @param email User's email address.
+     * @param lastName User's last name.
+     * @param firstName User's first name.
+     * @param role User's role.
      */
     public User(final String email, final String lastName,
                 final String firstName, final String role) {
