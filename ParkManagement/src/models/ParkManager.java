@@ -19,7 +19,8 @@ import models.Job.WorkCategories;
  * @version 3 May 2015
  */
 public class ParkManager extends User {
-
+    
+    private BusinessRules rules = new BusinessRules();
     /**
      * Create a "Park Manager" User.
      * 
@@ -49,11 +50,10 @@ public class ParkManager extends User {
      */
     public void addJob(JobController jobController, String parkName, String jobName,
                        String startDate, String endDate, int maxLight, int maxMed, int maxHvy) {
-
+       
         jobController.addJob(new Job(getEmail(), parkName, jobName, startDate, endDate,
                                      0, maxLight, 0, maxMed, 0, maxHvy,
                                      new HashMap<String, WorkCategories>()));
-
     }
 
     /**
