@@ -36,12 +36,12 @@ public class Job {
 
     /** Date of a job using GregorianCalendar class. */
     private GregorianCalendar startDate;
-    
+
     /** Date of a job using GregorianCalendar class. */
     private GregorianCalendar endDate;
 
-//    /** The length of a job in hours. */
-//    private int jobDuration;
+    //    /** The length of a job in hours. */
+    //    private int jobDuration;
 
     /** The current number of volunteer for light work category. */
     private int currentLight;
@@ -87,8 +87,11 @@ public class Job {
         this.parkName = parkName;
         this.jobName = jobName;
         //this.jobDuration = jobDuration;
-        setDate(this.startDate,startDate);
-        setDate(this.endDate, endDate);
+        //setDate(this.startDate,startDate);
+        //setDate(this.endDate, endDate);
+
+        setStartDate(startDate);
+        setEndDate(endDate); 
 
         this.currentLight = currentLight;
         this.maxLight = maxLight;
@@ -115,7 +118,7 @@ public class Job {
         this(job.getParkManagerEmail(), job.getParkName(), job.getJobName(),
              new SimpleDateFormat("MM/dd/yyyy HH:mm a").format(job.getStartDate().getTime()), 
              new SimpleDateFormat("MM/dd/yyyy HH:mm a").format(job.getEndDate().getTime()), job.getCurrentLight(), job.getMaxLight(), job
-                             .getCurrentMedium(), job.getMaxMedium(), job.getCurrentHard(),
+             .getCurrentMedium(), job.getMaxMedium(), job.getCurrentHard(),
              job.getMaxHard(), job.volunteers);// needs getVolunteers()
     }
 
@@ -259,6 +262,30 @@ public class Job {
         }
     }
 
+    public void setStartDate(String dateString) {
+        DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm a");
+        try {
+            Date aDate = formatter.parse(dateString);
+            this.startDate = new GregorianCalendar();
+            this.startDate.setTime(aDate);
+        }
+        catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void setEndDate(String dateString) {
+        DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm a");
+        try {
+            Date aDate = formatter.parse(dateString);
+            this.endDate = new GregorianCalendar();
+            this.endDate.setTime(aDate);
+        }
+        catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
     /**
      * This represents toString() method.
      * 
@@ -294,14 +321,14 @@ public class Job {
         return parkManagerEmail;
     }
 
-//    /**
-//     * This is a getter method that return the number of job length in hour.
-//     * 
-//     * @return jobDuration the length of a job in hour
-//     */
-//    public int getJobDuration() {
-//        return jobDuration;
-//    }
+    //    /**
+    //     * This is a getter method that return the number of job length in hour.
+    //     * 
+    //     * @return jobDuration the length of a job in hour
+    //     */
+    //    public int getJobDuration() {
+    //        return jobDuration;
+    //    }
 
     /**
      * This is a getter method that returns a park name.
@@ -320,9 +347,9 @@ public class Job {
     public GregorianCalendar getStartDate() {
         return startDate;
     }
-    
+
     public GregorianCalendar getEndDate() {
-        return startDate;
+        return endDate;
     }
 
     /**
@@ -407,13 +434,13 @@ public class Job {
         this.jobName = jobName;
     }
 
-//    public void setDate(GregorianCalendar date) {
-//        this.date = date;
-//    }
+    //    public void setDate(GregorianCalendar date) {
+    //        this.date = date;
+    //    }
 
-//    public void setJobDuration(int jobDuration) {
-//        this.jobDuration = jobDuration;
-//    }
+    //    public void setJobDuration(int jobDuration) {
+    //        this.jobDuration = jobDuration;
+    //    }
 
     public void setCurrentLight(int currentLight) {
         this.currentLight = currentLight;
