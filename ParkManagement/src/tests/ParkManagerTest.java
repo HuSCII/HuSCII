@@ -60,7 +60,7 @@ public class ParkManagerTest {
 //                controllerJobNotFull.addJob(job);
 //            }
             
-        controllerJobIsEmpty = new JobController("jobFile1.csv");
+         controllerJobIsEmpty = new JobController("jobFile1.csv");
         
          rules = new BusinessRules();
           
@@ -71,13 +71,6 @@ public class ParkManagerTest {
          testManager3 = new ParkManager("Testmanager3@gmail.com", "Li", "Anna", "manager");
          
          volunteers.put("janedoe@gmail.com", WorkCategories.LIGHT);
-         
-//         TestManager1.addJob(controllerJobFull,"Disneyland Resort","picking up trash", "05/08/2015 09:30 AM","05/08/2015 04:30 PM", 5, 5, 5);
-//         
-//         TestManager2.addJob(controllerJobNotFull, "Dash Point", "clean the beach", "05/10/2015 10:00 AM", "05/10/2015 12:00 PM", 10, 5, 5);
-         
-         
-//         testManager1.getMyJobs(controllerJobIsEmpty);
     }
 
     @After
