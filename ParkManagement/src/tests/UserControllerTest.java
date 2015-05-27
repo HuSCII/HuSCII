@@ -36,15 +36,6 @@ public class UserControllerTest {
         testController = new UserController("/userTestFile.csv");
     }
 
-    /** Tests to see if a List object was created that should contain Users. */
-    @Test
-    public void testReadUserFile() {
-
-        // Test when User List has been populated
-        assertFalse("The list is supposed to be populated!", testController
-                        .getUserList().isEmpty());
-    }
-
     /** Test to see if first user was read correctly from file. */
     @Test
     public void testReadUserFileFirstUser() {
@@ -85,7 +76,7 @@ public class UserControllerTest {
                      userList.get(userList.size() - 1).getRole());
     }
 
-    /** Write User file then read it in again and test if it's not empty.*/
+    /** Write User file then read it in again and test if it's not empty. */
     @Test
     public void testWriteUserFileIfEmpty() {
 
@@ -93,16 +84,57 @@ public class UserControllerTest {
         testController.writeUserFile("src/userFileTestOutput.csv");
 
         // Now check the new file created:
-        testController.readUserFile("/testOutputFile.csv");
+        testController.readUserFile("src/userFileTestOutput.csv");
 
         // Check if array is empty, it shouldn't be:
         assertFalse("Error: List shouldn't be empty!", testController
                         .getUserList().isEmpty());
 
-        // ! Find a way to compare two CSV Files efficiently. Perhaps Set/diffs
-
     }
 
+    /** Write User file then read it in again and if first user is correct. */
+    @Test
+    public void testWriteUserFileFirstUser() {
+
+        // Save the first user of the current file
+        final User firstUser = testController.getUserList().get(0);
+
+        // Now write it out as a different name:
+        testController.writeUserFile("src/userFileTestOutput.csv");
+
+        // Now read in the file that was just created:
+        testController.readUserFile("src/userFileTestOutput.csv");
+
+        // Save the first user of the written file
+        final User writtenFileFirstUser = testController.getUserList().get(0);
+
+        // Check if array is empty, it shouldn't be:
+        assertEquals("Users not same!", firstUser, writtenFileFirstUser);
+    }
+
+    /** Write User file then read it in again and if last user is correct. */
+    @Test
+    public void testWriteUserFileLastUser() {
+
+        // Save the last user of the current file
+        int lastSpot = testController.getUserList().size() - 1;
+        final User lastUser = testController.getUserList().get(lastSpot);
+
+        // Now write it out as a different name:
+        testController.writeUserFile("src/userFileTestOutput.csv");
+
+        // Now read in the file that was just created:
+        testController.readUserFile("src/userFileTestOutput.csv");
+
+        // Save the last user of the written file
+        lastSpot = testController.getUserList().size() - 1;
+        final User writtenFileLastUser = testController.getUserList().get(lastSpot);
+
+        // Check if array is empty, it shouldn't be:
+        assertEquals("Users not same!", lastUser, writtenFileLastUser);
+    }
+
+    /** Test the getter of the User List. */
     @Test
     public void testGetUserList() {
 
@@ -112,6 +144,7 @@ public class UserControllerTest {
 
     }
 
+    /** Test the getter of the Volunteers by last name List. */
     @Test
     public void testGetVolunteers() {
 
@@ -127,9 +160,34 @@ public class UserControllerTest {
         // Second volunteer should be Robb Stark
         assertEquals("Error: First names don't match!", "Robb", testController
                         .getVolunteers("Stark").get(1).getFirstName());
+
     }
 
+    /** Test the getter of the parks for a park manager. */
     @Test
+    public void testGetManagedParks() {
+
+        // Grab Ron Swanson's parks
+        final List<String> parks = testController.getManagedParks("anonymous@nowhere.com");
+
+        // Test to see if there are indeed three parks in his list
+        assertEquals("There should've been three parks!", 3, parks.size());
+
+        // Check if first park matches"
+        assertEquals("Should've been The Pit", "The Pit", parks.get(0));
+
+        // Check if second park matches"
+        assertEquals("Should've been Pawnee National Park", "Pawnee National Park",
+                     parks.get(1));
+
+        // Check if third park matches"
+        assertEquals("Should've been World's Smallest Park", "World's Smallest Park",
+                     parks.get(2));
+
+    }
+
+    /** Test the getter of the User List. */
+    // @Test
     public void testToString() {
 
         // Compare toString output (don't forget the endofline):
