@@ -91,26 +91,39 @@ public class BusinessRules {
      * @return whether week quota is met.
      */
     public static boolean checkJobWeek(List<Job> allJobs, GregorianCalendar date) {
-        GregorianCalendar pastDate = new GregorianCalendar(date.getTimeZone());
-        GregorianCalendar futureDate = new GregorianCalendar(date.getTimeZone());
-        int count = 0;
-        pastDate.set(Calendar.DAY_OF_MONTH, pastDate.get(Calendar.DAY_OF_MONTH) - 3);
-        futureDate.set(Calendar.DAY_OF_MONTH, pastDate.get(Calendar.DAY_OF_MONTH) + 3);
+        GregorianCalendar pastDate = new GregorianCalendar();
+        GregorianCalendar futureDate = new GregorianCalendar();
+        pastDate.setTime(date.getTime());
+        futureDate.setTime(date.getTime());
+        int count = 0; // Day count
+
+        System.out.println("Past " + pastDate.get(Calendar.DAY_OF_YEAR));
+        System.out.println("Future " + futureDate.get(Calendar.DAY_OF_YEAR));
+        System.out.println("After add/minus 3 days:");
+        pastDate.add(Calendar.DAY_OF_YEAR, -3);
+        futureDate.add(Calendar.DAY_OF_YEAR, 3);
+        System.out.println("Job Date " + date.get(Calendar.DAY_OF_YEAR));
+        System.out.println("Past " + pastDate.get(Calendar.DAY_OF_YEAR));
+        System.out.println("Future " + futureDate.get(Calendar.DAY_OF_YEAR));
 
         for (Job aJob : allJobs) {
             if (aJob.getStartDate().compareTo(pastDate) >= 0
                 && date.compareTo(futureDate) <= 0) {
                 count++;
+                System.out.println("Start " + date.get(Calendar.DAY_OF_MONTH));
+
+                if (aJob.getEndDate().get(Calendar.DAY_OF_YEAR) > aJob.getStartDate()
+                                .get(Calendar.DAY_OF_YEAR)) {
+                    count++;
+                    System.out.println("End " + date.get(Calendar.DAY_OF_MONTH));
+                }
             }// check for 2 day jobs
-            if (aJob.getEndDate().get(Calendar.DAY_OF_YEAR) > aJob.getStartDate()
-                            .get(Calendar.DAY_OF_YEAR)) {
-                count++;
-            }
+
             if (count >= 5) {
-                return false;
+                return false;// can't add job.
             }
         }
-        return true;
+        return true;// ok to add a job.
     }
 
     /**

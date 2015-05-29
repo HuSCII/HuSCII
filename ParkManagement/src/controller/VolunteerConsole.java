@@ -225,30 +225,42 @@ public class VolunteerConsole {
                 String parkName = upcomingJobs.get(choice - 1).getParkName();
                 String jobName = upcomingJobs.get(choice - 1).getJobName();
 
+                boolean addedVolunteer = false;
+
                 switch (workCat) {
                     case 1:
-                        upcomingJobs.get(choice - 1).addVolunteer(volunteer.getEmail(),
-                                                                  WorkCategories.LIGHT);
-                        System.out.println("You have successfully signed up for " + jobName
-                                           + " at " + parkName + ".");
+                        addedVolunteer =
+                                        upcomingJobs.get(choice - 1)
+                                                        .addVolunteer(volunteer.getEmail(),
+                                                                      WorkCategories.LIGHT);
                         break;
                     case 2:
-                        upcomingJobs.get(choice - 1).addVolunteer(volunteer.getEmail(),
-                                                                  WorkCategories.MEDIUM);
-                        System.out.println("You have successfully signed up for " + jobName
-                                           + " at " + parkName + ".");
+                        addedVolunteer =
+                                        upcomingJobs.get(choice - 1)
+                                                        .addVolunteer(volunteer.getEmail(),
+                                                                      WorkCategories.MEDIUM);
                         break;
                     case 3:
-                        upcomingJobs.get(choice - 1).addVolunteer(volunteer.getEmail(),
-                                                                  WorkCategories.HEAVY);
-                        System.out.println("You have successfully signed up for " + jobName
-                                           + " at " + parkName + ".");
+                        addedVolunteer =
+                                        upcomingJobs.get(choice - 1)
+                                                        .addVolunteer(volunteer.getEmail(),
+                                                                      WorkCategories.HEAVY);
+
                         break;
                     default:
                         System.out.println("Please enter a valid work category");
                         System.out.println("Light, Medium, Heavy");
                         workCat = keyboard.nextInt();
                 }
+
+                if (addedVolunteer) {
+                    System.out.println("You have successfully signed up for " + jobName
+                                       + " at " + parkName + ".");
+                }
+                else {
+                    System.out.println("Sorry, category is at its max volunteers.");
+                }
+
                 System.out.println();
             }
 

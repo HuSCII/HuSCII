@@ -97,7 +97,7 @@ public class ParkManagerConsole {
         String jobName = keyboard.nextLine();
 
         String date;
-        boolean check = true;
+        boolean check = false;
         do {
             System.out.print("Enter a start date & time (MM/DD/YYYY HH:mm AM/PM): ");
             date = keyboard.nextLine();
