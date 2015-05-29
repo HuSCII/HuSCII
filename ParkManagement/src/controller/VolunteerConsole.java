@@ -65,6 +65,10 @@ public class VolunteerConsole {
 
     }
 
+    /**
+     * 
+     * @return
+     */
     public static List<Job> viewUpcomingJobs() {
 
         System.out.println("View available upcoming jobs:");
@@ -79,11 +83,11 @@ public class VolunteerConsole {
             System.out.println(j.getParkName());
             System.out.println(j.getJobName());
             System.out.println("Start date & time: "
-                               + new SimpleDateFormat("MM/dd/yyyy HH:mm a").format(j.getStartDate()
-                                               .getTime()));
+                            + new SimpleDateFormat("MM/dd/yyyy HH:mm a").format(j.getStartDate()
+                                                                                .getTime()));
             System.out.println("End date & time: "
                             + new SimpleDateFormat("MM/dd/yyyy HH:mm a").format(j.getEndDate()
-                                               .getTime()));
+                                                                                .getTime()));
             System.out.println(j.getCurrentLight() + " out of " + j.getMaxLight()
                                + " light-duty volunteers.");
             System.out.println(j.getCurrentMedium() + " out of " + j.getMaxMedium()
@@ -103,22 +107,25 @@ public class VolunteerConsole {
 
     }
 
-    public static List<Job> getMyJobs() {
+    //    public static List<Job> getMyJobs() {
+    //
+    //        final List<Job> volunteersJob = new ArrayList<Job>();
+    //
+    //        for (Job j : jobController.getUpcomingJobs()) {
+    //            for (String vol : j.getVolunteerEmails()) {
+    //                if (volunteer.getEmail().equals(vol)) {
+    //                    volunteersJob.add(j);
+    //                }
+    //            }
+    //        }
+    //
+    //        return volunteersJob;
+    //
+    //    }
 
-        final List<Job> volunteersJob = new ArrayList<Job>();
-
-        for (Job j : jobController.getUpcomingJobs()) {
-            for (String vol : j.getVolunteerEmails()) {
-                if (volunteer.getEmail().equals(vol)) {
-                    volunteersJob.add(j);
-                }
-            }
-        }
-
-        return volunteersJob;
-
-    }
-
+    /**
+     * 
+     */
     public static void viewSignedUpJobs() {
 
         System.out.println("Viewing the jobs you have signed up for:");
@@ -134,7 +141,7 @@ public class VolunteerConsole {
                     System.out.print(j.getJobName() + " at ");
                     System.out.print(j.getParkName() + " on ");
                     System.out.println(new SimpleDateFormat("MM/dd/yyyy HH:mm a").format(j
-                                    .getStartDate().getTime()));
+                                                                                         .getStartDate().getTime()));
                     System.out.println();
                 }
             }
@@ -144,7 +151,7 @@ public class VolunteerConsole {
         if (!emailFound) {
             Scanner console = new Scanner(System.in);
             System.out.print("You have not signed up for any jobs yet! Do you want to sign "
-                             + "up a job? Yes/No ");
+                            + "up a job? Yes/No ");
             String answer = console.next();
             if (answer.equalsIgnoreCase("yes")) {
                 signMeUp();
@@ -158,11 +165,14 @@ public class VolunteerConsole {
         }
     }
 
+    /**
+     * 
+     */
     public static void signMeUp() {
 
         System.out.println("Sign up for a job:");
         List<Job> upcomingJobs = viewUpcomingJobs(); // remember, this lists
-                                                     // jobs in console.
+        // jobs in console.
 
         if (!upcomingJobs.isEmpty()) {
             // User selects number:
@@ -180,48 +190,62 @@ public class VolunteerConsole {
             // same day)
 
             
-            // Check if the job is already TOTALLY full in all workcats
-            
-            // Also need to check if volunteer already signed up for job here
-            
-            
-            System.out.println("Enter a work category (ie 1, 2, 3) ");
-            System.out.println("1. Light");
-            System.out.println("2. Medium");
-            System.out.println("3. Heavy");
-            System.out.print("Please select a work category choice 1-3: ");
-            System.out.println();
-            int workCat = keyboard.nextInt();
-            System.out.println();
-
-            String parkName = upcomingJobs.get(choice - 1).getParkName();
-            String jobName = upcomingJobs.get(choice - 1).getJobName();
-
-            switch (workCat) {
-                case 1:
-                    upcomingJobs.get(choice - 1).addVolunteer(volunteer.getEmail(),
-                                                              WorkCategories.LIGHT);
-                    System.out.println("You have successfully signed up for " + jobName
-                                       + " at " + parkName + ".");
-                    break;
-                case 2:
-                    upcomingJobs.get(choice - 1).addVolunteer(volunteer.getEmail(),
-                                                              WorkCategories.MEDIUM);
-                    System.out.println("You have successfully signed up for " + jobName
-                                       + " at " + parkName + ".");
-                    break;
-                case 3:
-                    upcomingJobs.get(choice - 1).addVolunteer(volunteer.getEmail(),
-                                                              WorkCategories.HEAVY);
-                    System.out.println("You have successfully signed up for " + jobName
-                                       + " at " + parkName + ".");
-                    break;
-                default:
-                    System.out.println("Please enter a valid work category");
-                    System.out.println("Light, Medium, Heavy");
-                    workCat = keyboard.nextInt();
+           //Check to see if the job is TOTALLY full in all workcats
+            if (upcomingJobs.get(choice-1).isJobFull()) {
+                System.out.println("Job is full.");
+                System.out.println();
+                System.out.println("Please choose another job.");
+                System.out.println("*************************");
+                signMeUp();
+            } 
+            //Check to see if volunteer already signed up for that job
+            else if (upcomingJobs.get(choice - 1).contains(volunteer.getEmail())) {
+                System.out.println("You already signed up for this job. Please choose another job!");
+                System.out.println("*************************");
+                System.out.println();
+                signMeUp();
             }
-            System.out.println();
+            else {
+              
+                System.out.println("Enter a work category (ie 1, 2, 3) ");
+                System.out.println("1. Light");
+                System.out.println("2. Medium");
+                System.out.println("3. Heavy");
+                System.out.print("Please select a work category choice 1-3: ");
+                System.out.println();
+                int workCat = keyboard.nextInt();
+                System.out.println();
+
+                String parkName = upcomingJobs.get(choice - 1).getParkName();
+                String jobName = upcomingJobs.get(choice - 1).getJobName();
+
+                switch (workCat) {
+                    case 1:
+                        upcomingJobs.get(choice - 1).addVolunteer(volunteer.getEmail(),
+                                                                  WorkCategories.LIGHT);
+                        System.out.println("You have successfully signed up for " + jobName
+                                           + " at " + parkName + ".");
+                        break;
+                    case 2:
+                        upcomingJobs.get(choice - 1).addVolunteer(volunteer.getEmail(),
+                                                                  WorkCategories.MEDIUM);
+                        System.out.println("You have successfully signed up for " + jobName
+                                           + " at " + parkName + ".");
+                        break;
+                    case 3:
+                        upcomingJobs.get(choice - 1).addVolunteer(volunteer.getEmail(),
+                                                                  WorkCategories.HEAVY);
+                        System.out.println("You have successfully signed up for " + jobName
+                                           + " at " + parkName + ".");
+                        break;
+                    default:
+                        System.out.println("Please enter a valid work category");
+                        System.out.println("Light, Medium, Heavy");
+                        workCat = keyboard.nextInt();
+                }
+                System.out.println();
+            }
+
         }
     }
 }

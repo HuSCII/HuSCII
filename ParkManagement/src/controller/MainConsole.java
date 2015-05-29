@@ -13,7 +13,7 @@ public class MainConsole {
     private static final String USER_FILE = "/userFile.csv";
 
     /** Job file name. */
-    private static final String JOB_FILE = "/jobFile1.csv";
+    private static final String JOB_FILE = "/jobFile.csv";
 
     public static UserController userController;
     public static JobController jobController;
