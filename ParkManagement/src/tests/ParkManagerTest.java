@@ -61,7 +61,8 @@ public class ParkManagerTest {
 //            }
             
          controllerJobIsEmpty = new JobController("jobFile1.csv");
-        
+         controllerJobIsEmpty.loadJobData("jobFile1.csv");
+         controllerJobIsEmpty.writeJobData("jobFile1.csv");
          rules = new BusinessRules();
           
          testManager1 = new ParkManager("Testmanager1@gmail.com", "Iam", "John", "manager");
@@ -75,21 +76,6 @@ public class ParkManagerTest {
 
     @After
     public void tearDown() throws Exception {
-    }
-
-    @Test
-    public void testAddJob() {
-        
-        assertEquals("start with empty list of job", 0, controllerJobIsEmpty.getAllJobs().size());
-        
-        testManager1.addJob(controllerJobIsEmpty, "Green Lake", "mow the lawn", "05/11/2015 10:00 AM", "05/11/2015 12:00 PM", 3, 3, 5 );
-        
-        assertEquals("one job in the  list of jobControll", 1, controllerJobIsEmpty.getAllJobs().size());
-        
-        testManager1.addJob(controllerJobIsEmpty,"Disneyland Resort","picking up trash", "05/08/2015 09:30 AM","05/08/2015 04:30 PM", 5, 5, 5);
-        
-        assertEquals("two jobs in the  list of jobControll", 2, controllerJobIsEmpty.getAllJobs().size());
-                
     }
 
     @Test
