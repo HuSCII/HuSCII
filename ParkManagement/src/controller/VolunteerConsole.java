@@ -45,12 +45,15 @@ public class VolunteerConsole {
         switch (menuSelect) {
             case 1:
                 viewUpcomingJobs();
+                displayMenu();
                 break;
             case 2:
                 viewSignedUpJobs();
+                displayMenu();
                 break;
             case 3:
                 signMeUp();
+                displayMenu();
                 break;
             case 4: // Logout
                 MainConsole.signIn();
@@ -75,20 +78,20 @@ public class VolunteerConsole {
         System.out.println("View available upcoming jobs:");
         System.out.println();
 
-        final List<Job> upcomingJobs = new ArrayList<Job>();
+        final List<Job> upcomingJobs = jobController.getUpcomingJobs();
 
         int i = 1;
-        for (Job j : jobController.getUpcomingJobs()) {
-            upcomingJobs.add(j);
+        for (Job j : upcomingJobs) {
+            // upcomingJobs.add(j);
             System.out.print(i++ + ") ");
             System.out.println(j.getParkName());
             System.out.println(j.getJobName());
             System.out.println("Start date & time: "
-                            + new SimpleDateFormat("MM/dd/yyyy HH:mm a").format(j.getStartDate()
-                                                                                .getTime()));
+                               + new SimpleDateFormat("MM/dd/yyyy HH:mm a").format(j
+                                               .getStartDate().getTime()));
             System.out.println("End date & time: "
-                            + new SimpleDateFormat("MM/dd/yyyy HH:mm a").format(j.getEndDate()
-                                                                                .getTime()));
+                               + new SimpleDateFormat("MM/dd/yyyy HH:mm a").format(j
+                                               .getEndDate().getTime()));
             System.out.println(j.getCurrentLight() + " out of " + j.getMaxLight()
                                + " light-duty volunteers.");
             System.out.println(j.getCurrentMedium() + " out of " + j.getMaxMedium()
@@ -108,21 +111,21 @@ public class VolunteerConsole {
 
     }
 
-    //    public static List<Job> getMyJobs() {
+    // public static List<Job> getMyJobs() {
     //
-    //        final List<Job> volunteersJob = new ArrayList<Job>();
+    // final List<Job> volunteersJob = new ArrayList<Job>();
     //
-    //        for (Job j : jobController.getUpcomingJobs()) {
-    //            for (String vol : j.getVolunteerEmails()) {
-    //                if (volunteer.getEmail().equals(vol)) {
-    //                    volunteersJob.add(j);
-    //                }
-    //            }
-    //        }
+    // for (Job j : jobController.getUpcomingJobs()) {
+    // for (String vol : j.getVolunteerEmails()) {
+    // if (volunteer.getEmail().equals(vol)) {
+    // volunteersJob.add(j);
+    // }
+    // }
+    // }
     //
-    //        return volunteersJob;
+    // return volunteersJob;
     //
-    //    }
+    // }
 
     /**
      * 
@@ -142,7 +145,7 @@ public class VolunteerConsole {
                     System.out.print(j.getJobName() + " at ");
                     System.out.print(j.getParkName() + " on ");
                     System.out.println(new SimpleDateFormat("MM/dd/yyyy HH:mm a").format(j
-                                                                                         .getStartDate().getTime()));
+                                    .getStartDate().getTime()));
                     System.out.println();
                 }
             }
@@ -152,7 +155,7 @@ public class VolunteerConsole {
         if (!emailFound) {
             Scanner console = new Scanner(System.in);
             System.out.print("You have not signed up for any jobs yet! Do you want to sign "
-                            + "up a job? Yes/No ");
+                             + "up a job? Yes/No ");
             String answer = console.next();
             if (answer.equalsIgnoreCase("yes")) {
                 signMeUp();
@@ -186,26 +189,28 @@ public class VolunteerConsole {
                 System.out.print("Please make a selection from the list: ");
                 choice = keyboard.nextInt();
             }
-            
-            //Business Rule#7 - can't sign up for two jobs on the same day
-            if (BusinessRules.checkTwoJobsSameDay(volunteer, upcomingJobs, upcomingJobs.get(choice-1).getStartDate())) {
+
+            // Check to see if volunteer already signed up for that job
+            if (upcomingJobs.get(choice - 1).contains(volunteer.getEmail())) {
+                System.out.println();
+                System.out.println("You already signed up for this job.");
+                return;
+            }
+            // Business Rule#7 - can't sign up for two jobs on the same day
+            else if (BusinessRules.checkTwoJobsSameDay(volunteer, upcomingJobs, upcomingJobs
+                            .get(choice - 1).getStartDate())) {
                 System.out.println();
                 System.out.println("You already signed up for another job on the same date.");
                 return;
-            }     
-            //Check to see if the job is TOTALLY full in all workcats
+            }
+            // Check to see if the job is TOTALLY full in all workcats
             else if (upcomingJobs.get(choice - 1).isJobFull()) {
                 System.out.println();
                 System.out.println("This job is already full.");
                 System.out.println();
                 return;
-            } 
-            //Check to see if volunteer already signed up for that job
-            else if (upcomingJobs.get(choice - 1).contains(volunteer.getEmail())) {
-                System.out.println();
-                System.out.println("You already signed up for this job.");
-                return;
             }
+
             else {
 
                 System.out.println("Enter a work category (ie 1, 2, 3) ");

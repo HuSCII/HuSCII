@@ -28,17 +28,16 @@ public class BusinessRules {
      * Comparing the job date, check if the job is completed or still a pending
      * job.
      * 
-     * @return true if the job is in the future; otherwise,
-     *         false (past job).
+     * @return true if the job is in the future; otherwise, false (past job).
      */
     public static boolean isCompleted(GregorianCalendar jobDate) {
 
         GregorianCalendar todayDate = (GregorianCalendar) GregorianCalendar.getInstance();
         if (todayDate.compareTo(jobDate) > 0) {
-            return false;
+            return true;
         }
         else {
-            return true;
+            return false;
         }
     }
 
@@ -49,7 +48,7 @@ public class BusinessRules {
      * @return true if a job can be added; otherwise, false.
      */
     public static boolean valiDate(GregorianCalendar jobDate) {
-        if (isCompleted(jobDate) && !futureDate(jobDate)) {
+        if (!isCompleted(jobDate) && !futureDate(jobDate)) {
             return true;
         }
         return false;
@@ -99,11 +98,12 @@ public class BusinessRules {
         futureDate.set(Calendar.DAY_OF_MONTH, pastDate.get(Calendar.DAY_OF_MONTH) + 3);
 
         for (Job aJob : allJobs) {
-            if (aJob.getStartDate().compareTo(pastDate) >= 0 && date.compareTo(futureDate) <= 0) {
+            if (aJob.getStartDate().compareTo(pastDate) >= 0
+                && date.compareTo(futureDate) <= 0) {
                 count++;
-            }//check for 2 day jobs
-            if(aJob.getEndDate().get(Calendar.DAY_OF_YEAR) >
-            aJob.getStartDate().get(Calendar.DAY_OF_YEAR)) {
+            }// check for 2 day jobs
+            if (aJob.getEndDate().get(Calendar.DAY_OF_YEAR) > aJob.getStartDate()
+                            .get(Calendar.DAY_OF_YEAR)) {
                 count++;
             }
             if (count >= 5) {
@@ -119,27 +119,32 @@ public class BusinessRules {
      * @return true if the job length is less than 2 days; otherwise, false.
      */
     public static boolean checkJobDuration(Job job) {
-        long joblength = job.getEndDate().getTime().getTime() - job.getStartDate().getTime().getTime();
-        return joblength / (60 * 60 * 1000)<= MAX_JOB_LENGTH;
+        long joblength =
+                        job.getEndDate().getTime().getTime()
+                                        - job.getStartDate().getTime().getTime();
+        return joblength / (60 * 60 * 1000) <= MAX_JOB_LENGTH;
     }
 
     /**
      * BR7
+     * 
      * @param allJobs
      * @param date
      * @return
      */
-    public static boolean checkTwoJobsSameDay(User users, List<Job> allJobs, GregorianCalendar date) {
+    public static boolean checkTwoJobsSameDay(User user, List<Job> allJobs,
+                                              GregorianCalendar date) {
 
         for (Job j : allJobs) {
             for (String vol : j.getVolunteerEmails()) {
-                if (users.getEmail().equals(vol)) {
-                    if(date == j.getStartDate()) {
-                        return false;
+                if (user.getEmail().equals(vol)) {
+                    if (date.get(Calendar.DAY_OF_YEAR) == (j.getStartDate()
+                                    .get(Calendar.DAY_OF_YEAR))) {
+                        return true;
                     }
                 }
             }
         }
-        return true;
+        return false;
     }
 }
