@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import models.BusinessRules;
 import models.Job;
 import models.Job.WorkCategories;
 import models.JobController;
@@ -188,9 +189,10 @@ public class VolunteerConsole {
             // add validation for Business Rule#7 (can't sign up for two jobs on
             // the
             // same day)
-
+      
+          
             
-           //Check to see if the job is TOTALLY full in all workcats
+            //Check to see if the job is TOTALLY full in all workcats
             if (upcomingJobs.get(choice-1).isJobFull()) {
                 System.out.println("Job is full.");
                 System.out.println();
@@ -206,7 +208,7 @@ public class VolunteerConsole {
                 signMeUp();
             }
             else {
-              
+
                 System.out.println("Enter a work category (ie 1, 2, 3) ");
                 System.out.println("1. Light");
                 System.out.println("2. Medium");
