@@ -186,26 +186,25 @@ public class VolunteerConsole {
                 System.out.print("Please make a selection from the list: ");
                 choice = keyboard.nextInt();
             }
-            // add validation for Business Rule#7 (can't sign up for two jobs on
-            // the
-            // same day)
-      
-          
             
-            //Check to see if the job is TOTALLY full in all workcats
-            if (upcomingJobs.get(choice-1).isJobFull()) {
-                System.out.println("Job is full.");
+            //Business Rule#7 - can't sign up for two jobs on the same day
+            if (BusinessRules.checkTwoJobsSameDay(volunteer, upcomingJobs, upcomingJobs.get(choice-1).getStartDate())) {
                 System.out.println();
-                System.out.println("Please choose another job.");
-                System.out.println("*************************");
-                signMeUp();
+                System.out.println("You already signed up for another job on the same date.");
+                return;
+            }     
+            //Check to see if the job is TOTALLY full in all workcats
+            else if (upcomingJobs.get(choice - 1).isJobFull()) {
+                System.out.println();
+                System.out.println("This job is already full.");
+                System.out.println();
+                return;
             } 
             //Check to see if volunteer already signed up for that job
             else if (upcomingJobs.get(choice - 1).contains(volunteer.getEmail())) {
-                System.out.println("You already signed up for this job. Please choose another job!");
-                System.out.println("*************************");
                 System.out.println();
-                signMeUp();
+                System.out.println("You already signed up for this job.");
+                return;
             }
             else {
 

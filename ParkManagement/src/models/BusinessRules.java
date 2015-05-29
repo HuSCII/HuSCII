@@ -1,6 +1,7 @@
 
 package models;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -12,12 +13,14 @@ import java.util.List;
  */
 public class BusinessRules {
 
+    public static User volunteer;
+
     /** The maximum months from the current date that the job can be added. */
     public static final int MAX_MONTHS = 3;
 
     /** Holds current maximum number of allowed jobs at a given time. */
     private static final int MAX_JOBS = 30;
-    
+
     /** The maximum length of each job in hours. */
     private static final int MAX_JOB_LENGTH = 48;
 
@@ -100,7 +103,7 @@ public class BusinessRules {
                 count++;
             }//check for 2 day jobs
             if(aJob.getEndDate().get(Calendar.DAY_OF_YEAR) >
-                aJob.getStartDate().get(Calendar.DAY_OF_YEAR)) {
+            aJob.getStartDate().get(Calendar.DAY_OF_YEAR)) {
                 count++;
             }
             if (count >= 5) {
@@ -120,4 +123,23 @@ public class BusinessRules {
         return joblength / (60 * 60 * 1000)<= MAX_JOB_LENGTH;
     }
 
+    /**
+     * BR7
+     * @param allJobs
+     * @param date
+     * @return
+     */
+    public static boolean checkTwoJobsSameDay(User users, List<Job> allJobs, GregorianCalendar date) {
+
+        for (Job j : allJobs) {
+            for (String vol : j.getVolunteerEmails()) {
+                if (users.getEmail().equals(vol)) {
+                    if(date == j.getStartDate()) {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
 }
