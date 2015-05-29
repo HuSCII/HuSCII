@@ -201,8 +201,8 @@ public class JobTest {
 
     @Test
     public void testVolunteerSignUp() {
-        assertEquals("Output is not the same.", "volLight@gmail.com,volLight1@gmail.com", testJob2.volunteerSignUp());
-        assertEquals("Output is not the same.", "volMed@gmail.com", testJob3.volunteerSignUp());
-        assertEquals("Output is not the same.", "volHeavy@gmail.com", testJob4.volunteerSignUp());
+        assertEquals("Output is not the same.", "volLight@gmail.com,volLight1@gmail.com", testJob2.getVolunteerString());
+        assertEquals("Output is not the same.", "volMed@gmail.com", testJob3.getVolunteerString());
+        assertEquals("Output is not the same.", "volHeavy@gmail.com", testJob4.getVolunteerString());
     }
 }

@@ -19,9 +19,9 @@ public class JobControllerTest {
 	public void init(){
 		jc = new JobController(null);
 		job1 = new Job("walderfrey@gmail.com","King's Landing", "Beheading Cleanup", "07/08/2015 09:30 AM", 
-		               "07/08/2015 09:30 AM", 0, 5, 0, 4, 0, 9, null);
-		job2 = new Job("walderfrey@gmail.com","King's Landing", "Beheading Cleanup", "07/08/2015 09:30 AM", 
-                       "07/08/2015 09:30 AM", 0, 5, 0, 4, 0, 9, null);
+		               "07/08/2015 04:00 PM", 0, 5, 0, 4, 0, 9, null);
+		job2 = new Job("walderfrey@gmail.com","King's Landing", "Captain Planet Brigade", "08/13/2015 09:30 AM", 
+                       "08/13/2015 11:30 AM", 0, 5, 0, 4, 0, 9, null);
 		job3 = new Job("walderfrey@gmail.com","King's Landing", "Beheading Cleanup", "07/08/2015 09:30 AM", 
                        "07/08/2015 09:30 AM", 0, 5, 0, 4, 0, 9, null);
 	}

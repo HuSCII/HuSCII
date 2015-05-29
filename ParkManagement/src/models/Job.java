@@ -175,7 +175,7 @@ public class Job {
      * 
      * @return A string containing the emails of all the volunteers in this job
      */
-    public String volunteerSignUp() {
+    public String getVolunteerString() {
         if (volunteers.isEmpty()) {
             return null;
         }
@@ -185,15 +185,12 @@ public class Job {
         String heavy = "";
 
         for (String email : volunteers.keySet()) {
-            if (volunteers.get(email) == WorkCategories.LIGHT) {
+            if (volunteers.get(email) == WorkCategories.LIGHT)
                 light += email + DELIM_STD;
-            }
-            else if (volunteers.get(email) == WorkCategories.MEDIUM) {
+            else if (volunteers.get(email) == WorkCategories.MEDIUM)
                 medium += email + DELIM_STD;
-            }
-            else {
+            else
                 heavy += email + DELIM_STD;
-            }
         }
         sb.append(light);
         sb.append(medium);
@@ -296,7 +293,7 @@ public class Job {
         sb.append(currentHeavy + DELIM_STD);
         sb.append(maxHeavy);
         if (!volunteers.isEmpty()) {
-            sb.append(DELIM_STD + volunteerSignUp());
+            sb.append(DELIM_STD + getVolunteerString());
         }
 
         return sb.toString();
