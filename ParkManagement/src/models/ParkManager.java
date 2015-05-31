@@ -1,11 +1,10 @@
 /*
- * HuSCII (Group 2)
- * TCSS 360 - Spring '15
- * ParkManager.java
+ * HuSCII (Group 2) TCSS 360 - Spring '15 ParkManager.java
  */
 
 package models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -18,9 +17,14 @@ import models.Job.WorkCategories;
  * @author Jingzhu Guo
  * @version 3 May 2015
  */
-public class ParkManager extends User {
-    
+public class ParkManager extends User implements Serializable {
+
+    /** Serializable id. */
+    private static final long serialVersionUID = -1593790873449892291L;
+
+    /** Business rules. */
     private BusinessRules rules = new BusinessRules();
+
     /**
      * Create a "Park Manager" User.
      * 
@@ -50,16 +54,17 @@ public class ParkManager extends User {
      */
     public void addJob(JobController jobController, String parkName, String jobName,
                        String startDate, String endDate, int maxLight, int maxMed, int maxHvy) {
-       
-        jobController.addJob(new Job(getEmail(), parkName, jobName, startDate, endDate,
-                                     0, maxLight, 0, maxMed, 0, maxHvy,
+
+        jobController.addJob(new Job(getEmail(), parkName, jobName, startDate, endDate, 0,
+                                     maxLight, 0, maxMed, 0, maxHvy,
                                      new HashMap<String, WorkCategories>()));
     }
 
     /**
      * Retrieve this park manager's jobs.
      * 
-     * @param jobController The JobController that stores the jobs to be retrieved from.
+     * @param jobController The JobController that stores the jobs to be
+     *            retrieved from.
      * @return List of Upcoming job that I manage.
      */
     public List<Job> getMyJobs(final JobController jobController) {

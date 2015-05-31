@@ -5,6 +5,7 @@
 
 package models;
 
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -20,7 +21,7 @@ import java.util.Set;
  * @author Putthida Samrith
  * @version 4/4/2015
  */
-public class Job {
+public class Job implements Serializable {
 
     /** Delimiter used in string methods to separate values. */
     private static final String DELIM_STD = ",";
@@ -70,8 +71,8 @@ public class Job {
      * @param jobID unique ID number of each job.
      * @param parkName Name of the park.
      * @param jobName Name of the job.
-     * @param date The start date of the job.
-     * * @param date The end date of the job.
+     * @param date The start date of the job. * @param date The end date of the
+     *            job.
      */
     public Job(final String parkManagerEmail, final String parkName, final String jobName,
                final String startDate, final String endDate, final int currentLight,
@@ -83,12 +84,12 @@ public class Job {
         this.parkManagerEmail = parkManagerEmail;
         this.parkName = parkName;
         this.jobName = jobName;
-        //this.jobDuration = jobDuration;
-        //setDate(this.startDate,startDate);
-        //setDate(this.endDate, endDate);
+        // this.jobDuration = jobDuration;
+        // setDate(this.startDate,startDate);
+        // setDate(this.endDate, endDate);
 
         setStartDate(startDate);
-        setEndDate(endDate); 
+        setEndDate(endDate);
 
         this.currentLight = currentLight;
         this.maxLight = maxLight;
@@ -113,10 +114,11 @@ public class Job {
      */
     public Job(Job job) {
         this(job.getParkManagerEmail(), job.getParkName(), job.getJobName(),
-             new SimpleDateFormat("MM/dd/yyyy HH:mm a").format(job.getStartDate().getTime()), 
-             new SimpleDateFormat("MM/dd/yyyy HH:mm a").format(job.getEndDate().getTime()), job.getCurrentLight(), job.getMaxLight(), job
-             .getCurrentMedium(), job.getMaxMedium(), job.getCurrentHard(),
-             job.getMaxHard(), job.volunteers);// needs getVolunteers()
+             new SimpleDateFormat("MM/dd/yyyy HH:mm a").format(job.getStartDate().getTime()),
+             new SimpleDateFormat("MM/dd/yyyy HH:mm a").format(job.getEndDate().getTime()),
+             job.getCurrentLight(), job.getMaxLight(), job.getCurrentMedium(), job
+                             .getMaxMedium(), job.getCurrentHard(), job.getMaxHard(),
+             job.volunteers);// needs getVolunteers()
     }
 
     /**
@@ -284,8 +286,10 @@ public class Job {
         sb.append(parkManagerEmail + DELIM_STD);
         sb.append(parkName + DELIM_STD);
         sb.append(jobName + DELIM_STD);
-        sb.append(new SimpleDateFormat("MM/dd/yyyy HH:mm a").format(startDate.getTime()) + DELIM_STD);
-        sb.append(new SimpleDateFormat("MM/dd/yyyy HH:mm a").format(endDate.getTime()) + DELIM_STD);
+        sb.append(new SimpleDateFormat("MM/dd/yyyy HH:mm a").format(startDate.getTime())
+                  + DELIM_STD);
+        sb.append(new SimpleDateFormat("MM/dd/yyyy HH:mm a").format(endDate.getTime())
+                  + DELIM_STD);
         sb.append(currentLight + DELIM_STD);
         sb.append(maxLight + DELIM_STD);
         sb.append(currentMedium + DELIM_STD);
