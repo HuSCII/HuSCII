@@ -12,44 +12,50 @@ import org.junit.Test;
 
 public class JobControllerTest {
 	//variables
-	Job job1, job2, job3, job4;
 	JobController jc;
 	
 	@Before
 	public void init(){
-		jc = new JobController(null);
-		job1 = new Job("walderfrey@gmail.com","King's Landing", "Beheading Cleanup", "07/08/2015 09:30 AM", 
-		               "07/08/2015 04:00 PM", 0, 5, 0, 4, 0, 9, null);
-		job2 = new Job("walderfrey@gmail.com","King's Landing", "Captain Planet Brigade", "08/13/2015 09:30 AM", 
-                       "08/13/2015 11:30 AM", 0, 5, 0, 4, 0, 9, null);
-		job3 = new Job("walderfrey@gmail.com","King's Landing", "Beheading Cleanup", "07/08/2015 09:30 AM", 
-                       "07/08/2015 09:30 AM", 0, 5, 0, 4, 0, 9, null);
+		jc = new JobController("/jobTestFile.csv");
 	}
 
 	@Test
 	public void testJobController() {
 		//tests load
-		JobController jobController = new JobController(null);
-		assertFalse(jobController.getAllJobs().isEmpty());
+		JobController jobController = new JobController("file does not exist");
+		assertTrue(jobController.getAllJobs().isEmpty());
+		jobController = new JobController("/jobTestFile.csv");
+        assertFalse(jobController.getAllJobs().isEmpty());
 	}
 
 	@Test
 	public void testAddJob() {
 		int s = jc.getAllJobs().size();
-		jc.addJob(job1);
+		Job j = new Job("e", "p", "ja", "06/06/2015 09:30 AM", "06/06/2015 10:30 AM", 
+                        0, 0, 0, 0, 0, 0, null);
+		jc.addJob(j);
 		assertTrue(s+1==jc.getAllJobs().size());
 	}
 
 	@Test
 	public void testGetUpcomingJobs() {
 		int s = jc.getUpcomingJobs().size();
-		assertTrue(s==4);
+		Job pastJob = new Job("e", "p", "a", "05/30/2015 09:30 AM", "05/30/2015 11:30 AM", 
+		                      0, 0, 0, 0, 0, 0, null);
+		Job futureJob = new Job("e", "p", "b", "06/06/2015 09:30 AM", "06/06/2015 11:30 AM", 
+		                        0, 0, 0, 0, 0, 0, null);
+		jc.addJob(pastJob);
+		jc.addJob(futureJob);
+		assertTrue(s+1==jc.getUpcomingJobs().size());
 	}
 	
 	@Test
 	public void testWriteJobData() {
-		jc.writeJobData("src/jobFileTest.txt");
-		JobController jobController = new JobController("src/jobFileTest.txt");
+	    Job j = new Job("e", "p", "jw", "06/06/2015 09:30 AM", "06/06/2015 10:30 AM", 
+	                    0, 0, 0, 0, 0, 0, null);
+	    jc.addJob(j);
+		jc.writeJobData("/jobFileTestOutput.csv");
+		JobController jobController = new JobController("/jobFileTestOutput.csv");
 		assertFalse(jobController.getAllJobs().isEmpty());		
 	}
 

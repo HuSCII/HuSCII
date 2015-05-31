@@ -90,12 +90,6 @@ public class JobController {
 	    InputStream in = this.getClass().getResourceAsStream(filename);
 	    //check if filename is valid
 	    if(in==null) {
-	        try {
-                in.close();
-            }
-            catch (IOException e) {
-                //e.printStackTrace();
-            }
 	        return false;
 	    }
 		Scanner scanner = new Scanner(in);
@@ -138,6 +132,8 @@ public class JobController {
         	addJob(job);
         }
         scanner.close();
+        try {in.close();
+        } catch (IOException e) {}
 		return true;
 	}
 	

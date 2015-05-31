@@ -1,7 +1,13 @@
 
 package controller;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream.GetField;
 import java.util.Scanner;
+import java.util.StringTokenizer;
 
 import models.JobController;
 import models.User;
@@ -14,6 +20,9 @@ public class MainConsole {
 
     /** Job file name. */
     private static final String JOB_FILE = "/jobFile.csv";
+    
+    /** HuSCII lgo. */
+    private static final String HUSCII_FILE = "src/HuSCII.txt";
 
     public static UserController userController;
     public static JobController jobController;
@@ -36,6 +45,7 @@ public class MainConsole {
     }
 
     private static void displayDoc() {
+        System.out.println(loadHuSCIILogo());
         System.out.println("*******************HuSCII Parks Management System****************");
         System.out.println("* Software version 1.0                                          *");
         System.out.print("* Authors: Jingzhu Guo, Duy Huynh, ");
@@ -43,6 +53,26 @@ public class MainConsole {
         System.out.println("* Copyright (c) 2015 HuSCII, TCSS 360 Spring '15 Project Group. *");
         System.out.println("*                                                               *");
         System.out.println("*****************************************************************");
+    }
+    
+    private static String loadHuSCIILogo() {
+        String huscii = "";
+        FileInputStream in;
+        try {
+            in = new FileInputStream(HUSCII_FILE);
+        }
+        catch (FileNotFoundException e) {
+            return null;
+        }
+        Scanner scanner = new Scanner(in);
+        while(scanner.hasNext()) {
+            huscii += "\t\t" + scanner.nextLine() + "\n";
+        }
+        try {
+            in.close();
+        }
+        catch (IOException e) {}
+        return huscii;
     }
 
     public static void signIn() {
