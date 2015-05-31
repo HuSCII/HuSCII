@@ -1,7 +1,13 @@
 package models;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,7 +22,7 @@ import models.Job.WorkCategories;
  * @author Ian McPeek
  *
  */
-public class JobController {
+public class JobController implements Serializable{
 	
 	/* stores a copy of all jobs in the system. */
 	private ArrayList<Job> allJobs;
@@ -27,7 +33,8 @@ public class JobController {
 	 */
 	public JobController(String filename) {
 		allJobs = new ArrayList<Job>();
-		loadJobData(filename);
+		readJobCereal(filename);
+		//loadJobData(filename);
 	}
 	
 	//*****PUBLIC METHODS*****//
@@ -154,4 +161,42 @@ public class JobController {
 		return true;
 	}
 	
+	public boolean readJobCereal(String filename) {
+	    FileInputStream fin;
+        try {
+            fin = new FileInputStream(filename);
+            ObjectInputStream oin = new ObjectInputStream(fin);
+            allJobs = (ArrayList<Job>) oin.readObject();
+            oin.close();
+            fin.close();
+            return true;
+        }
+        catch (IOException | ClassNotFoundException e) {
+            return false;
+        }
+	    
+	    
+	}
+	
+	public boolean writeJobCereal(String filename) {
+        try {
+            FileOutputStream fout = new FileOutputStream(filename);
+            ObjectOutputStream oout = new ObjectOutputStream(fout);
+            //for(Job job:allJobs) {
+                oout.writeObject(allJobs);
+            //}
+            oout.close();
+            fout.close();
+            return true;
+        }
+        catch (IOException e) {
+            return false;
+        }	    
+	}
+	
+	public static void main(String args[]) {
+	    JobController jc = new JobController("src/jobs.huscii");
+	    System.out.println(jc.getAllJobs());
+	    //System.out.println(jc.writeJobCereal("src/jobs.huscii"));
+	}
 }
