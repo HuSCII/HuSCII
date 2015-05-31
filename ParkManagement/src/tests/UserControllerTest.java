@@ -81,7 +81,7 @@ public class UserControllerTest {
     public void testWriteUserFileIfEmpty() {
 
         // Now write it out as a different name:
-        testController.writeUserFile("src/userFileTestOutput.csv");
+        testController.writeUserFile("/userFileTestOutput.csv");
 
         // Now check the new file created:
         testController.readUserFile("src/userFileTestOutput.csv");
@@ -100,7 +100,7 @@ public class UserControllerTest {
         final User firstUser = testController.getUserList().get(0);
 
         // Now write it out as a different name:
-        testController.writeUserFile("src/userFileTestOutput.csv");
+        testController.writeUserFile("/userFileTestOutput.csv");
 
         // Now read in the file that was just created:
         testController.readUserFile("src/userFileTestOutput.csv");
@@ -121,7 +121,7 @@ public class UserControllerTest {
         final User lastUser = testController.getUserList().get(lastSpot);
 
         // Now write it out as a different name:
-        testController.writeUserFile("src/userFileTestOutput.csv");
+        testController.writeUserFile("/userFileTestOutput.csv");
 
         // Now read in the file that was just created:
         testController.readUserFile("src/userFileTestOutput.csv");

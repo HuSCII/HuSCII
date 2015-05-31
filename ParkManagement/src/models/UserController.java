@@ -1,7 +1,5 @@
 /*
- * HuSCII (Group 2)
- * TCSS 360 - Spring '15
- * UserController.java
+ * HuSCII (Group 2) TCSS 360 - Spring '15 UserController.java
  */
 
 package models;
@@ -9,6 +7,7 @@ package models;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -22,7 +21,10 @@ import java.util.Scanner;
  * @author HuSCII
  * @version 3 May 2015
  */
-public class UserController {
+public class UserController implements Serializable {
+
+    /** Generate a serial id. */
+    private static final long serialVersionUID = 8210653758792827639L;
 
     /** A collection of Users. */
     private final List<User> userList;
@@ -88,7 +90,8 @@ public class UserController {
             final FileWriter writer = new FileWriter(outputFile);
             writer.append(toString());
             writer.close();
-        } catch (final IOException e) {
+        }
+        catch (final IOException e) {
             e.printStackTrace();
         }
     }
@@ -124,7 +127,8 @@ public class UserController {
     /**
      * Retrieve this Park Manager's managed parks in a list.
      * 
-     * @param parkManagerEmail The user (park manager) whose parks we want to retrieve.
+     * @param parkManagerEmail The user (park manager) whose parks we want to
+     *            retrieve.
      * @return List of parks this park manager manages.
      */
     public List<String> getManagedParks(final String parkManagerEmail) {
