@@ -116,4 +116,5 @@ public class User implements Serializable {
     public int hashCode() {
         return Objects.hash(email, firstName, lastName, role);
     }
+
 }

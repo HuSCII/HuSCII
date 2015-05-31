@@ -28,7 +28,7 @@ public class MainConsole {
     public static JobController jobController;
     public static User currentUser;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         // Pre-load the User persistent data:
         userController = new UserController(USER_FILE);

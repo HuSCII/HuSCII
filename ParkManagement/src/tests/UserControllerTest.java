@@ -9,6 +9,7 @@ package tests;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
+import java.io.IOException;
 import java.util.List;
 
 import models.User;
@@ -29,9 +30,10 @@ public class UserControllerTest {
     /** UserController used for testing. */
     private UserController testController;
 
-    /** Create UserController for test use. */
+    /** Create UserController for test use. 
+     * @throws IOException */
     @Before
-    public void setUp() {
+    public void setUp() throws IOException {
 
         testController = new UserController("/userTestFile.csv");
     }
