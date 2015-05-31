@@ -90,6 +90,11 @@ public class BusinessRules {
      * 
      * @return whether week quota is met.
      */
+    //TODO: 1. mod out day to account for Dec.31-Jan.1
+    //      2. Count end dates for existing jobs 
+    //      3. Add +1 to count if prospective end date is different
+    //          than prospective start date
+    //      4. Change parameters to allow 2 dates.
     public static boolean checkJobWeek(List<Job> allJobs, GregorianCalendar date) {
         GregorianCalendar pastDate = new GregorianCalendar();
         GregorianCalendar futureDate = new GregorianCalendar();
