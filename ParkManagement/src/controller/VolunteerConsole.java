@@ -30,14 +30,27 @@ public class VolunteerConsole {
 
     public static void displayMenu() {
         keyboard = new Scanner(System.in);
+        
+        System.out.println("+======================================+");
+        System.out.println("|       Welcome To Volunteer Page      |");
+        System.out.println("+======================================+");
+        System.out.println("| Options:                             |");
+        System.out.println("|  1. View all upcoming jobs.          |");
+        System.out.println("|  2. View jobs I have signed up for.  |");
+        System.out.println("|  3. Sign up for a job.               |");
+        System.out.println("|  4. Logout                           |");
+        System.out.println("|  5. Exit                             |");
+        System.out.println("+======================================+");
+        
 
-        System.out.println("Welcome To Volunteer Page");
-        System.out.println("------------------------------");
-        System.out.println("1. View all upcoming jobs.");
-        System.out.println("2. View jobs I have signed up for.");
-        System.out.println("3. Sign up for a job.");
-        System.out.println("4. Logout");
-        System.out.println("5. Exit");
+//        System.out.println("Welcome To Volunteer Page");
+//        System.out.println("------------------------------");
+//        System.out.println("1. View all upcoming jobs.");
+//        System.out.println("2. View jobs I have signed up for.");
+//        System.out.println("3. Sign up for a job.");
+//        System.out.println("4. Logout");
+//        System.out.println("5. Exit");
+        System.out.println();
         System.out.print("Please select menu choice 1-5: ");
 
         final int menuSelect = keyboard.nextInt();
@@ -154,8 +167,8 @@ public class VolunteerConsole {
         // The case when volunteer has no jobs:
         if (!emailFound) {
             Scanner console = new Scanner(System.in);
-            System.out.print("You have not signed up for any jobs yet! Do you want to sign "
-                             + "up a job? Yes/No ");
+            System.out.println("You have not signed up for any jobs yet!");
+            System.out.println("Do you want to sign up a job? Yes/No ");
             String answer = console.next();
             if (answer.equalsIgnoreCase("yes")) {
                 signMeUp();

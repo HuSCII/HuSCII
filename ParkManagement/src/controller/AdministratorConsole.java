@@ -22,13 +22,23 @@ public class AdministratorConsole {
 
         keyboard = new Scanner(System.in);
 
-        System.out.println("Welcome To Administrator Page");
-        System.out.println("------------------------------");
-        System.out.println("1. Search Volunteer by Last Name");
-        System.out.println("2. Logout");
-        System.out.println("3. Exit");
-        System.out.println("Please select menu choice 1-3: ");
+        System.out.println("+======================================+");
+        System.out.println("|    Welcome To Administrator Page     |");
+        System.out.println("+======================================+");
+        System.out.println("| Options:                             |");
+        System.out.println("|  1. Search Volunteer by Last Name    |");
+        System.out.println("|  2. Logout                           |");
+        System.out.println("|  3. Exit                             |");
+        System.out.println("+======================================+");
+        System.out.println();
 
+        //System.out.println("Welcome To Administrator Page");
+        //System.out.println("------------------------------");
+        //System.out.println("1. Search Volunteer by Last Name");
+        //System.out.println("2. Logout");
+        //System.out.println("3. Exit");
+        System.out.println("Please select menu choice 1-3: ");
+        
         int menu = keyboard.nextInt();
 
         switch (menu) {
@@ -74,9 +84,10 @@ public class AdministratorConsole {
         String lastName = keyboard.next();
 
         if (hasLastName(lastName)) {
-            System.out.println("");
+            System.out.println();
             System.out.println("Volunteer Information ");
-            System.out.println("---------------------");
+            System.out.println("=====================");
+            System.out.println();
 
             for (User u : userController.getUserList()) {
                 if (u.getLastName().equals(lastName) && u.getRole().equals("volunteer")) {
@@ -89,6 +100,7 @@ public class AdministratorConsole {
         else {
             System.out.println("No Volunteer Found!");
             System.out.println("Please Try Again!");
+            System.out.println();
 
             searchVolunteer();
         }
