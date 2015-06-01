@@ -82,10 +82,15 @@ public class UserController implements Serializable {
     public boolean writeUserSerialized(String filename) {
         try {
             FileOutputStream fout = new FileOutputStream(filename);
+            FileOutputStream pmOut = new FileOutputStream("src/parkmanager.huscii");
             ObjectOutputStream oout = new ObjectOutputStream(fout);
+            ObjectOutputStream oout2 = new ObjectOutputStream(pmOut);
             oout.writeObject(userList);
+            oout2.writeObject(managedParks);
             // }
             oout.close();
+            oout2.close();
+            pmOut.close();
             fout.close();
             return true;
         }

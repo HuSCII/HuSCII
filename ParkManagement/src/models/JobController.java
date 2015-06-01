@@ -37,8 +37,8 @@ public class JobController implements Serializable {
         if (filename != null) {
             readJobCereal(filename);
             // Uncomment following lines, and comment the above to reload data
-            // loadJobData("/jobFileFinal.csv");
-            // writeJobCereal("src/jobs.huscii");
+             //loadJobData("/jobFileFinal.csv");
+             //writeJobCereal("src/jobs.huscii");
         }
     }
 
