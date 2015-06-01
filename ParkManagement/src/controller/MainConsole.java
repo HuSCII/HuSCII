@@ -16,10 +16,10 @@ import models.UserController;
 public class MainConsole {
 
     /** User file name. */
-    private static final String USER_FILE = "/userFile.csv";
+    private static final String USER_FILE = "src/user.huscii";
 
     /** Job file name. */
-    private static final String JOB_FILE = "/jobFile.csv";
+    private static final String JOB_FILE = "src/jobs.huscii";
     
     /** HuSCII lgo. */
     private static final String HUSCII_FILE = "src/HuSCII.txt";

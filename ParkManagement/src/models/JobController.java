@@ -33,7 +33,7 @@ public class JobController implements Serializable{
 	 */
 	public JobController(String filename) {
 		allJobs = new ArrayList<Job>();
-		readJobCereal("src/jobs.huscii");
+		readJobCereal(filename);
 		//loadJobData(filename);
 	}
 	

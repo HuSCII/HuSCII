@@ -43,7 +43,7 @@ public class UserController implements Serializable {
     public UserController(final String filename) throws IOException {
         userList = new ArrayList<User>();
         // readUserFile(filename); // First time before serializable
-        readInSerializable();
+        readInSerializable(filename);
     }
 
     /**
@@ -52,8 +52,8 @@ public class UserController implements Serializable {
      * @throws IOException
      */
     @SuppressWarnings("unchecked")
-    private void readInSerializable() throws IOException {
-        FileInputStream users = new FileInputStream("src/user.huscii");
+    private void readInSerializable(String fileName) throws IOException {
+        FileInputStream users = new FileInputStream(fileName);
         FileInputStream parkmanagers = new FileInputStream("src/parkmanager.huscii");
         ObjectInputStream in = new ObjectInputStream(users);
         ObjectInputStream in2 = new ObjectInputStream(parkmanagers);
