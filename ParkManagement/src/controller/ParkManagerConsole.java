@@ -101,7 +101,7 @@ public class ParkManagerConsole {
      * This method is for park manager submits a job.
      */
     public static void submitJob() {
-        if (BusinessRules.checkMaxJobs(jobController.getAllJobs())) {
+        if (BusinessRules.checkMaxJobs(jobController.getUpcomingJobs())) {
             System.out.println("Can't create job, job limit has been reached.");
             return;
         }
