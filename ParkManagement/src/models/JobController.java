@@ -34,10 +34,12 @@ public class JobController implements Serializable {
      */
     public JobController(String filename) {
         allJobs = new ArrayList<Job>();
-        readJobCereal(filename);
-        // Uncomment the following two lines, and comment the above to reload
-        // loadJobData("/jobFile.csv");
-        // writeJobCereal("src/jobs.huscii");
+        if(filename!=null) {
+            readJobCereal(filename);
+            // Uncomment the following two lines, and comment the above to reload
+            // loadJobData("/jobFileFinal.csv");
+            // writeJobCereal("src/jobs.huscii");
+        } 
     }
 
     // *****PUBLIC METHODS*****//
@@ -207,11 +209,5 @@ public class JobController implements Serializable {
         catch (IOException e) {
             return false;
         }
-    }
-
-    public static void main(String args[]) {
-        JobController jc = new JobController("src/jobs.huscii");
-        System.out.println(jc.getAllJobs());
-        System.out.println(jc.writeJobCereal("src/jobs.huscii"));
     }
 }

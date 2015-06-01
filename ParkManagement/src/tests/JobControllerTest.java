@@ -16,15 +16,16 @@ public class JobControllerTest {
 	
 	@Before
 	public void init(){
-		jc = new JobController("/jobTestFile.csv");
+		jc = new JobController(null);
+		jc.loadJobData("tests/jobTestFile.csv");
 	}
 
 	@Test
 	public void testJobController() {
 		//tests load
-		JobController jobController = new JobController("file does not exist");
+		JobController jobController = new JobController(null);
 		assertTrue(jobController.getAllJobs().isEmpty());
-		jobController = new JobController("/jobTestFile.csv");
+		jobController.loadJobData("tests/jobTestFile.csv");
         assertFalse(jobController.getAllJobs().isEmpty());
 	}
 
@@ -54,9 +55,9 @@ public class JobControllerTest {
 	    Job j = new Job("e", "p", "jw", "06/06/2015 09:30 AM", "06/06/2015 10:30 AM", 
 	                    0, 0, 0, 0, 0, 0, null);
 	    jc.addJob(j);
-		jc.writeJobData("/jobFileTestOutput.csv");
-		JobController jobController = new JobController("/jobFileTestOutput.csv");
-		assertFalse(jobController.getAllJobs().isEmpty());		
+		jc.writeJobData("tests/jobFileTestOutput.csv");
+		jc.loadJobData("tests/jobFileTestOutput.csv");
+		assertFalse(jc.getAllJobs().isEmpty());		
 	}
 
 }

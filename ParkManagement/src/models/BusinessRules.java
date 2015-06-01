@@ -167,43 +167,5 @@ public class BusinessRules {
         }
         return false;
     }
-    
-    public static void main(String args[]) {
-        ArrayList<Job> jobs = new ArrayList<Job>();
-        Job j1 = new Job("e", "p", "a", "8/6/2015 8:00 AM", "8/6/2015 9:00 AM", 0, 0, 0, 0, 0, 0, null);
-        System.out.println(checkJobWeek(jobs, j1.getStartDate(), null));
-        //pass
-        jobs.add(j1);
-//        System.out.println(checkJobWeek(jobs, j1.getStartDate(), null));
-//        //pass
-//        jobs.add(j1);
-//        System.out.println(checkJobWeek(jobs, j1.getStartDate(), null));
-//        //pass
-//        jobs.add(j1);
-//        System.out.println(checkJobWeek(jobs, j1.getStartDate(), null));
-//        //pass
-//        jobs.add(j1);
-//        System.out.println(checkJobWeek(jobs, j1.getStartDate(), null));
-//        //pass
-//        jobs.add(j1);
-//        System.out.println(checkJobWeek(jobs, j1.getStartDate(), null));
-//        //pass
-//        jobs.add(j1);
-//        Job j2 = new Job("e", "p", "b", "8/7/2015 8:00 AM", "8/8/2015 9:00 AM", 0, 0, 0, 0, 0, 0, null);
-//        System.out.println(checkJobWeek(jobs, j2.getStartDate(), j2.getEndDate()));
-//        //pass
-//        jobs.add(j2);
-//        Job j3 = new Job("e", "p", "c", "8/4/2015 8:00 AM", "8/5/2015 9:00 AM", 0, 0, 0, 0, 0, 0, null);
-//        System.out.println(checkJobWeek(jobs, j3.getStartDate(), j3.getEndDate()));
-//        //pass
-//        jobs.add(j3);
-//        Job j4 = new Job("e", "p", "d", "8/6/2015 8:00 AM", "8/6/2015 9:00 AM", 0, 0, 0, 0, 0, 0, null);
-//        System.out.println(checkJobWeek(jobs, j4.getStartDate(), null));
-//        //fail
-//        jobs.remove(0);
-//        Job j5 = new Job("e", "p", "e", "8/3/2015 8:00 AM", "8/4/2015 9:00 AM", 0, 0, 0, 0, 0, 0, null);
-//        System.out.println(checkJobWeek(jobs, j5.getStartDate(), j5.getEndDate()));
-//        //fail
-//        jobs.add(j5);
-    }
+ 
 }
