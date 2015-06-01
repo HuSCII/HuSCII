@@ -35,7 +35,7 @@ public class UserControllerTest {
     @Before
     public void setUp() throws IOException {
 
-        testController = new UserController("/userFileTest.csv");
+        testController = new UserController("/tests/userFileTest.csv");
     }
 
     /** Test to see if first user was read correctly from file. */
@@ -83,10 +83,10 @@ public class UserControllerTest {
     public void testWriteUserFileIfEmpty() {
 
         // Now write it out as a different name:
-        testController.writeUserFile("/userFileTestOutput.csv");
+        testController.writeUserFile("/tests/userFileTestOutput.csv");
 
         // Now check the new file created:
-        testController.readUserFile("src/userFileTestOutput.csv");
+        testController.readUserFile("src/tests/userFileTestOutput.csv");
 
         // Check if array is empty, it shouldn't be:
         assertFalse("Error: List shouldn't be empty!", testController
@@ -102,10 +102,10 @@ public class UserControllerTest {
         final User firstUser = testController.getUserList().get(0);
 
         // Now write it out as a different name:
-        testController.writeUserFile("/userFileTestOutput.csv");
+        testController.writeUserFile("/tests/userFileTestOutput.csv");
 
         // Now read in the file that was just created:
-        testController.readUserFile("src/userFileTestOutput.csv");
+        testController.readUserFile("src/tests/userFileTestOutput.csv");
 
         // Save the first user of the written file
         final User writtenFileFirstUser = testController.getUserList().get(0);
@@ -123,10 +123,10 @@ public class UserControllerTest {
         final User lastUser = testController.getUserList().get(lastSpot);
 
         // Now write it out as a different name:
-        testController.writeUserFile("/userFileTestOutput.csv");
+        testController.writeUserFile("/tests/userFileTestOutput.csv");
 
         // Now read in the file that was just created:
-        testController.readUserFile("src/userFileTestOutput.csv");
+        testController.readUserFile("src/tests/userFileTestOutput.csv");
 
         // Save the last user of the written file
         lastSpot = testController.getUserList().size() - 1;
