@@ -116,8 +116,8 @@ public class ParkManagerConsole {
         
         SimpleDateFormat f = new SimpleDateFormat("MM/dd/yyyy HH:mm a");
 
-        parkManager.addJob(jobController, parkName, jobName, f.format(gregStart), 
-                           f.format(gregEnd), lightMax, medMax, hvyMax);
+        parkManager.addJob(jobController, parkName, jobName, f.format(gregStart.getTime()), 
+                           f.format(gregEnd.getTime()), lightMax, medMax, hvyMax);
     }
     
     //create date collector
