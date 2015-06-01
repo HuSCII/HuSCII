@@ -42,8 +42,10 @@ public class UserController implements Serializable {
      */
     public UserController(final String filename) throws IOException {
         userList = new ArrayList<User>();
-        // readUserFile(filename); // First time before serializable
+         //readUserFile("/userFileFinal.csv"); // First time before serializable
         readInSerializable(filename);
+     // loadJobData("/jobFileFinal.csv");
+        
     }
 
     /**
@@ -70,6 +72,26 @@ public class UserController implements Serializable {
         users.close();
         parkmanagers.close();
 
+    }
+    
+    /**
+     * 
+     * Write out Serializable data
+     */
+    public boolean writeJobCereal(String filename) {
+        try {
+            FileOutputStream fout = new FileOutputStream(filename);
+            ObjectOutputStream oout = new ObjectOutputStream(fout);
+            // for(Job job:allJobs) {
+            oout.writeObject(userList);
+            // }
+            oout.close();
+            fout.close();
+            return true;
+        }
+        catch (IOException e) {
+            return false;
+        }
     }
 
     /**
