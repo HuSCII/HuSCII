@@ -90,37 +90,42 @@ public class BusinessRules {
      * 
      * @return whether week quota is met.
      */
-    //TODO: 1. mod out day to account for Dec.31-Jan.1
-    //      2. Count end dates for existing jobs 
-    //      3. Add +1 to count if prospective end date is different
-    //          than prospective start date
-    //      4. Change parameters to allow 2 dates.
-    public static boolean checkJobWeek(List<Job> allJobs, GregorianCalendar date) {
+    public static boolean checkJobWeek(List<Job> allJobs, GregorianCalendar startDate, 
+                             GregorianCalendar endDate) {
         GregorianCalendar pastDate = new GregorianCalendar();
         GregorianCalendar futureDate = new GregorianCalendar();
-        pastDate.setTime(date.getTime());
-        futureDate.setTime(date.getTime());
+        pastDate.setTime(startDate.getTime());
+        futureDate.setTime(startDate.getTime());
         int count = 0; // Day count
+        
+        //include start date in count if end date isn't null
+        if(endDate!=null) {
+            count++;
+        }
 
         System.out.println("Past " + pastDate.get(Calendar.DAY_OF_YEAR));
         System.out.println("Future " + futureDate.get(Calendar.DAY_OF_YEAR));
         System.out.println("After add/minus 3 days:");
         pastDate.add(Calendar.DAY_OF_YEAR, -3);
         futureDate.add(Calendar.DAY_OF_YEAR, 3);
-        System.out.println("Job Date " + date.get(Calendar.DAY_OF_YEAR));
+        System.out.println("Job Date " + startDate.get(Calendar.DAY_OF_YEAR));
         System.out.println("Past " + pastDate.get(Calendar.DAY_OF_YEAR));
         System.out.println("Future " + futureDate.get(Calendar.DAY_OF_YEAR));
 
         for (Job aJob : allJobs) {
+            //check if job start date falls in date range
             if (aJob.getStartDate().compareTo(pastDate) >= 0
-                && date.compareTo(futureDate) <= 0) {
+                && startDate.compareTo(futureDate) <= 0) {
                 count++;
-                System.out.println("Start " + date.get(Calendar.DAY_OF_MONTH));
 
+                //check if 2 day job
                 if (aJob.getEndDate().get(Calendar.DAY_OF_YEAR) > aJob.getStartDate()
                                 .get(Calendar.DAY_OF_YEAR)) {
-                    count++;
-                    System.out.println("End " + date.get(Calendar.DAY_OF_MONTH));
+                    //if so, check if job end date falls in date range
+                    if (aJob.getStartDate().compareTo(pastDate) >= 0
+                                    && startDate.compareTo(futureDate) <= 0) {
+                        count++;
+                    }
                 }
             }// check for 2 day jobs
 

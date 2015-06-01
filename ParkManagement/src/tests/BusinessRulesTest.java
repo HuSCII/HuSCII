@@ -187,9 +187,9 @@ public class BusinessRulesTest {
 
     @Test
     public void testCheckJobWeek() {
-        assertTrue("Break Business Rule!", BusinessRules.checkJobWeek(jobController.getAllJobs(), testJob1.getStartDate()));
+        assertTrue("Break Business Rule!", BusinessRules.checkJobWeek(jobController.getAllJobs(), testJob1.getStartDate(), null));
 
-        assertFalse("Break Business Rule!", BusinessRules.checkJobWeek(jobController.getAllJobs(), testJob2.getStartDate()));
+        assertFalse("Break Business Rule!", BusinessRules.checkJobWeek(jobController.getAllJobs(), testJob2.getStartDate(), null));
     }
 
     @Test

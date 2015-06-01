@@ -110,7 +110,7 @@ public class ParkManagerConsole {
                                        + "or past 3 months into the future.");
                 }
                 else {
-                    check = BusinessRules.checkJobWeek(jobController.getAllJobs(), greg);
+                    check = BusinessRules.checkJobWeek(jobController.getAllJobs(), greg, null);
                     if (!check) {
                         System.out.println("The capacity for this week has already been reached.");
                     }
