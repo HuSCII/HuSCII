@@ -34,13 +34,26 @@ public class ParkManagerConsole {
 
     public void displayMenu() {
 
-        System.out.println("Welcome To Park Manager Page");
-        System.out.println("------------------------------");
-        System.out.println("1. Submit a New Job");
-        System.out.println("2. View Upcoming Jobs");
-        System.out.println("3. View Volunteers");
-        System.out.println("4. Logout");
-        System.out.println("5. Exit");
+        System.out.println("+======================================+");
+        System.out.println("|     Welcome To Park Manager Page     |");
+        System.out.println("+======================================+");
+        System.out.println("| Options:                             |");
+        System.out.println("|     1. Submit a New Job              |");
+        System.out.println("|     2. View Upcoming Jobs            |");
+        System.out.println("|     3. View Volunteers               |");
+        System.out.println("|     4. Logout                        |");
+        System.out.println("|     5. Exit                          |");
+        System.out.println("+======================================+");
+        
+        
+//        System.out.println("Welcome To Park Manager Page");
+//        System.out.println("------------------------------");
+//        System.out.println("1. Submit a New Job");
+//        System.out.println("2. View Upcoming Jobs");
+//        System.out.println("3. View Volunteers");
+//        System.out.println("4. Logout");
+//        System.out.println("5. Exit");
+        System.out.println();
         System.out.print("Please select menu choice 1-5: ");
         System.out.println();
 
@@ -80,7 +93,10 @@ public class ParkManagerConsole {
 
         //keyboard = new Scanner(System.in);
 
+        System.out.println();
         System.out.println("Submit a new park job:");
+        System.out.println("=====================");
+        System.out.println();
 
         // SELECT A PARK YOU MANAGE:
         System.out.println("Which of your parks do you want to add a new job to?");
@@ -118,6 +134,11 @@ public class ParkManagerConsole {
 
         parkManager.addJob(jobController, parkName, jobName, f.format(gregStart.getTime()), 
                            f.format(gregEnd.getTime()), lightMax, medMax, hvyMax);
+        
+        System.out.println();
+        System.out.println("You have successfully add " + jobName + " to " + parkName + ".");
+        System.out.println("***********************************************************");
+        System.out.println();
     }
     
     //create date collector
@@ -182,7 +203,10 @@ public class ParkManagerConsole {
     }
 
     public static void viewMyJobs() {
+        
+        System.out.println();
         System.out.println("Viewing upcoming jobs:");
+        System.out.println("=====================");
         System.out.println();
 
         List<Job> parkManagersJobs = parkManager.getMyJobs(jobController);
@@ -244,6 +268,7 @@ public class ParkManagerConsole {
             }
 
             // Display volunteers of the selected jobs:
+            System.out.println();
             System.out.println("Volunteers:");
 
             boolean volunteerFound = false;
