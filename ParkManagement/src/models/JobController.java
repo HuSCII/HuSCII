@@ -33,7 +33,7 @@ public class JobController implements Serializable{
 	 */
 	public JobController(String filename) {
 		allJobs = new ArrayList<Job>();
-		readJobCereal(filename);
+		readJobCereal("src/jobs.huscii");
 		//loadJobData(filename);
 	}
 	
@@ -161,10 +161,10 @@ public class JobController implements Serializable{
 		return true;
 	}
 	
-	public boolean readJobCereal(String filename) {
+	public boolean readJobCereal(String serialFile) {
 	    FileInputStream fin;
         try {
-            fin = new FileInputStream(filename);
+            fin = new FileInputStream(serialFile);
             ObjectInputStream oin = new ObjectInputStream(fin);
             allJobs = (ArrayList<Job>) oin.readObject();
             oin.close();
