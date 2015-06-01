@@ -3,6 +3,7 @@ package controller;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Scanner;
@@ -77,7 +78,7 @@ public class ParkManagerConsole {
             return;
         }
 
-        keyboard = new Scanner(System.in);
+        //keyboard = new Scanner(System.in);
 
         System.out.println("Submit a new park job:");
 
@@ -96,43 +97,13 @@ public class ParkManagerConsole {
         System.out.print("Enter a Job name (ie trash pickup): ");
         String jobName = keyboard.nextLine();
 
-        String date;
-        boolean check = false;
-        do {
-            System.out.print("Enter a start date & time (MM/DD/YYYY HH:mm AM/PM): ");
-            date = keyboard.nextLine();
-            GregorianCalendar greg = new GregorianCalendar();
-            try {
-                greg.setTime(new SimpleDateFormat("MM/dd/yyyy HH:mm a").parse(date));
-                check = BusinessRules.valiDate(greg);
-                if (!check) {
-                    System.out.println("Date has already occurred "
-                                       + "or past 3 months into the future.");
-                }
-                else {
-                    check = BusinessRules.checkJobWeek(jobController.getAllJobs(), greg, null);
-                    if (!check) {
-                        System.out.println("The capacity for this week has already been reached.");
-                    }
-                }
-            }
-            catch (ParseException e) {
-                System.out.println("Date not in right format");
-                // e.printStackTrace();
-            }
-
-        }
-        while (!check);
-
-        int duration;
-        while (true) {
-            System.out.print("Enter job duration (in hours): ");
-            duration = keyboard.nextInt();
-            if (duration > 0 && duration <= 48) {
-                break;
-            }
-            System.out.println("job duration not valid");
-        }
+        GregorianCalendar gregStart;
+        GregorianCalendar gregEnd;
+        do{
+            System.out.println("Job duration exceeds 2 days!");
+            gregStart = collectStartDate();
+            gregEnd = collectEndDate(gregStart);
+        } while(!BusinessRules.checkJobDuration(gregStart, gregEnd));
 
         System.out.print("Enter max number of light-duty volunteers needed: ");
         int lightMax = keyboard.nextInt();
@@ -142,12 +113,73 @@ public class ParkManagerConsole {
 
         System.out.print("Enter max number of heavy-duty volunteers needed: ");
         int hvyMax = keyboard.nextInt();
+        
+        SimpleDateFormat f = new SimpleDateFormat("MM/dd/yyyy HH:mm a");
 
-        parkManager.addJob(jobController, parkName, jobName, date, date, lightMax, medMax,
-                           hvyMax);
+        parkManager.addJob(jobController, parkName, jobName, f.format(gregStart), 
+                           f.format(gregEnd), lightMax, medMax, hvyMax);
     }
     
     //create date collector
+    private static GregorianCalendar collectStartDate() {
+        String startdate;
+        GregorianCalendar gregStart = new GregorianCalendar();
+        boolean check = false;
+        do {
+            System.out.print("Enter a start date & time (MM/DD/YYYY HH:mm AM/PM): ");
+            startdate = keyboard.nextLine();
+            
+            try {
+                gregStart.setTime(new SimpleDateFormat("MM/dd/yyyy HH:mm a").parse(startdate));
+                check = BusinessRules.valiDate(gregStart);
+                if (!check) {
+                    System.out.println("Date has already occurred "
+                                       + "or past 3 months into the future.");
+                }
+                else {
+                    check = BusinessRules.checkJobWeek(jobController.getAllJobs(), gregStart, null);
+                    if (!check) {
+                        System.out.println("The capacity for this week has already been reached.");
+                    }
+                }
+            }
+            catch (ParseException e) {
+                System.out.println("Date not in right format");
+                // e.printStackTrace();
+            }
+        }
+        while (!check);
+        return gregStart;
+    }
+    
+    private static GregorianCalendar collectEndDate(GregorianCalendar gregStart) {
+        String enddate;
+        GregorianCalendar gregEnd = new GregorianCalendar();
+        boolean check = false;
+        do {
+            System.out.print("Enter an end date & time (MM/DD/YYYY HH:mm AM/PM): ");
+            enddate = keyboard.nextLine();
+            try {
+                gregEnd.setTime(new SimpleDateFormat("MM/dd/yyyy HH:mm a").parse(enddate));
+                check = BusinessRules.valiDate(gregEnd);
+                if (!check) {
+                    System.out.println("Date has already occurred "
+                                       + "or past 3 months into the future.");
+                    //only check job week if 2 day job
+                } else if(gregEnd.get(Calendar.DAY_OF_YEAR)!=gregStart.get(Calendar.DAY_OF_YEAR)) {
+                    check = BusinessRules.checkJobWeek(jobController.getAllJobs(), gregStart, gregEnd);
+                    if (!check) {
+                        System.out.println("The capacity for this week has already been reached.");
+                    }
+                }
+            }
+            catch (ParseException e) {
+                System.out.println("Date not in right format");
+                // e.printStackTrace();
+            }
+        }while(!check);
+        return gregEnd;
+    }
 
     public static void viewMyJobs() {
         System.out.println("Viewing upcoming jobs:");
@@ -203,7 +235,7 @@ public class ParkManagerConsole {
             }
 
             // Ask user to choose from the list
-            keyboard = new Scanner(System.in);
+            //keyboard = new Scanner(System.in);
             System.out.print("Enter a number from the list: ");
             int choice = keyboard.nextInt();
             while (choice < 0 || choice > tempJobs.size()) {

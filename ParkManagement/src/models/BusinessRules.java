@@ -141,10 +141,10 @@ public class BusinessRules {
      * 
      * @return true if the job length is less than 2 days; otherwise, false.
      */
-    public static boolean checkJobDuration(Job job) {
+    public static boolean checkJobDuration(GregorianCalendar startdate, GregorianCalendar enddate) {
         long joblength =
-                        job.getEndDate().getTime().getTime()
-                                        - job.getStartDate().getTime().getTime();
+                        enddate.getTime().getTime()
+                                        - startdate.getTime().getTime();
         return joblength / (60 * 60 * 1000) <= MAX_JOB_LENGTH;
     }
 

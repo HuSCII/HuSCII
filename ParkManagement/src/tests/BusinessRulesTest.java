@@ -196,13 +196,16 @@ public class BusinessRulesTest {
     public void testCheckJobDuration() {
         
         //A job lasts less than two days.
-        assertTrue("A job may not be scheduled that lasts more than two days.", BusinessRules.checkJobDuration(testJob1));
+        assertTrue("A job may not be scheduled that lasts more than two days.", BusinessRules.checkJobDuration(testJob1.getStartDate(),
+                                                                                                               testJob1.getEndDate()));
         
         //A job lasts exactly two days.
-        assertTrue("A job may not be scheduled that lasts more than two days.", BusinessRules.checkJobDuration(testJob2));
+        assertTrue("A job may not be scheduled that lasts more than two days.", BusinessRules.checkJobDuration(testJob2.getStartDate(),
+                                                                                                               testJob2.getEndDate()));
 
         //A job lasts more than two days.
         assertFalse("A job may be scheduled that lasts more than two days.", 
-                    BusinessRules.checkJobDuration(testJob3));
+                    BusinessRules.checkJobDuration(testJob3.getStartDate(),
+                                                   testJob3.getEndDate()));
     }
 }
