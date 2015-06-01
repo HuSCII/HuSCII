@@ -42,10 +42,11 @@ public class UserController implements Serializable {
      */
     public UserController(final String filename) throws IOException {
         userList = new ArrayList<User>();
-         //readUserFile("/userFileFinal.csv"); // First time before serializable
         readInSerializable(filename);
-     // loadJobData("/jobFileFinal.csv");
-        
+        // Uncomment the following two lines, and comment the above to reload
+         //readUserFile("/userFileFinal.csv"); // First time before serializable
+         //writeUserSerialized("src/user.huscii");
+
     }
 
     /**
@@ -73,16 +74,15 @@ public class UserController implements Serializable {
         parkmanagers.close();
 
     }
-    
+
     /**
      * 
      * Write out Serializable data
      */
-    public boolean writeJobCereal(String filename) {
+    public boolean writeUserSerialized(String filename) {
         try {
             FileOutputStream fout = new FileOutputStream(filename);
             ObjectOutputStream oout = new ObjectOutputStream(fout);
-            // for(Job job:allJobs) {
             oout.writeObject(userList);
             // }
             oout.close();
@@ -198,30 +198,15 @@ public class UserController implements Serializable {
         return sb.toString();
     }
 
-    /*
-     * public static void main(String[] args) throws IOException {
-     * 
-     * UserController writer = new UserController("/userFile.csv");
-     * FileOutputStream fileOut = new FileOutputStream("src/parkmanager.huscii");
-     * ObjectOutputStream out = new ObjectOutputStream(fileOut);
-     * out.writeObject(writer.managedParks);
-     * out.close();
-     * fileOut.close();
-     * 
-     * FileInputStream fileIn = new FileInputStream("src/parkmanager.huscii");
-     * ObjectInputStream in = new ObjectInputStream(fileIn);
-     * Map<String, List<String>> tempList = null;
-     * try {
-     * tempList = (Map<String, List<String>>) in.readObject();
-     * }
-     * catch (ClassNotFoundException e) {
-     * // TODO Auto-generated catch block
-     * e.printStackTrace();
-     * }
-     * 
-     * System.out.println(tempList.toString());
-     * 
-     * }
-     */
+    public static void main(String[] args) {
 
+        try {
+            UserController userController = new UserController("src/user.huscii");
+        }
+        catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+    }
 }
