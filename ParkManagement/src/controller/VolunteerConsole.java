@@ -206,17 +206,18 @@ public class VolunteerConsole {
                 choice = keyboard.nextInt();
             }
 
-            // Check to see if volunteer already signed up for that job
-            if (upcomingJobs.get(choice - 1).contains(volunteer.getEmail())) {
-                System.out.println();
-                System.out.println("You already signed up for this job.");
-                return;
-            }
+            
             // Business Rule#7 - can't sign up for two jobs on the same day
-            else if (BusinessRules.checkTwoJobsSameDay(volunteer, upcomingJobs, upcomingJobs
+            if (BusinessRules.checkTwoJobsSameDay(volunteer, upcomingJobs, upcomingJobs
                             .get(choice - 1).getStartDate())) {
                 System.out.println();
                 System.out.println("You already signed up for another job on the same date.");
+                return;
+            }
+            // Check to see if volunteer already signed up for that job
+            else if (upcomingJobs.get(choice - 1).contains(volunteer.getEmail())) {
+                System.out.println();
+                System.out.println("You already signed up for this job.");
                 return;
             }
             // Check to see if the job is TOTALLY full in all workcats
