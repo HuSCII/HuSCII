@@ -32,7 +32,7 @@ public class UserController implements Serializable {
     private List<User> userList;
 
     /** A map of user and parks (for a park manager. */
-    private final Map<String, List<String>> managedParks = new HashMap<String, List<String>>();
+    private Map<String, List<String>> managedParks = new HashMap<String, List<String>>();
 
     /**
      * Reads from a file containing user data.
@@ -42,22 +42,33 @@ public class UserController implements Serializable {
      */
     public UserController(final String filename) throws IOException {
         userList = new ArrayList<User>();
-        // readUserFile(filename); First time before serializable
+        // readUserFile(filename); // First time before serializable
         readInSerializable();
     }
 
+    /**
+     * Read in serialized data.
+     * 
+     * @throws IOException
+     */
     @SuppressWarnings("unchecked")
     private void readInSerializable() throws IOException {
-        FileInputStream fileIn = new FileInputStream("src/user.huscii");
-        ObjectInputStream in = new ObjectInputStream(fileIn);
+        FileInputStream users = new FileInputStream("src/user.huscii");
+        FileInputStream parkmanagers = new FileInputStream("src/parkmanager.huscii");
+        ObjectInputStream in = new ObjectInputStream(users);
+        ObjectInputStream in2 = new ObjectInputStream(parkmanagers);
+
         try {
             userList = (List<User>) in.readObject();
+            managedParks = (Map<String, List<String>>) in2.readObject();
         }
-        catch (ClassNotFoundException e) {
+        catch (final ClassNotFoundException e) {
             e.printStackTrace();
         }
         in.close();
-        fileIn.close();
+        in2.close();
+        users.close();
+        parkmanagers.close();
 
     }
 
@@ -165,28 +176,30 @@ public class UserController implements Serializable {
         return sb.toString();
     }
 
-    public static void main(String[] args) throws IOException {
-
-        UserController writer = new UserController("/userFile.csv");
-        FileOutputStream fileOut = new FileOutputStream("src/user.huscii");
-        ObjectOutputStream out = new ObjectOutputStream(fileOut);
-        out.writeObject(writer.getUserList());
-        out.close();
-        fileOut.close();
-
-        FileInputStream fileIn = new FileInputStream("src/user.huscii");
-        ObjectInputStream in = new ObjectInputStream(fileIn);
-        List<User> tempList = null;
-        try {
-            tempList = (List<User>) in.readObject();
-        }
-        catch (ClassNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
-        System.out.println(tempList.toString());
-
-    }
+    /*
+     * public static void main(String[] args) throws IOException {
+     * 
+     * UserController writer = new UserController("/userFile.csv");
+     * FileOutputStream fileOut = new FileOutputStream("src/parkmanager.huscii");
+     * ObjectOutputStream out = new ObjectOutputStream(fileOut);
+     * out.writeObject(writer.managedParks);
+     * out.close();
+     * fileOut.close();
+     * 
+     * FileInputStream fileIn = new FileInputStream("src/parkmanager.huscii");
+     * ObjectInputStream in = new ObjectInputStream(fileIn);
+     * Map<String, List<String>> tempList = null;
+     * try {
+     * tempList = (Map<String, List<String>>) in.readObject();
+     * }
+     * catch (ClassNotFoundException e) {
+     * // TODO Auto-generated catch block
+     * e.printStackTrace();
+     * }
+     * 
+     * System.out.println(tempList.toString());
+     * 
+     * }
+     */
 
 }
