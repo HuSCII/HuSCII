@@ -35,7 +35,7 @@ public class UserControllerTest {
     @Before
     public void setUp() throws IOException {
 
-        testController = new UserController("/tests/userFileTest.csv");
+        testController = new UserController("src/user.huscii");
     }
 
     /** Test to see if first user was read correctly from file. */
@@ -83,7 +83,7 @@ public class UserControllerTest {
     public void testWriteUserFileIfEmpty() {
 
         // Now write it out as a different name:
-        testController.writeUserFile("/tests/userFileTestOutput.csv");
+        testController.writeUserFile("tests/userFileTestOutput.csv");
 
         // Now check the new file created:
         testController.readUserFile("src/tests/userFileTestOutput.csv");
