@@ -19,7 +19,7 @@ import java.util.Set;
  * This class represents park job that volunteers sign up for.
  * 
  * @author Putthida Samrith
- * @version 4/4/2015
+ * @version 5/31/2015
  */
 public class Job implements Serializable {
 
@@ -80,13 +80,9 @@ public class Job implements Serializable {
                final int currentHeavy, final int maxHeavy,
                Map<String, WorkCategories> volunteers) {
 
-        // this.jobID = jobID;
         this.parkManagerEmail = parkManagerEmail;
         this.parkName = parkName;
         this.jobName = jobName;
-        // this.jobDuration = jobDuration;
-        // setDate(this.startDate,startDate);
-        // setDate(this.endDate, endDate);
 
         setStartDate(startDate);
         setEndDate(endDate);
@@ -105,6 +101,18 @@ public class Job implements Serializable {
             this.volunteers = volunteers;
         }
 
+        assert parkManagerEmail != null;
+        assert parkName != null;
+        assert jobName != null;
+        assert startDate != null;
+        assert endDate != null;
+        assert currentLight >= 0;
+        assert currentMedium >= 0;
+        assert currentHeavy >= 0;
+        assert maxLight >= 0;
+        assert maxMedium >= 0;
+        assert maxHeavy >= 0;
+        assert volunteers != null;
     }
 
     /**
@@ -117,8 +125,21 @@ public class Job implements Serializable {
              new SimpleDateFormat("MM/dd/yyyy HH:mm a").format(job.getStartDate().getTime()),
              new SimpleDateFormat("MM/dd/yyyy HH:mm a").format(job.getEndDate().getTime()),
              job.getCurrentLight(), job.getMaxLight(), job.getCurrentMedium(), job
-                             .getMaxMedium(), job.getCurrentHard(), job.getMaxHard(),
+             .getMaxMedium(), job.getCurrentHard(), job.getMaxHard(),
              job.volunteers);// needs getVolunteers()
+
+        assert parkManagerEmail != null;
+        assert parkName != null;
+        assert jobName != null;
+        assert startDate != null;
+        assert endDate != null;
+        assert currentLight >= 0;
+        assert currentMedium >= 0;
+        assert currentHeavy >= 0;
+        assert maxLight >= 0;
+        assert maxMedium >= 0;
+        assert maxHeavy >= 0;
+        assert volunteers != null;
     }
 
     /**
@@ -134,17 +155,9 @@ public class Job implements Serializable {
      * @param email volunteer's email address
      * @param workCat different choice of work categories including light,
      *            medium, and heavy
-     * @throws JobFullException exception is thrown when the maximum number of
-     *             volunteer for that job is reached.
      */
     public boolean addVolunteer(String email, WorkCategories workCat) {
 
-        // if (isJobFull()) {
-        // throw new JobFullException(getJobName() + "is already full.");
-        // } else if (contains(email)) {
-        // throw new VolunteerStateException("Volunteer is already in " +
-        // getJobName() + "list.");
-        // } else {
         switch (workCat) {
             case LIGHT:
                 if ((getCurrentLight() < getMaxLight())) {
@@ -169,7 +182,6 @@ public class Job implements Serializable {
                 break;
         }
         return false;
-        // }
     }
 
     /**
@@ -216,19 +228,22 @@ public class Job implements Serializable {
     /**
      * Get the maximum number of volunteers.
      * 
+     * @pre volunteerMax >= 0;
      * @return The max number of volunteers for this job.
      */
     public int getVolunteerMax() {
         volunteerMax = getMaxLight() + getMaxMedium() + getMaxHard();
+
+        assert volunteerMax >= 0;
         return volunteerMax;
     }
 
     /**
-     * Used to check if the volunteer is in the job as a volunteer.
+     * This method used to check if the volunteer is in the job as a volunteer.
      * 
      * @param email Volunteer's email
-     * @return True if the passed volunteer is in the job period, false
-     *         otherwise.
+     * @return True if the passed volunteer is in the job; otherwise,
+     *         false.
      */
     public boolean contains(String email) {
         return volunteers.containsKey(email);
@@ -236,21 +251,8 @@ public class Job implements Serializable {
 
     /**
      * This method represents the date format from the jobFile file.
-     * 
-     * @param date the date of the job
+     * @param dateString The date when a job starts.
      */
-    public void setDate(GregorianCalendar date, String dateString) {
-        DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm a");
-        try {
-            Date aDate = formatter.parse(dateString);
-            date = new GregorianCalendar();
-            date.setTime(aDate);
-        }
-        catch (ParseException e) {
-            e.printStackTrace();
-        }
-    }
-
     public void setStartDate(String dateString) {
         DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm a");
         try {
@@ -261,8 +263,15 @@ public class Job implements Serializable {
         catch (ParseException e) {
             e.printStackTrace();
         }
+        
+        assert dateString != null;
+        assert startDate != null;
     }
 
+    /**
+     * This method represents the date format from the jobFile file.
+     * @param dateString The date when a job ends.
+     */
     public void setEndDate(String dateString) {
         DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm a");
         try {
@@ -273,6 +282,9 @@ public class Job implements Serializable {
         catch (ParseException e) {
             e.printStackTrace();
         }
+        
+        assert dateString != null;
+        assert endDate != null;
     }
 
     /**
@@ -322,14 +334,18 @@ public class Job implements Serializable {
     }
 
     /**
-     * This is a getter method that return the date of a job.
+     * This is a getter method that return the start date of a job.
      * 
-     * @return date the date of a job.
+     * @return startDate the date when a job start
      */
     public GregorianCalendar getStartDate() {
         return startDate;
     }
 
+    /**
+     * This is a getter method that return the end date of a job.
+     * @return endDate the date when a job ends
+     */
     public GregorianCalendar getEndDate() {
         return endDate;
     }
@@ -408,34 +424,13 @@ public class Job implements Serializable {
         return maxHeavy;
     }
 
-    public void setVolunteers(Map<String, WorkCategories> signedVolunteers) {
-        this.volunteers = signedVolunteers;
-    }
-
+    /**
+     * This is a getter method that return a set of volunteer email.
+     * 
+     * @return volunteers the set of volunteers ' emails
+     */
     public Set<String> getVolunteerEmails() {
         return volunteers.keySet();
     }
-
-    // /**
-    // * An exception thrown when an operation is attempted on a full
-    // * job.
-    // */
-    // @SuppressWarnings("serial")
-    // public class JobFullException extends RuntimeException {
-    // public JobFullException(String message) {
-    // super(message);
-    // }
-    // }
-    //
-    // /**
-    // * An exception thrown when an operation is attempted between
-    // * a volunteer and a job, but something goes wrong.
-    // */
-    // @SuppressWarnings("serial")
-    // public class VolunteerStateException extends RuntimeException {
-    // public VolunteerStateException(String message) {
-    // super(message);
-    // }
-    // }
 
 }
