@@ -103,14 +103,8 @@ public class BusinessRules {
             count++;
         }
 
-        System.out.println("Past " + pastDate.get(Calendar.DAY_OF_YEAR));
-        System.out.println("Future " + futureDate.get(Calendar.DAY_OF_YEAR));
-        System.out.println("After add/minus 3 days:");
         pastDate.add(Calendar.DAY_OF_YEAR, -3);
         futureDate.add(Calendar.DAY_OF_YEAR, 3);
-        System.out.println("Job Date " + startDate.get(Calendar.DAY_OF_YEAR));
-        System.out.println("Past " + pastDate.get(Calendar.DAY_OF_YEAR));
-        System.out.println("Future " + futureDate.get(Calendar.DAY_OF_YEAR));
 
         for (Job aJob : allJobs) {
             //check if job start date falls in date range
@@ -127,8 +121,7 @@ public class BusinessRules {
                         count++;
                     }
                 }
-            }// check for 2 day jobs
-
+            }
             if (count >= 5) {
                 return false;// can't add job.
             }

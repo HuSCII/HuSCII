@@ -97,13 +97,13 @@ public class ParkManagerConsole {
         System.out.print("Enter a Job name (ie trash pickup): ");
         String jobName = keyboard.nextLine();
 
-        GregorianCalendar gregStart;
-        GregorianCalendar gregEnd;
-        do{
+        GregorianCalendar gregStart = collectStartDate();
+        GregorianCalendar gregEnd = collectEndDate(gregStart);
+        while(!BusinessRules.checkJobDuration(gregStart, gregEnd)){
             System.out.println("Job duration exceeds 2 days!");
             gregStart = collectStartDate();
             gregEnd = collectEndDate(gregStart);
-        } while(!BusinessRules.checkJobDuration(gregStart, gregEnd));
+        }
 
         System.out.print("Enter max number of light-duty volunteers needed: ");
         int lightMax = keyboard.nextInt();
