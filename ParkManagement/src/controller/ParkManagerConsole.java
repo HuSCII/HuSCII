@@ -1,3 +1,8 @@
+/*
+ * This class represents the console for Park manager.
+ * Group 2 - HuSCII
+ * TCSS 360, Spring 2015
+ */
 
 package controller;
 
@@ -15,6 +20,12 @@ import models.ParkManager;
 import models.User;
 import models.UserController;
 
+/**
+ * This class represents the console for Park manager.
+ * @author HuSCII
+ * @version 06/01/2015
+ *
+ */
 public class ParkManagerConsole {
 
     public static JobController jobController;
@@ -22,6 +33,12 @@ public class ParkManagerConsole {
     private static Scanner keyboard;
     public static ParkManager parkManager;
 
+    /**
+     * This is a default constructor.
+     * @param user 
+     * @param jobController
+     * @param userController
+     */
     public ParkManagerConsole(User user, JobController jobController,
                               UserController userController) {
         parkManager =
@@ -32,6 +49,9 @@ public class ParkManagerConsole {
         ParkManagerConsole.userController = userController;
     }
 
+    /**
+     * Menu screen.
+     */
     public void displayMenu() {
 
         System.out.println("+======================================+");
@@ -45,14 +65,6 @@ public class ParkManagerConsole {
         System.out.println("|     5. Exit                          |");
         System.out.println("+======================================+");
         
-        
-//        System.out.println("Welcome To Park Manager Page");
-//        System.out.println("------------------------------");
-//        System.out.println("1. Submit a New Job");
-//        System.out.println("2. View Upcoming Jobs");
-//        System.out.println("3. View Volunteers");
-//        System.out.println("4. Logout");
-//        System.out.println("5. Exit");
         System.out.println();
         System.out.print("Please select menu choice 1-5: ");
         System.out.println();
@@ -85,6 +97,9 @@ public class ParkManagerConsole {
         }
     }
 
+    /**
+     * This method is for park manager submits a job.
+     */
     public static void submitJob() {
         if (BusinessRules.checkMaxJobs(jobController.getAllJobs())) {
             System.out.println("Can't create job, job limit has been reached.");
@@ -238,6 +253,10 @@ public class ParkManagerConsole {
 
     }
 
+    /**
+     * This method is to view volunteers sign up for a job that
+     * park manager managed.
+     */
     public static void viewVolunteers() {
 
         // Display the list pm's jobs:

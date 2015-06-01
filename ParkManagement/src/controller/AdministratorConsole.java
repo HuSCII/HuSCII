@@ -1,5 +1,7 @@
 /*
- * 
+ * This class represents the console for administrator.
+ * Group 2 - HuSCII
+ * TCSS 360, Spring 2015
  */
 
 package controller;
@@ -9,6 +11,12 @@ import java.util.Scanner;
 import models.UserController;
 import models.User;
 
+/**
+ * This class represents the console for administrator.
+ * @author HuSCII
+ * @version 06/01/2015
+ *
+ */
 public class AdministratorConsole {
 
     private static Scanner keyboard;
@@ -32,11 +40,6 @@ public class AdministratorConsole {
         System.out.println("+======================================+");
         System.out.println();
 
-        //System.out.println("Welcome To Administrator Page");
-        //System.out.println("------------------------------");
-        //System.out.println("1. Search Volunteer by Last Name");
-        //System.out.println("2. Logout");
-        //System.out.println("3. Exit");
         System.out.println("Please select menu choice 1-3: ");
         
         int menu = keyboard.nextInt();

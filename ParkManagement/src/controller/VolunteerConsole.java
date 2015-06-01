@@ -1,3 +1,8 @@
+/*
+ * This class represents the console for volunteer.
+ * Group 2 - HuSCII
+ * TCSS 360, Spring 2015
+ */
 
 package controller;
 
@@ -12,6 +17,12 @@ import models.Job.WorkCategories;
 import models.JobController;
 import models.User;
 
+/**
+ * This class represents the console for volunteer.
+ * @author HuSCII
+ * @version 06/01/2015
+ *
+ */
 public class VolunteerConsole {
 
     public static JobController jobController;
@@ -42,14 +53,6 @@ public class VolunteerConsole {
         System.out.println("|  5. Exit                             |");
         System.out.println("+======================================+");
         
-
-//        System.out.println("Welcome To Volunteer Page");
-//        System.out.println("------------------------------");
-//        System.out.println("1. View all upcoming jobs.");
-//        System.out.println("2. View jobs I have signed up for.");
-//        System.out.println("3. Sign up for a job.");
-//        System.out.println("4. Logout");
-//        System.out.println("5. Exit");
         System.out.println();
         System.out.print("Please select menu choice 1-5: ");
 

@@ -1,3 +1,8 @@
+/*
+ * This class represents the main console of park management program.
+ * Group 2 - HuSCII
+ * TCSS 360, Spring 2015
+ */
 
 package controller;
 
@@ -10,6 +15,12 @@ import models.JobController;
 import models.User;
 import models.UserController;
 
+/**
+ * This class represents the main console of park management program.
+ * @author HuSCII
+ * @version 06/01/2015
+ *
+ */
 public class MainConsole {
 
     /** User file name. */

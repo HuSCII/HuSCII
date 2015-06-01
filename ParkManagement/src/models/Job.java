@@ -1,5 +1,6 @@
 /*
- * This class represents park job that volunteers sign up for. Group 2 - HuSCII
+ * This class represents park job.
+ * Group 2 - HuSCII
  * TCSS 360, Spring 2015
  */
 
@@ -16,9 +17,9 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * This class represents park job that volunteers sign up for.
+ * This class represents park job.
  * 
- * @author Putthida Samrith
+ * @author HuSCII
  * @version 5/31/2015
  */
 public class Job implements Serializable {
