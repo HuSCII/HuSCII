@@ -55,7 +55,7 @@ public class MainConsole {
     private static void displayDoc() {
         System.out.println(loadHuSCIILogo());
         System.out.println("*******************HuSCII Parks Management System****************");
-        System.out.println("* Software version 1.0                                          *");
+        System.out.println("* Software version 1.3                                          *");
         System.out.print("* Authors: Jingzhu Guo, Duy Huynh, ");
         System.out.println("Ian McPeek, Putthida Samrith *");
         System.out.println("* Copyright (c) 2015 HuSCII, TCSS 360 Spring '15 Project Group. *");

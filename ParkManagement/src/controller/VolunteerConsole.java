@@ -101,18 +101,18 @@ public class VolunteerConsole {
             // upcomingJobs.add(j);
             System.out.print(i++ + ") ");
             System.out.println(j.getParkName());
-            System.out.println(j.getJobName());
-            System.out.println("Start date & time: "
+            System.out.println("\t"+j.getJobName());
+            System.out.println("\tStart date & time: "
                                + new SimpleDateFormat("MM/dd/yyyy HH:mm a").format(j
                                                .getStartDate().getTime()));
-            System.out.println("End date & time: "
+            System.out.println("\tEnd date & time: "
                                + new SimpleDateFormat("MM/dd/yyyy HH:mm a").format(j
                                                .getEndDate().getTime()));
-            System.out.println(j.getCurrentLight() + " out of " + j.getMaxLight()
+            System.out.println("\t"+j.getCurrentLight() + " out of " + j.getMaxLight()
                                + " light-duty volunteers.");
-            System.out.println(j.getCurrentMedium() + " out of " + j.getMaxMedium()
+            System.out.println("\t"+j.getCurrentMedium() + " out of " + j.getMaxMedium()
                                + " medium-duty volunteers.");
-            System.out.println(j.getCurrentHard() + " out of " + j.getMaxHard()
+            System.out.println("\t"+j.getCurrentHard() + " out of " + j.getMaxHard()
                                + " heavy-duty volunteers.");
             System.out.println();
         }
