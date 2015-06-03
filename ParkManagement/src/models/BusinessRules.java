@@ -92,10 +92,6 @@ public class BusinessRules {
      */
     public static boolean checkJobWeek(List<Job> allJobs, GregorianCalendar startDate, 
                              GregorianCalendar endDate) {
-//        GregorianCalendar pastDate = new GregorianCalendar();
-//        GregorianCalendar futureDate = new GregorianCalendar();
-//        pastDate.setTime(startDate.getTime());
-//        futureDate.setTime(startDate.getTime());
         int count = 0; // Day count
         
         //include start date in count if end date isn't null
@@ -103,14 +99,11 @@ public class BusinessRules {
             count++;
         }
 
-//        pastDate.add(Calendar.DAY_OF_YEAR, -3);
-//        futureDate.add(Calendar.DAY_OF_YEAR, 3);
-
         for (Job aJob : allJobs) {
             //check if job start date falls in date range
-            if (aJob.getStartDate().get(Calendar.DAY_OF_YEAR) > 
+            if (aJob.getStartDate().get(Calendar.DAY_OF_YEAR) >= 
                     (startDate.get(Calendar.DAY_OF_YEAR)-3)%365 
-                 && aJob.getStartDate().get(Calendar.DAY_OF_YEAR) < 
+                 && aJob.getStartDate().get(Calendar.DAY_OF_YEAR) <= 
                     (startDate.get(Calendar.DAY_OF_YEAR)+3)%365 ) {
                 count++;
 
@@ -118,9 +111,9 @@ public class BusinessRules {
                 if (aJob.getEndDate().get(Calendar.DAY_OF_YEAR) > aJob.getStartDate()
                                 .get(Calendar.DAY_OF_YEAR)) {
                     //if so, check if job end date falls in date range
-                    if (aJob.getEndDate().get(Calendar.DAY_OF_YEAR) > 
+                    if (aJob.getEndDate().get(Calendar.DAY_OF_YEAR) >= 
                     (startDate.get(Calendar.DAY_OF_YEAR)-3)%365 
-                 && aJob.getEndDate().get(Calendar.DAY_OF_YEAR) < 
+                 && aJob.getEndDate().get(Calendar.DAY_OF_YEAR) <= 
                     (startDate.get(Calendar.DAY_OF_YEAR)+3)%365 ) {
                         count++;
                     }
