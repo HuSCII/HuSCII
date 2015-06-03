@@ -45,7 +45,7 @@ public class UserController implements Serializable {
         readInSerializable(filename);
         // Uncomment the following two lines, and comment the above to reload
          //readUserFile("/userFileFinal.csv"); // First time before serializable
-         //writeUserSerialized("src/user.huscii");
+        //writeUserSerialized("src/user.huscii");
 
     }
 

@@ -78,8 +78,8 @@ public class BusinessRules {
      * 
      * @return whether maximum is met.
      */
-    public static boolean checkMaxJobs(List<Job> allJobs) {
-        if (allJobs.size() < MAX_JOBS) {
+    public static boolean checkMaxJobs(List<Job> upcomingJobs) {
+        if (upcomingJobs.size() < MAX_JOBS) {
             return false;
         }
         return true;
